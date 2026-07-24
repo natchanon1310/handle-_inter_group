@@ -5,17 +5,17 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { dictionary } from "../utils/dictionaries";
 
-// 🎬 Component การ์ดสไตล์ Masonry Grid / Asymmetric พร้อมอนิเมชัน Layout Swap / Shuffle Motion
+// 🎬 Component การ์ดสไตล์ Masonry Grid ที่กรอบการ์ดคงที่ แต่เนื้อหาภายในสลับอนิเมชันได้
 function AsymmetricMasonryCard({
-  item,
+  cardSlot,
+  content,
   index,
   className = "",
   imgHeight = "h-48",
   onHoverChange,
 }: {
-  item: {
-    id: string;
-    num: string;
+  cardSlot: { id: string; num: string; spanClass: string };
+  content: {
     tag: string;
     title: string;
     desc: string;
@@ -28,63 +28,64 @@ function AsymmetricMasonryCard({
   onHoverChange?: (isHovered: boolean) => void;
 }) {
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.85, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.85, y: -30 }}
-      transition={{
-        layout: { type: "spring", stiffness: 180, damping: 22 },
-        opacity: { duration: 0.4 },
-        scale: { duration: 0.4 },
-      }}
+    <div
       onMouseEnter={() => onHoverChange && onHoverChange(true)}
       onMouseLeave={() => onHoverChange && onHoverChange(false)}
       className={`h-full ${className}`}
     >
       <div className="bg-white rounded-[28px] border border-slate-200/80 shadow-xl shadow-slate-200/40 p-6 md:p-8 h-full flex flex-col justify-between transition-all duration-500 hover:shadow-2xl hover:border-orange-400 group cursor-pointer overflow-hidden relative hover:-translate-y-1.5">
         
-        <div className="space-y-4">
-          {/* Header Badge & Number */}
-          <div className="flex justify-between items-center">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-orange-600 bg-orange-50 border border-orange-200/80 px-3.5 py-1 rounded-full">
-              {item.tag}
-            </span>
-            <span className="text-3xl md:text-4xl font-black font-mono text-orange-400/80">
-              {item.num}
-            </span>
-          </div>
+        {/* AnimatePresence ควบคุมอนิเมชันสลับเนื้อหาภายใน */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={content.title} // สลับอนิเมชันเมื่อ Title เปลี่ยน
+            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -15, scale: 0.98 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-4"
+          >
+            {/* Header Badge & Fixed Number */}
+            <div className="flex justify-between items-center">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-orange-600 bg-orange-50 border border-orange-200/80 px-3.5 py-1 rounded-full">
+                {content.tag}
+              </span>
+              <span className="text-3xl md:text-4xl font-black font-mono text-orange-400/80">
+                {cardSlot.num}
+              </span>
+            </div>
 
-          {/* Image Block */}
-          <div className={`w-full ${imgHeight} rounded-2xl overflow-hidden bg-slate-100 relative group/img`}>
-            <img
-              src={item.imgSrc}
-              alt={item.title}
-              className="w-full h-full object-cover group-hover/img:scale-108 transition-transform duration-700 ease-out"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent opacity-60" />
-          </div>
+            {/* Image Block */}
+            <div className={`w-full ${imgHeight} rounded-2xl overflow-hidden bg-slate-100 relative group/img`}>
+              <img
+                src={content.imgSrc}
+                alt={content.title}
+                className="w-full h-full object-cover group-hover/img:scale-108 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent opacity-60" />
+            </div>
 
-          {/* Content Block */}
-          <div className="space-y-2 text-left">
-            <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-snug group-hover:text-orange-600 transition-colors">
-              {item.title}
-            </h3>
+            {/* Content Block */}
+            <div className="space-y-2 text-left">
+              <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-snug group-hover:text-orange-600 transition-colors">
+                {content.title}
+              </h3>
 
-            <p className="text-slate-600 text-xs md:text-sm leading-relaxed font-normal line-clamp-3">
-              {item.desc}
-            </p>
+              <p className="text-slate-600 text-xs md:text-sm leading-relaxed font-normal line-clamp-3">
+                {content.desc}
+              </p>
 
-            {item.subContent && (
-              <div className="pt-1">
-                {item.subContent}
-              </div>
-            )}
-          </div>
-        </div>
+              {content.subContent && (
+                <div className="pt-1">
+                  {content.subContent}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
 
         {/* Card Footer */}
-        <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+        <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest z-10">
           <span>H.I.T. INTERCON</span>
           <span className="text-orange-500 group-hover:translate-x-1 transition-transform">
             EXPLORE ↗
@@ -92,7 +93,7 @@ function AsymmetricMasonryCard({
         </div>
 
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -177,18 +178,26 @@ export default function HitInterconPage() {
     [lang]
   );
 
-  // ข้อมูลสำหรับการ์ด Masonry Grid
-  const rawMasonryItems = useMemo(
+  // 1. ตำแหน่งกรอบการ์ด (Slots) ที่ประจำตำแหน่งเดิมเสมอ
+  const fixedCardSlots = useMemo(
+    () => [
+      { id: "slot1", num: "01", spanClass: "md:col-span-7", imgHeight: "h-64 md:h-72" },
+      { id: "slot2", num: "02", spanClass: "md:col-span-5", imgHeight: "h-48 md:h-56" },
+      { id: "slot3", num: "03", spanClass: "md:col-span-5", imgHeight: "h-52 md:h-60" },
+      { id: "slot4", num: "04", spanClass: "md:col-span-7", imgHeight: "h-60 md:h-68" },
+      { id: "slot5", num: "05", spanClass: "md:col-span-12", imgHeight: "h-56 md:h-64" },
+    ],
+    []
+  );
+
+  // 2. ชุดข้อมูลเนื้อหาที่จะนำมาสุ่มสลับ (Contents Pool)
+  const initialContents = useMemo(
     () => [
       {
-        id: "s1",
-        num: "01",
         tag: "OCEAN LOGISTICS",
         title: detailText.s1_title || "ขนส่งสินค้าทางทะเล",
         desc: detailText.s1_desc || "บริการขนส่งสินค้าทางทะเลทั้งแบบเต็มตู้ (FCL) และไม่เต็มตู้ (LCL) ครอบคลุมท่าเรือหลักทั่วโลก",
         imgSrc: "https://images.unsplash.com/photo-1559297434-fae8a1916a79?auto=format&fit=crop&w=1000&q=80",
-        imgHeight: "h-64 md:h-72",
-        spanClass: "md:col-span-7",
         subContent: (
           <div className="flex items-center text-xs font-bold text-slate-800 pt-1">
             <i className="fa-solid fa-circle-check text-orange-500 mr-2 text-sm" />
@@ -197,14 +206,10 @@ export default function HitInterconPage() {
         ),
       },
       {
-        id: "s2",
-        num: "02",
         tag: "AIR EXPRESS",
         title: detailText.s2_title || "ขนส่งสินค้าทางอากาศ",
         desc: detailText.s2_desc || "ประสบการณ์การขนส่งสินค้าทางอากาศทั้งขาเข้าและขาออก ไปยังทุกมุมทั่วโลก ทุกเส้นทาง ทุกเวลา ทุกประเภทสินค้า จัดการได้ตามความต้องการแบบรู้จริงทุกเส้นทาง",
         imgSrc: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80",
-        imgHeight: "h-48 md:h-56",
-        spanClass: "md:col-span-5",
         subContent: (
           <div className="flex items-center text-xs font-bold text-slate-800 pt-1">
             <i className="fa-solid fa-circle-check text-orange-500 mr-2 text-sm" />
@@ -213,14 +218,10 @@ export default function HitInterconPage() {
         ),
       },
       {
-        id: "s3",
-        num: "03",
         tag: "LCL CONSOLIDATION",
         title: detailText.s3_title || "บริการขนส่งแบบไม่เต็มตู้ (LCL)",
         desc: detailText.s3_desc || "ศูนย์รวมการรวบรวมสินค้า LCL ช่วยลดต้นทุนในการขนส่ง เพิ่มความยืดหยุ่นในการจัดการสินค้าขนาดเล็ก",
         imgSrc: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1000&q=80",
-        imgHeight: "h-52 md:h-60",
-        spanClass: "md:col-span-5",
         subContent: (
           <div className="flex items-center text-xs font-bold text-slate-800 pt-1">
             <i className="fa-solid fa-circle-check text-orange-500 mr-2 text-sm" />
@@ -229,8 +230,6 @@ export default function HitInterconPage() {
         ),
       },
       {
-        id: "s4",
-        num: "04",
         tag: "GLOBAL SECURITY",
         title: lang === "en" ? "Global Network Security" : "เครือข่ายความปลอดภัยสากล",
         desc:
@@ -238,8 +237,6 @@ export default function HitInterconPage() {
             ? "Seamless connectivity across Asia, Europe, Middle East, and the Americas paths."
             : "โครงสร้างเครือข่ายที่ครอบคลุมการเดินทาง ปลอดภัย และดูแลอย่างใกล้ชิดในทุกจุดหมายปลายทาง",
         imgSrc: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1000&q=80",
-        imgHeight: "h-60 md:h-68",
-        spanClass: "md:col-span-7",
         subContent: (
           <div className="flex items-center text-xs font-bold text-slate-800 pt-1">
             <i className="fa-solid fa-circle-check text-orange-500 mr-2 text-sm" />
@@ -248,16 +245,12 @@ export default function HitInterconPage() {
         ),
       },
       {
-        id: "s5",
-        num: "05",
         tag: "LAND TRANSPORT",
         title: lang === "en" ? "Comprehensive Land Transport Solutions" : "รองรับทุกความต้องการด้านการขนส่งทางบก",
         desc: lang === "en" 
           ? "Cross-border and domestic trucking logistics with high-capacity fleet and real-time GPS tracking."
           : "เครือข่ายฟลีตรถขนส่งทางบกครอบคลุมทั่วประเทศและข้ามแดน ปลอดภัย รวดเร็ว พร้อมระบบ GPS ติดตามสถานะตลอดการเดินทาง",
         imgSrc: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
-        imgHeight: "h-56 md:h-64",
-        spanClass: "md:col-span-12",
         subContent: (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
             <div className="bg-slate-50 border border-slate-200/80 p-3 rounded-xl flex items-center space-x-2.5">
@@ -279,17 +272,17 @@ export default function HitInterconPage() {
     [detailText, lang]
   );
 
-  // State สำหรับเก็บลำดับการ์ดที่ถูกสลับ
-  const [cardsOrder, setCardsOrder] = useState(rawMasonryItems);
+  // State สำหรับเก็บข้อมูลเนื้อหาที่ถูกสุ่มสลับ
+  const [shuffledContents, setShuffledContents] = useState(initialContents);
 
-  // อัปเดต cardsOrder เมื่อภาษา/ข้อมูลเปลี่ยน
+  // อัปเดตเนื้อหาเมื่อเปลี่ยนภาษา
   useEffect(() => {
-    setCardsOrder(rawMasonryItems);
-  }, [rawMasonryItems]);
+    setShuffledContents(initialContents);
+  }, [initialContents]);
 
-  // ฟังก์ชันสุ่มสลับตำแหน่งการ์ด (Random Shuffle)
-  const shuffleCards = () => {
-    setCardsOrder((prev) => {
+  // ฟังก์ชันสุ่มสลับเฉพาะเนื้อหาภายใน (Content Shuffle)
+  const shuffleContents = () => {
+    setShuffledContents((prev) => {
       const array = [...prev];
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -299,12 +292,12 @@ export default function HitInterconPage() {
     });
   };
 
-  // 🔄 ระบบ Auto-Shuffle การ์ดอัตโนมัติทุกๆ 6 วินาที (หยุดเมื่อผู้ใช้ Hover การ์ด)
+  // 🔄 ระบบ Auto-Shuffle สลับเนื้อหาการ์ดอัตโนมัติทุกๆ 6 วินาที
   useEffect(() => {
     if (isCardHovered) return;
 
     const interval = setInterval(() => {
-      shuffleCards();
+      shuffleContents();
     }, 6000);
 
     return () => clearInterval(interval);
@@ -427,7 +420,7 @@ export default function HitInterconPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 2: MASONRY / ASYMMETRIC GRID พร้อมอนิเมชันสลับการ์ดแบบ Random (Shuffle Motion) */}
+      {/* 🎯 SECTION 2: MASONRY / ASYMMETRIC GRID (กรอบการ์ดประจำตำแหน่งเดิม แต่เนื้อหาในชุดการ์ดสุ่มสลับกัน) */}
       <section id="capabilities" className="py-24 px-6 max-w-7xl mx-auto relative w-full">
         <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
           <span className="text-[11px] font-bold text-orange-600 uppercase tracking-widest block font-mono">
@@ -438,37 +431,39 @@ export default function HitInterconPage() {
           </h2>
           <p className="text-xs md:text-sm text-slate-500 font-normal">
             {lang === "en"
-              ? "Dynamic capabilities grid. Interactive card positions transition automatically."
-              : "โครงสร้างบริการหลัก ยืดหยุ่นปรับตำแหน่งการ์ดอัตโนมัติ"}
+              ? "Fixed structure layout. Content inside transitions automatically across cards."
+              : "โครงสร้างการ์ดประจำตำแหน่ง พร้อมระบบสลับเปลี่ยนเนื้อหาภายในอัตโนมัติ"}
           </p>
 
-          {/* 🔀 ปุ่มกดสุ่มสลับตำแหน่งการ์ด manual */}
+          {/* 🔀 ปุ่มกดสุ่มสลับเนื้อหาการ์ด manual */}
           <div className="pt-2">
             <button
-              onClick={shuffleCards}
+              onClick={shuffleContents}
               className="inline-flex items-center space-x-2 bg-orange-50 border border-orange-200 text-orange-600 hover:bg-orange-600 hover:text-white px-4 py-2 rounded-full text-xs font-mono font-bold transition-all duration-300 shadow-sm active:scale-95 cursor-pointer"
             >
-              <span>SHUFFLE CARDS</span>
+              <span>SHUFFLE CONTENT</span>
               <span className="text-sm">🔀</span>
             </button>
           </div>
         </div>
 
-        {/* Dynamic Shuffle Grid Container */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-          <AnimatePresence>
-            {cardsOrder.map((item, index) => (
-              <div key={item.id} className={item.spanClass}>
+        {/* Masonry Grid Layout (โครงสร้างการ์ดอยู่ที่เดิม สลับเฉพาะเนื้อหา) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+          {fixedCardSlots.map((slot, index) => {
+            const content = shuffledContents[index % shuffledContents.length];
+            return (
+              <div key={slot.id} className={slot.spanClass}>
                 <AsymmetricMasonryCard
-                  item={item}
+                  cardSlot={slot}
+                  content={content}
                   index={index}
-                  imgHeight={item.imgHeight}
+                  imgHeight={slot.imgHeight}
                   onHoverChange={setIsCardHovered}
                 />
               </div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+            );
+          })}
+        </div>
       </section>
 
       {/* 🎯 SECTION 3: EXCLUSIVE CONTACT CARDS */}
@@ -512,7 +507,7 @@ export default function HitInterconPage() {
                   </div>
                 </div>
 
-                {/* เส้นแบ่งสีส้มแนวตั้ง (Divider Line) */}
+                {/* เส้นแบ่งสีส้มแนวตั้ง */}
                 <div className="hidden md:block w-[2px] bg-gradient-to-b from-orange-400 via-orange-500 to-amber-500 rounded-full my-1" />
                 <div className="block md:hidden w-full h-[2px] bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500 rounded-full" />
 
@@ -528,7 +523,6 @@ export default function HitInterconPage() {
                   </div>
 
                   <div className="space-y-2.5 pt-2 text-xs text-slate-600 font-medium">
-                    {/* Address / Scope */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-location-dot"></i>
@@ -536,7 +530,6 @@ export default function HitInterconPage() {
                       <span className="line-clamp-1">Bangkok & Worldwide Hub</span>
                     </div>
 
-                    {/* Tel */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-phone"></i>
@@ -546,7 +539,6 @@ export default function HitInterconPage() {
                       </a>
                     </div>
 
-                    {/* Email */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-envelope"></i>
@@ -584,7 +576,7 @@ export default function HitInterconPage() {
                   </div>
                 </div>
 
-                {/* เส้นแบ่งสีส้มแนวตั้ง (Divider Line) */}
+                {/* เส้นแบ่งสีส้มแนวตั้ง */}
                 <div className="hidden md:block w-[2px] bg-gradient-to-b from-orange-400 via-orange-500 to-amber-500 rounded-full my-1" />
                 <div className="block md:hidden w-full h-[2px] bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500 rounded-full" />
 
@@ -600,7 +592,6 @@ export default function HitInterconPage() {
                   </div>
 
                   <div className="space-y-2.5 pt-2 text-xs text-slate-600 font-medium">
-                    {/* Address / Scope */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-location-dot"></i>
@@ -608,7 +599,6 @@ export default function HitInterconPage() {
                       <span className="line-clamp-1">Bangkok & Worldwide Hub</span>
                     </div>
 
-                    {/* Tel */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-phone"></i>
@@ -618,7 +608,6 @@ export default function HitInterconPage() {
                       </a>
                     </div>
 
-                    {/* Email */}
                     <div className="flex items-center space-x-3">
                       <div className="w-7 h-7 rounded-full bg-orange-500 text-white flex items-center justify-center text-xs shrink-0 shadow-sm">
                         <i className="fa-solid fa-envelope"></i>

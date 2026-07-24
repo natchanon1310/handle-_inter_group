@@ -240,7 +240,7 @@ function FullVideoServiceCard({
   );
 }
 
-// 🎬 Component การ์ดบริษัทในเครือ ล็อกหน้าจอวิ่งตาม Scroll-Driven Path
+// 🎬 Component การ์ดบริษัทในเครือ (ปรับขยายขนาดโลโก้ใหญ่ขึ้น + แสดงสีจริง ไม่ใช้ Grayscale)
 function CurvedTimelinePartnerCardLocked({
   idx,
   name,
@@ -295,7 +295,8 @@ function CurvedTimelinePartnerCardLocked({
       <Link href={link}>
         <div className="bg-white rounded-[32px] border border-slate-200/90 p-8 md:p-9 shadow-2xl shadow-slate-300/40 w-[300px] sm:w-[360px] md:w-[400px] flex flex-col justify-between transition-all duration-300 hover:shadow-orange-500/20 hover:border-orange-500 hover:scale-105 cursor-pointer select-none group">
           
-          <div className="flex justify-between items-center mb-6">
+          {/* Header & Number Badge */}
+          <div className="flex justify-between items-center mb-3">
             <span className="text-3xl md:text-4xl font-black font-mono text-orange-500/90 tracking-tighter">
               '{String(idx + 1).padStart(2, "0")}
             </span>
@@ -304,24 +305,30 @@ function CurvedTimelinePartnerCardLocked({
             </span>
           </div>
 
-          <div className="space-y-3 text-left my-2">
+          {/* 🌟 Logo แสดงผลเป็นสีจริง (Full Color) ขนาดใหญ่ */}
+          <div className="my-3 py-2 flex items-center justify-start min-h-[90px]">
+            <img
+              src={logoSrc}
+              alt={name}
+              className="h-20 md:h-24 w-auto max-w-[90%] object-contain drop-shadow-sm transition-all duration-300 group-hover:scale-105 origin-left"
+            />
+          </div>
+
+          {/* Title & Description */}
+          <div className="space-y-2 text-left mb-2">
             <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-snug group-hover:text-orange-600 transition-colors">
               {name}
             </h3>
-            <p className="text-slate-500 text-xs md:text-sm leading-relaxed font-normal line-clamp-3">
+            <p className="text-slate-500 text-xs md:text-sm leading-relaxed font-normal line-clamp-2">
               {desc}
             </p>
           </div>
 
-          <div className="pt-6 mt-4 border-t border-slate-100 flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <img
-                src={logoSrc}
-                alt={name}
-                className="h-8 md:h-10 w-auto object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
-              />
-            </div>
-            
+          {/* Footer Read More */}
+          <div className="pt-4 mt-2 border-t border-slate-100 flex items-center justify-between">
+            <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
+              EXPLORE HUB
+            </span>
             <span className="bg-slate-900 group-hover:bg-orange-600 text-white text-xs font-bold px-4 py-2 rounded-full transition-all duration-300 flex items-center space-x-1.5 shadow-md">
               <span>Read more</span>
               <span className="text-xs group-hover:translate-x-1 transition-transform">↗</span>
@@ -466,10 +473,10 @@ export default function HomePage() {
 
   const partnerLogos = [
     { name: "H.I.T. INTERCON", src: "/images/1725e41.png", desc: "Total Ocean & Air Freight Solutions with global network connectivity.", link: "/H-I-T-INTERCON" },
-    { name: "HANDLE INTER LOGISTICS", src: "/images/logo2.png", desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", link: "/HANDLE-INTER-LOGISTICS" },
-    { name: "HANDLE INTER CONSOLIDATION", src: "/images/logo3.png", desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", link: "/HANDLE-INTER-CONSOLIDATION" },
-    { name: "CONSOLE LINK", src: "/images/logo4.png", desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", link: "/CONSOLE-LINK" },
-    { name: "SIAM LINERS", src: "/images/logo5.png", desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", link: "/SIAM-LINERS" },
+    { name: "HANDLE INTER LOGISTICS", src: "/images/1713676611302.png", desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", link: "/HANDLE-INTER-LOGISTICS" },
+    { name: "HANDLE INTER CONSOLIDATION", src: "/images/handle inter con.png", desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", link: "/HANDLE-INTER-CONSOLIDATION" },
+    { name: "CONSOLE LINK", src: "/images/consol-link.png", desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", link: "/CONSOLE-LINK" },
+    { name: "SIAM LINERS", src: "/images/siam liner.png", desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", link: "/SIAM-LINERS" },
   ];
 
   useEffect(() => {
@@ -781,7 +788,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 🎨 Background Curved Line (ปรับจากสีส้มเป็นสีเทาแบบมินิมอล) */}
+          {/* 🎨 Background Curved Line (เส้นโค้งสีเทามินิมอล) */}
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-60">
             <svg className="w-full h-full" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none">
               <path
