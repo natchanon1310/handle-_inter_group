@@ -192,33 +192,33 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Link: Services */}
-            <Link 
-              href="/services" 
-              className={`transition-all duration-300 relative py-1 group/link ${
-                isMounted && pathname === "/services" 
-                  ? "text-orange-500" 
-                  : isScrolled ? "text-slate-700 hover:text-orange-600" : "text-white/90 hover:text-white"
-              }`}
-            >
-              {t.services}
-              <span className={`absolute bottom-0 left-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 ${
-                isMounted && pathname === "/services" ? "w-full" : "w-0 group-hover/link:w-full"
-              }`} />
-            </Link>
-
-            {/* Link: News */}
-            <Link 
-              href="/contactus" 
+            {/* 🌟 Link: News (แก้ไขปุ่มข่าวสารให้ยิงไปที่ /news) */}
+            {/* <Link 
+              href="/news" 
               className={`transition-all duration-300 relative py-1 group/link ${
                 isMounted && pathname === "/news" 
                   ? "text-orange-500" 
                   : isScrolled ? "text-slate-700 hover:text-orange-600" : "text-white/90 hover:text-white"
               }`}
             >
-              {t.news}
+              {t.services}
               <span className={`absolute bottom-0 left-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 ${
                 isMounted && pathname === "/news" ? "w-full" : "w-0 group-hover/link:w-full"
+              }`} />
+            </Link> */}
+
+            {/* 🌟 Link: Contact Us (แก้ไขปุ่มติดต่อเราให้ยิงไปที่ /contactus) */}
+            <Link 
+              href="/contactus" 
+              className={`transition-all duration-300 relative py-1 group/link ${
+                isMounted && pathname === "/contactus" 
+                  ? "text-orange-500" 
+                  : isScrolled ? "text-slate-700 hover:text-orange-600" : "text-white/90 hover:text-white"
+              }`}
+            >
+              {t.news}
+              <span className={`absolute bottom-0 left-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 ${
+                isMounted && pathname === "/contactus" ? "w-full" : "w-0 group-hover/link:w-full"
               }`} />
             </Link>
             
@@ -234,13 +234,13 @@ export default function Navbar() {
               <i className="fa-solid fa-globe mr-1.5 text-orange-500"></i> {lang === "en" ? "TH" : "EN"}
             </button>
 
-            {/* CTA Button */}
+            {/* CTA Button
             <Link
-              href="/contact"
+              href="/contactus"
               className="bg-orange-600 hover:bg-orange-500 text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-600/30 active:scale-95"
             >
               {t.quote}
-            </Link>
+            </Link> */}
           </nav>
 
           {/* Mobile Hamburger Button */}
@@ -305,14 +305,14 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/services" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/services" ? "text-orange-600" : "text-slate-700"}`}>
+          <Link href="/news" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/news" ? "text-orange-600" : "text-slate-700"}`}>
             {t.services}
           </Link>
-          <Link href="/news" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/news" ? "text-orange-600" : "text-slate-700"}`}>
+          <Link href="/contactus" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/contactus" ? "text-orange-600" : "text-slate-700"}`}>
             {t.news}
           </Link>
           <Link
-            href="/contact"
+            href="/contactus"
             onClick={() => setIsOpen(false)}
             className="bg-orange-600 hover:bg-orange-500 text-center py-3 rounded-2xl text-white text-xs font-bold tracking-wider uppercase transition block mt-4 shadow-lg shadow-orange-600/30"
           >

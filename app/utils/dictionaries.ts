@@ -1,7 +1,19 @@
 export const dictionary = {
   en: {
-    nav: { home: "Home", about: "About Us", partners: "Partners", services: "Services", news: "Contact us", quote: "Get a Quote" },
+    nav: { home: "Home", about: "About Us", partners: "Partners", services: "News", news: "Contact us", quote: "Get a Quote" },
     hero: { sub: "One Stop Logistics Provider", title1: "GLOBAL LOGISTICS", title2: "BY INDUSTRY PEOPLE,", title3: "FOR INDUSTRY PEOPLE.", desc: "With over 30 years of experience in logistics and supply chain solutions.", cta: "Explore Our Services" },
+    businessGroups: {
+      sub: "OUR BUSINESS GROUPS",
+      title: "Our Business Groups",
+      desc: "Integrated logistics and supply chain services categorized into Freight, Shipping, and Trading divisions.",
+      badgeText: "BRAND LOGOS",
+      freightTitle: "1. Freight",
+      freightSub: "TOTAL LOGISTIC - One stop service provider",
+      shippingTitle: "2. Shipping",
+      shippingSub: "TOTAL YOUR SHIPPING NEEDS - In shipping covering every scales",
+      tradingTitle: "3. Trading",
+      tradingSub: "TOTAL TRADING - Tools / Export / Warehouse / Zero-Stock"
+    },
     services: { sub: "Our Services", title: "What We Offer", desc: "Premium logistics handling, customs clearance and seamless global operation solutions." },
     network: { sub: "Worldwide Network", title: "Connecting The World", desc: "Our global network handles and delivers safely." },
     news: { sub: "Latest News", title: "Stay Updated With Us", update: "Logistics Expansion News update" },
@@ -160,8 +172,20 @@ export const dictionary = {
     }
   },
   th: {
-    nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "พันธมิตร", services: "บริการของเรา", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
+    nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "พันธมิตร", services: "ข่าวสาร", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
     hero: { sub: "ผู้ให้บริการโลจิสติกส์แบบครบวงจร", title1: "บริการโลจิสติกส์ระดับโลก", title2: "โดยคนในวงการ", title3: "เพื่อคนในวงการอย่างแท้จริง", desc: "ด้วยประสบการณ์มากกว่า 30 ปีในการบริหารจัดการโลจิสติกส์และโซลูชันซัพพลายเชน", cta: "ดูบริการของเรา" },
+    businessGroups: {
+      sub: "กลุ่มธุรกิจในเครือ",
+      title: "กลุ่มธุรกิจในเครือ (Our Business Groups)",
+      desc: "ยกระดับการให้บริการโลจิสติกส์แบบครบวงจร ครอบคลุมทั้ง Freight, Shipping และ Trading",
+      badgeText: "โลโก้แบรนด์ในเครือ",
+      freightTitle: "1. Freight",
+      freightSub: "TOTAL LOGISTIC - One stop service provider",
+      shippingTitle: "2. Shipping",
+      shippingSub: "TOTAL YOUR SHIPPING NEEDS - In shipping covering every scales",
+      tradingTitle: "3. Trading",
+      tradingSub: "TOTAL TRADING - Tools / Export / Warehouse / Zero-Stock"
+    },
     services: { sub: "บริการของเรา", title: "สิ่งที่เรานำเสนอ", desc: "การจัดการโลจิสติกส์ระดับพรีเมียม พิธีการศุลกากร และโซลูชันการดำเนินงานระดับโลกที่ไร้รอยต่อ" },
     network: { sub: "เครือข่ายทั่วโลก", title: "เชื่อมต่อโลกทั้งใบ", desc: "เครือข่ายระดับโลกของเราพร้อมขนส่งและส่งมอบสินค้าของคุณอย่างปลอดภัยทุกครั้ง" },
     news: { sub: "ข่าวสารล่าสุด", title: "อัปเดตข่าวสารกับเรา", update: "อัปเดตข่าวสารการขยายเครือข่ายโลจิสติกส์ ชุดที่" },
