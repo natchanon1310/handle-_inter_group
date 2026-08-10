@@ -31,7 +31,7 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
   "/handle-inter-consolidation": {
     id: "handle-inter-consolidation",
     name: "HANDLE INTER CONSOLIDATION CO., LTD.",
-    logo: "/images/logo3.png",
+    logo: "/images/handle inter con.png",
     primaryColor: "blue-600",
     accentColor: "sky-500",
     path: "/handle-inter-consolidation",
@@ -47,8 +47,8 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
   },
   "/handle-inter-freight-logistics": {
     id: "handle-inter-freight-logistics",
-    name: "HANDLE INTER FREIGHT LOGISTICS CO., LTD.",
-    logo: "/images/logo2.png",
+    name: "HANDLE INTER LOGISTICS CO., LTD.",
+    logo: "/images/handle inter logistic.png",
     primaryColor: "emerald-600",
     accentColor: "green-500",
     path: "/handle-inter-freight-logistics",
@@ -64,7 +64,7 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
   "/console-link": {
     id: "console-link",
     name: "CONSOLE LINK CO., LTD.",
-    logo: "/images/logo4.png",
+    logo: "/images/consol-link.png",
     primaryColor: "indigo-600",
     accentColor: "violet-500",
     path: "/console-link",
@@ -80,7 +80,7 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
   "/siam-liners": {
     id: "siam-liners",
     name: "SIAM LINERS CO., LTD.",
-    logo: "/images/logo5.png",
+    logo: "/images/lsiam liner.png",
     primaryColor: "cyan-700",
     accentColor: "teal-500",
     path: "/siam-liners",

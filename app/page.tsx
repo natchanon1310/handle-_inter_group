@@ -944,7 +944,7 @@ export default function HomePage() {
 
           <video
             ref={heroVideoRef}
-            src="/images/handletoppage.mp4"
+            src="/images/toppage.mp4"
             muted
             loop
             playsInline
@@ -1349,3 +1349,4 @@ export default function HomePage() {
     </div>
   );
 }
+

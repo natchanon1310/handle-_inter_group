@@ -554,7 +554,7 @@ export default function HandleInterLogisticsPage() {
                 {/* ฝั่งซ้าย: Logo & Company Name */}
                 <div className="w-full md:w-5/12 flex flex-col items-center justify-center text-center space-y-3">
                   <img
-                    src="/images/1713676611302.png"
+                    src="/images/handle inter con.png"
                     alt="Handle Inter Logistics Logo"
                     className="h-16 md:h-20 w-auto object-contain transition-transform group-hover:scale-105"
                   />

@@ -1,7 +1,14 @@
 export const dictionary = {
   en: {
     nav: { home: "Home", about: "About Us", partners: "Partners", services: "News", news: "Contact us", quote: "Get a Quote" },
-    hero: { sub: "One Stop Logistics Provider", title1: "GLOBAL LOGISTICS", title2: "BY INDUSTRY PEOPLE,", title3: "FOR INDUSTRY PEOPLE.", desc: "With over 30 years of experience in logistics and supply chain solutions.", cta: "Explore Our Services" },
+    hero: { 
+      sub: "One Stop Logistics Provider", 
+      title1: "INTER NATTIONNAL LOGISTICS", 
+      title2: "", 
+      title3: "", 
+      desc: "With over 30 years of experience in logistics and supply chain solutions.", 
+      cta: "Explore Our Services" 
+    },
     businessGroups: {
       sub: "OUR BUSINESS GROUPS",
       title: "Our Business Groups",
@@ -37,7 +44,7 @@ export const dictionary = {
     subsidiaries: [
       { name: "H.I.T. Intercon Co., Ltd.", desc: "Covers comprehensive freight forwarding business." },
       { name: "Handle Inter Consolidation", desc: "Provides console business and container management." },
-      { name: "Handle Inter Freight Logistics", desc: "Specializes in high-efficiency air freight services." },
+      { name: "Handle Inter Logistics", desc: "Specializes in high-efficiency air freight services." },
       { name: "Handle Inter Service", desc: "Handles fairs, exhibition projects, and road shows." },
       { name: "Handle Inter Express", desc: "Takes care of custom clearance and express delivery service." },
       { name: "Console Link", desc: "Provides strategic console services in Asia and Europe." },
@@ -173,7 +180,14 @@ export const dictionary = {
   },
   th: {
     nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "พันธมิตร", services: "ข่าวสาร", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
-    hero: { sub: "ผู้ให้บริการโลจิสติกส์แบบครบวงจร", title1: "บริการโลจิสติกส์ระดับโลก", title2: "โดยคนในวงการ", title3: "เพื่อคนในวงการอย่างแท้จริง", desc: "ด้วยประสบการณ์มากกว่า 30 ปีในการบริหารจัดการโลจิสติกส์และโซลูชันซัพพลายเชน", cta: "ดูบริการของเรา" },
+    hero: { 
+      sub: "ผู้ให้บริการโลจิสติกส์แบบครบวงจร", 
+      title1: "บริการโลจิสติกส์ระดับโลก", 
+      title2: "", 
+      title3: "", 
+      desc: "ด้วยประสบการณ์มากกว่า 30 ปีในการบริหารจัดการโลจิสติกส์และโซลูชันซัพพลายเชน", 
+      cta: "ดูบริการของเรา" 
+    },
     businessGroups: {
       sub: "กลุ่มธุรกิจในเครือ",
       title: "กลุ่มธุรกิจในเครือ (Our Business Groups)",
