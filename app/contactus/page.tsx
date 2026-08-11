@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { dictionary } from "../utils/dictionaries";
 
-// 🎬 Component จัดการเอฟเฟกต์เลื่อนขึ้นแบบโอ่อ่า (Premium Light Smooth Rise)
+// 🎬 Component จัดการเอฟเฟกต์เลื่อนขึ้นแบบนุ่มนวล (Smooth Fade & Rise - No Scale/Shake)
 function MagnificSection({ id, className, children }: { id: string; className?: string; children: React.ReactNode }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -26,8 +26,8 @@ function MagnificSection({ id, className, children }: { id: string; className?: 
 
   const riseStyle = {
     opacity: isVisible ? 1 : 0,
-    transform: isVisible ? "translateY(0) scale(1)" : "translateY(40px) scale(0.99)",
-    transition: "all 1000ms cubic-bezier(0.215, 0.61, 0.355, 1)"
+    transform: isVisible ? "translateY(0)" : "translateY(30px)",
+    transition: "opacity 800ms ease-out, transform 800ms ease-out"
   };
 
   return (
@@ -69,7 +69,7 @@ export default function ContactPage() {
   return (
     <div className="relative overflow-x-hidden bg-slate-50 text-slate-800 min-h-screen">
 
-      {/* 🎯 SECTION 1: HERO TITLES (แบ็คกราวด์ภาพถ่ายโกลบอลพอร์ต + Gradient Overlay โทนเข้ม) */}
+      {/* 🎯 SECTION 1: HERO TITLES */}
       <section className="relative w-full min-h-[50vh] flex items-center justify-center bg-slate-950 overflow-hidden border-b border-slate-200/80 z-10">
         
         {/* แบ็คกราวด์ภาพถ่ายและแสงฟุ้งของ Hero */}
@@ -77,7 +77,7 @@ export default function ContactPage() {
           <img 
             src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80" 
             alt="Global Network Contact Background" 
-            className="w-full h-full object-cover opacity-40 brightness-[0.6] contrast-[1.1] scale-105"
+            className="w-full h-full object-cover opacity-40 brightness-[0.6] contrast-[1.1]"
           />
           {/* ฟิลเตอร์เงา Gradient ซ้อนทับ */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/90 z-10" />
@@ -106,10 +106,10 @@ export default function ContactPage() {
       </section>
 
 
-      {/* 🎯 SECTION 2: OFFICE MATRIX & FORM (แบ็คกราวด์ตาราง Dot Matrix + Soft Gradient Orbs) */}
+      {/* 🎯 SECTION 2: OFFICE MATRIX & FORM */}
       <section className="relative py-20 z-10">
         
-        {/* ฉากหลังตารางมินิมอล + ดวงไฟเรืองแสงด้านหลังฟอร์ม */}
+        {/* ฉากหลังตารางมินิมอล + Soft Gradient Orbs */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <div className="absolute top-10 right-1/4 w-[550px] h-[500px] bg-sky-200/50 rounded-full blur-[140px]" />
           <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-red-100/50 rounded-full blur-[150px]" />
@@ -129,9 +129,9 @@ export default function ContactPage() {
             
             {/* LEFT SIDE: HEADQUARTERS CARD */}
             <MagnificSection id="office-details" className="lg:col-span-5 space-y-6">
-              <div className="bg-white/90 backdrop-blur-xl border border-slate-200/90 p-8 rounded-3xl shadow-xl shadow-slate-200/50 relative overflow-hidden group transition-all duration-300 hover:border-sky-300">
+              <div className="bg-white/90 backdrop-blur-xl border border-slate-200/90 p-8 rounded-3xl shadow-xl shadow-slate-200/50 relative overflow-hidden group transition-colors duration-300 hover:border-sky-300">
                 {/* เส้นเรืองแสงไล่เฉดสี แดง-ฟ้า วิ่งด้านบนการ์ด */}
-                <div className="absolute top-0 left-0 w-full h-[3.5px] bg-gradient-to-r from-red-600 via-sky-500 to-red-600 transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                <div className="absolute top-0 left-0 w-full h-[3.5px] bg-gradient-to-r from-red-600 via-sky-500 to-red-600 opacity-80" />
                 
                 <div className="space-y-6">
                   <div className="flex items-center space-x-3">
@@ -144,7 +144,7 @@ export default function ContactPage() {
                   <div className="space-y-5 text-sm">
                     {/* ที่ตั้งสำนักงานใหญ่ */}
                     <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-md">
                         <i className="fa-solid fa-location-dot"></i>
                       </div>
                       <div className="space-y-1">
@@ -157,7 +157,7 @@ export default function ContactPage() {
 
                     {/* เบอร์โทรศัพท์ */}
                     <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-md">
                         <i className="fa-solid fa-phone"></i>
                       </div>
                       <div className="space-y-1">
@@ -170,7 +170,7 @@ export default function ContactPage() {
 
                     {/* โทรสาร Fax */}
                     <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-md">
                         <i className="fa-solid fa-print"></i>
                       </div>
                       <div className="space-y-1">
@@ -183,7 +183,7 @@ export default function ContactPage() {
 
                     {/* อีเมลกลาง */}
                     <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-md">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-sky-400 shrink-0 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300 shadow-md">
                         <i className="fa-solid fa-envelope"></i>
                       </div>
                       <div className="space-y-1">
@@ -220,7 +220,7 @@ export default function ContactPage() {
 
                 {/* Alert แสดงความสำเร็จ */}
                 {formSubmitted && (
-                  <div className="p-4 bg-sky-50 border border-sky-200 text-sky-800 text-xs font-bold rounded-xl animate-in fade-in zoom-in-95 duration-200">
+                  <div className="p-4 bg-sky-50 border border-sky-200 text-sky-800 text-xs font-bold rounded-xl animate-in fade-in duration-200">
                     <i className="fa-solid fa-circle-check mr-2 text-sky-600"></i>
                     {lang === "en" ? "Your cargo message route has been sent successfully!" : "ระบบได้ส่งข้อมูลความต้องการของคุณไปยังฝ่ายประสานงานส่วนกลางเรียบร้อยแล้ว"}
                   </div>
@@ -233,7 +233,7 @@ export default function ContactPage() {
                       type="text" 
                       required
                       placeholder={lang === "en" ? "John Doe" : "ชื่อ-นามสกุล ของคุณ"}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-all placeholder:text-slate-300 font-medium"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-colors font-medium placeholder:text-slate-300"
                     />
                   </div>
                   <div className="space-y-2">
@@ -242,7 +242,7 @@ export default function ContactPage() {
                       type="email" 
                       required
                       placeholder="example@company.com"
-                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-all placeholder:text-slate-300 font-medium"
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-colors font-medium placeholder:text-slate-300"
                     />
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export default function ContactPage() {
                     type="text" 
                     required
                     placeholder={lang === "en" ? "e.g., Sea Freight FCL Inquiry" : "เช่น ขอใบเสนอราคาขนส่งสินค้าทางเรือ FCL"}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-all placeholder:text-slate-300 font-medium"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-colors font-medium placeholder:text-slate-300"
                   />
                 </div>
 
@@ -263,14 +263,14 @@ export default function ContactPage() {
                     rows={4}
                     required
                     placeholder={lang === "en" ? "Describe your cargo details..." : "ระบุรายละเอียดสินค้า ขนาด น้ำหนัก สถานที่รับและส่งมอบ..."}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-all placeholder:text-slate-300 font-medium resize-none"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-sky-500 focus:bg-white transition-colors font-medium resize-none placeholder:text-slate-300"
                   />
                 </div>
 
-                {/* ปุ่มกดส่งสีแดงสดตามตัวอักษร handle inter */}
+                {/* ปุ่มกดส่งสีแดงสด */}
                 <button 
                   type="submit" 
-                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-red-600/20 transition-all duration-300 transform active:scale-[0.99] cursor-pointer"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-red-600/20 transition-colors duration-300 cursor-pointer"
                 >
                   {isMounted && t.contact.send} <i className="fa-solid fa-paper-plane ml-2 text-[10px]"></i>
                 </button>
@@ -282,7 +282,7 @@ export default function ContactPage() {
       </section>
 
 
-      {/* 🎯 SECTION 3: MAP BLOCK (แบ็คกราวด์แผนที่ซ้อนทับภาพลายเส้นเครือข่ายดาวเทียม) */}
+      {/* 🎯 SECTION 3: MAP BLOCK */}
       <section className="w-full border-t border-slate-200 bg-slate-900 relative z-10 overflow-hidden">
         
         {/* แบ็คกราวด์ภาพถ่ายการขนส่งโลกสีเข้มด้านหลังแผนที่ */}
@@ -295,10 +295,10 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/90" />
         </div>
 
-        {/* แถบหัวข้อแจ้งพิกัดแผนที่ลอยด้านบน */}
+        {/* แถบหัวข้อแจ้งพิกัดแผนที่ */}
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-wrap justify-between items-center text-white relative z-10">
           <div className="flex items-center space-x-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200">
               {lang === "en" ? "LIVE SATELLITE HEADQUARTERS MAP" : "แผนที่ที่ตั้งสำนักงานใหญ่ (พิกัดดาวเทียม)"}
             </span>

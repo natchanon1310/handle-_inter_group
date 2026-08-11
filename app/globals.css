@@ -32,12 +32,12 @@ html {
   scroll-padding-top: 80px; /* เพิ่มระยะหลบเพื่อให้เวลาเลื่อนแล้วหัวข้อไม่โดน Navbar บัง */
 }
 
-@utility animate-page-shake {
+/* @utility animate-page-shake {
   animation: shakeEffect 0.4s cubic-bezier(.36,.07,.19,.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
-}
+} */
 
 @keyframes shakeEffect {
   10%, 90% {

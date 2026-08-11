@@ -105,9 +105,7 @@ export default function RootLayout({
 
         {/* Main Content Area */}
         <main 
-          className={`flex-grow transition-transform duration-200 ${
-            isShaking ? "animate-page-shake" : ""
-          }`}
+          className={`flex-grow transition-transform duration-200 `}
         >
           {children}
         </main>
