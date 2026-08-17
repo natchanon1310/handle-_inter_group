@@ -20,8 +20,7 @@ export default function Navbar() {
   const subsidiaryPaths = [
     "/H-I-T-INTERCON",
     "/handle-inter-consolidation",
-    "/handle-inter-freight-logistics",
-    "/handle-inter-service",
+    "/handle-inter-logistics",
     "/handle-inter-express",
     "/console-link",
     "/siam-liners"

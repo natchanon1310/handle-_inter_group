@@ -625,14 +625,14 @@ export default function HomePage() {
       title: lang === "en" ? "Sea Freight" : "ขนส่งทางทะเล",
       desc: lang === "en" ? "Comprehensive ocean freight solutions with international container tracking." : "บริการขนส่งสินค้าทางเรือครอบคลุมทั่วโลก ปลอดภัย พร้อมระบบติดตาม",
       tags: ["SEA", "CONTAINER", "INTERNATIONAL"],
-      bg: "https://images.unsplash.com/photo-1559297434-fae8a1916a79?auto=format&fit=crop&w=800&q=80",
+      bg: "/images/shipcard.png",
       video: "images/shipcard.mp4"
     },
     {
       title: lang === "en" ? "Air Freight" : "ขนส่งทางอากาศ",
       desc: lang === "en" ? "Express air cargo services for time-critical international deliveries." : "จัดส่งสินค้ารวดเร็วทันใจทางเครื่องบิน ตอบโจทย์ทุกเวลาเร่งด่วน",
       tags: ["AIR", "EXPRESS", "CARGO"],
-      bg: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80",
+      bg: "/images/cardair.png",
       video: "images/aircard.mp4"
     },
     {
@@ -667,8 +667,8 @@ export default function HomePage() {
 
   const partnerLogos = [
     { name: "H.I.T. INTERCON", src: "/images/1725e41.png", desc: "Total Ocean & Air Freight Solutions with international network connectivity.", link: "/H-I-T-INTERCON" },
-    { name: "HANDLE INTER LOGISTICS", src: "/images/1713676611302.png", desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", link: "/handle-inter-freight-logistics" },
     { name: "HANDLE INTER CONSOLIDATION", src: "/images/handle inter con.png", desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", link: "/handle-inter-consolidation" },
+    { name: "HANDLE INTER LOGISTICS", src: "/images/handle inter logistic.png", desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", link: "/handle-inter-logistics" },
     { name: "CONSOLE LINK", src: "/images/consol-link.png", desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", link: "/console-link" },
     { name: "SIAM LINERS", src: "/images/siam liner.png", desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", link: "/siam-liners" },
   ];

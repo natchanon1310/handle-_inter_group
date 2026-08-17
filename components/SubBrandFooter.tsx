@@ -1,14 +1,13 @@
+// components/SubBrandFooter.tsx
 "use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { SubsidiaryBrand } from "../app/config/subsidiariesConfig";
-import { dictionary } from "../app/utils/dictionaries";
+import { SubsidiaryBrand } from "@/app/config/subsidiariesConfig";
 
 export default function SubBrandFooter({ brand }: { brand: SubsidiaryBrand }) {
   const [lang, setLang] = useState<"en" | "th">("en");
 
-  // ฟังเหตุการณ์ langChange เพื่ออัปเดตภาษา
   useEffect(() => {
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
@@ -19,8 +18,12 @@ export default function SubBrandFooter({ brand }: { brand: SubsidiaryBrand }) {
     return () => window.removeEventListener("langChange", checkLang);
   }, []);
 
-  const t = dictionary[lang] || dictionary.en;
   const isTh = lang === "th";
+
+  // ดึงที่อยู่ตามภาษาปัจจุบัน ป้องกัน Object Type Error
+  const displayAddress = typeof brand.address === "string" 
+    ? brand.address 
+    : brand.address[isTh ? "th" : "en"];
 
   return (
     <footer className="bg-slate-950 text-slate-400 py-16 border-t border-slate-800 relative z-20">
@@ -37,7 +40,7 @@ export default function SubBrandFooter({ brand }: { brand: SubsidiaryBrand }) {
             {brand.name}
           </h3>
           <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
-            {brand.address}
+            {displayAddress}
           </p>
           <span className="inline-block text-[10px] font-mono uppercase bg-slate-900 border border-slate-800 px-3 py-1 rounded-full text-orange-400">
             {isTh
@@ -53,19 +56,13 @@ export default function SubBrandFooter({ brand }: { brand: SubsidiaryBrand }) {
           </h4>
           <p className="flex items-center space-x-2">
             <span className="text-orange-500 font-mono font-bold">TEL:</span>
-            <a
-              href={`tel:${brand.phone}`}
-              className="hover:text-white transition-colors"
-            >
+            <a href={`tel:${brand.phone}`} className="hover:text-white transition-colors">
               {brand.phone}
             </a>
           </p>
           <p className="flex items-center space-x-2">
             <span className="text-orange-500 font-mono font-bold">EMAIL:</span>
-            <a
-              href={`mailto:${brand.email}`}
-              className="hover:text-white transition-colors"
-            >
+            <a href={`mailto:${brand.email}`} className="hover:text-white transition-colors">
               {brand.email}
             </a>
           </p>
@@ -83,18 +80,12 @@ export default function SubBrandFooter({ brand }: { brand: SubsidiaryBrand }) {
               </Link>
             </li>
             <li>
-              <Link
-                href="/aboutus"
-                className="hover:text-white transition-colors"
-              >
+              <Link href="/aboutus" className="hover:text-white transition-colors">
                 {isTh ? "เกี่ยวกับ แฮนเดิล อินเตอร์ กรุ๊ป" : "About Handle Inter Group"}
               </Link>
             </li>
             <li>
-              <Link
-                href="/contactus"
-                className="hover:text-white transition-colors"
-              >
+              <Link href="/contactus" className="hover:text-white transition-colors">
                 {isTh ? "ติดต่อสำนักงานใหญ่" : "Contact Headquarters"}
               </Link>
             </li>

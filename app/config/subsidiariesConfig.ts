@@ -1,3 +1,20 @@
+// app/config/subsidiariesConfig.ts
+
+export interface NavLink {
+  label: string;
+  href: string;
+}
+
+export interface MultiLangString {
+  en: string;
+  th: string;
+}
+
+export interface MultiLangNavLinks {
+  en: NavLink[];
+  th: NavLink[];
+}
+
 export interface SubsidiaryBrand {
   id: string;
   name: string;
@@ -7,8 +24,8 @@ export interface SubsidiaryBrand {
   path: string;
   phone: string;
   email: string;
-  address: string;
-  navLinks: { label: string; href: string }[];
+  address: MultiLangString;
+  navLinks: MultiLangNavLinks;
 }
 
 export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
@@ -21,12 +38,26 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
     path: "/H-I-T-INTERCON",
     phone: "0-2393-2300",
     email: "hitcenter@handleintergroup.com",
-    address: "Bangkok & Worldwide Freight Hub",
-    navLinks: [
-      { label: "Overview", href: "#overview" },
-      { label: "Capabilities", href: "#capabilities" },
-      { label: "Contact Us", href: "#contact-card" },
-    ],
+    address: {
+      en: "Bangkok & Worldwide Freight Hub",
+      th: "กรุงเทพฯ และศูนย์กลางการขนส่งสินค้าระดับโลก",
+    },
+
+   
+    navLinks: {
+      en: [
+        { label: "Overview", href: "#overview" },
+        { label: "Companyprofile", href: "#companyprofie" },
+        { label: "Capabilities", href: "#Our service" },
+        { label: "Contact Us", href: "#Contact Us" },
+      ],
+      th: [
+        { label: "ภาพรวม", href: "#overview" },
+        { label: "เอกสารบริษัท", href: "#companyprofie" },
+        { label: "ขีดความสามารถ", href: "#Our service" },
+        { label: "ติดต่อเรา", href: "#Contact Us" },
+      ],
+    },
   },
   "/handle-inter-consolidation": {
     id: "handle-inter-consolidation",
@@ -37,29 +68,52 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
     path: "/handle-inter-consolidation",
     phone: "0-2393-2300",
     email: "consolidation@handleintergroup.com",
-    address: "LCL Warehouse & Container Consolidation Hub",
-    navLinks: [
-      { label: "Overview", href: "#overview" },
-      { label: "LCL Hub", href: "#lcl-hub" },
-      { label: "Warehouse", href: "#warehouse" },
-      { label: "Contact", href: "#contact" },
-    ],
+    address: {
+      en: "LCL Warehouse & Container Consolidation Hub",
+      th: "ศูนย์รวมคลังสินค้า LCL และการรวมตู้คอนเทนเนอร์",
+    },
+    navLinks: {
+     en: [
+        { label: "Overview", href: "#overview" },
+        { label: "Companyprofile", href: "#companyprofile" },
+        { label: "Capabilities", href: "#capabilities" },
+        { label: "Contact Us", href: "#contact-card" },
+      ],
+      th: [
+        { label: "ภาพรวม", href: "#overview" },
+        { label: "เอกสารบริษัท", href: "#overview" },
+        { label: "ขีดความสามารถ", href: "#capabilities" },
+        { label: "ติดต่อเรา", href: "#contact-card" },
+      ],
+    },
   },
-  "/handle-inter-freight-logistics": {
-    id: "handle-inter-freight-logistics",
+  "/handle-inter-logistics": {
+    id: "handle-inter-logistics",
     name: "HANDLE INTER LOGISTICS CO., LTD.",
     logo: "/images/handle inter logistic.png",
     primaryColor: "emerald-600",
     accentColor: "green-500",
-    path: "/handle-inter-freight-logistics",
+    path: "/handle-inter-logistics",
     phone: "0-2393-2300",
     email: "logistics@handleintergroup.com",
-    address: "Fleet Trucking & Domestic Transport Center",
-    navLinks: [
-      { label: "Overview", href: "#overview" },
-      { label: "Fleet Services", href: "#fleet" },
-      { label: "Contact", href: "#contact" },
-    ],
+    address: {
+      en: "Fleet Trucking & Domestic Transport Center",
+      th: "ศูนย์บริการฟลีทรถบรรทุกและการขนส่งภายในประเทศ",
+    },
+    navLinks: {
+     en: [
+        { label: "Overview", href: "#overview" },
+        { label: "Companyprofile", href: "#companyprofile" },
+        { label: "Capabilities", href: "#capabilities" },
+        { label: "Contact Us", href: "#contact-card" },
+      ],
+      th: [
+        { label: "ภาพรวม", href: "#overview" },
+        { label: "เอกสารบริษัท", href: "#overview" },
+        { label: "ขีดความสามารถ", href: "#capabilities" },
+        { label: "ติดต่อเรา", href: "#contact-card" },
+      ],
+    },
   },
   "/console-link": {
     id: "console-link",
@@ -70,27 +124,64 @@ export const subsidiariesConfig: Record<string, SubsidiaryBrand> = {
     path: "/console-link",
     phone: "0-2393-2300",
     email: "tech@consolelink.com",
-    address: "Digital Freight Platform & Logistics IT",
-    navLinks: [
-      { label: "Platform", href: "#platform" },
-      { label: "Features", href: "#features" },
-      { label: "Support", href: "#contact" },
-    ],
+    address: {
+      en: "Digital Freight Platform & Logistics IT",
+      th: "แพลตฟอร์มขนส่งดิจิทัลและไอทีโลจิสติกส์",
+    },
+    navLinks: {
+     en: [
+        { label: "Overview", href: "#overview" },
+        { label: "Companyprofile", href: "#companyprofile" },
+        { label: "Capabilities", href: "#capabilities" },
+        { label: "Contact Us", href: "#contact-card" },
+      ],
+      th: [
+        { label: "ภาพรวม", href: "#overview" },
+        { label: "เอกสารบริษัท", href: "#overview" },
+        { label: "ขีดความสามารถ", href: "#capabilities" },
+        { label: "ติดต่อเรา", href: "#contact-card" },
+      ],
+    },
   },
   "/siam-liners": {
     id: "siam-liners",
     name: "SIAM LINERS CO., LTD.",
-    logo: "/images/lsiam liner.png",
+    logo: "/images/siam liner.png",
     primaryColor: "cyan-700",
     accentColor: "teal-500",
-    path: "/siam-liners",
+    path: "/images/siam liner.png",
     phone: "0-2393-2300",
     email: "liners@siamliners.com",
-    address: "NVOCC Liner & Feeder Operations Hub",
-    navLinks: [
-      { label: "Schedules", href: "#schedules" },
-      { label: "Routes", href: "#routes" },
-      { label: "Contact", href: "#contact" },
-    ],
+    address: {
+      en: "NVOCC Liner & Feeder Operations Hub",
+      th: "ศูนย์ปฏิบัติการสายการเดินเรือ NVOCC และ Feeder",
+    },
+    navLinks: {
+      en: [
+        { label: "Overview", href: "#overview" },
+        { label: "Companyprofile", href: "#companyprofile" },
+        { label: "Capabilities", href: "#capabilities" },
+        { label: "Contact Us", href: "#contact-card" },
+      ],
+      th: [
+        { label: "ภาพรวม", href: "#overview" },
+        { label: "เอกสารบริษัท", href: "#overview" },
+        { label: "ขีดความสามารถ", href: "#capabilities" },
+        { label: "ติดต่อเรา", href: "#contact-card" },
+      ],
+    },
   },
 };
+
+// Helper Function ดึง Brand Config แบบแปลงภาษาแล้ว
+export function getSubsidiaryBrand(path: string, isTh: boolean) {
+  const brand = subsidiariesConfig[path];
+  if (!brand) return null;
+
+  const lang = isTh ? "th" : "en";
+  return {
+    ...brand,
+    address: typeof brand.address === "string" ? brand.address : brand.address[lang],
+    navLinks: Array.isArray(brand.navLinks) ? brand.navLinks : brand.navLinks[lang],
+  };
+}

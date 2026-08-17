@@ -52,7 +52,7 @@ function ScrollCardReveal({
   );
 }
 
-export default function SiamLinersPage() {
+export default function HandleInterConsolidationPage() {
   const [activeSection, setActiveSection] = useState("overview");
   const [lang, setLang] = useState<"en" | "th">("en");
   const [isMounted, setIsMounted] = useState(false);
@@ -86,6 +86,8 @@ export default function SiamLinersPage() {
   const objectX = useTransform(smoothProgress, [0.12, 0.52], ["0%", "28%"]);
   const objectY = useTransform(smoothProgress, [0.12, 0.52], ["0%", "0%"]);
   const objectScale = useTransform(smoothProgress, [0, 0.15, 0.52], [1.3, 1.22, 1.05]);
+  const objectRotateZ = useTransform(smoothProgress, [0.12, 0.52], [-8, 4]);
+  const objectRotateY = useTransform(smoothProgress, [0.12, 0.52], [16, -6]);
 
   // 🌟 Phase 3: กล่องเนื้อหา E-Book ฝั่งซ้ายสไลด์ขึ้นมา
   const contentOpacity = useTransform(smoothProgress, [0.28, 0.55], [0, 1]);
@@ -107,7 +109,8 @@ export default function SiamLinersPage() {
   }, []);
 
   const t = dictionary[lang] || dictionary.en;
-  const detailText = t.siamLiners || {};
+  const subsidiaries = t.subsidiaries || [];
+  const detailText = t.consolidation || {};
 
   const sections = useMemo(
     () => [
@@ -119,54 +122,67 @@ export default function SiamLinersPage() {
     [lang]
   );
 
-  // 🚢 ข้อมูลตารางเรือนำเข้า
-  const scheduleData = [
-    { vessel: "SINAR BROMO", voy: "058N", closing: "5-Sep", closeDay: "MON", closeTime: "17:30", etd1stL: "7-Sep", etd1stDay: "WED", closingLch: "6-Sep", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "7-Sep", etdLchDay: "WED", etaHph: "11-Sep" },
-    { vessel: "MARE FRIO", voy: "208N", closing: "12-Sep", closeDay: "MON", closeTime: "17:30", etd1stL: "14-Sep", etd1stDay: "WED", closingLch: "13-Sep", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "14-Sep", etdLchDay: "WED", etaHph: "18-Sep" },
-    { vessel: "SINAR BROMO", voy: "059N", closing: "19-Sep", closeDay: "MON", closeTime: "17:30", etd1stL: "21-Sep", etd1stDay: "WED", closingLch: "20-Sep", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "21-Sep", etdLchDay: "WED", etaHph: "25-Sep" },
-    { vessel: "MARE FRIO", voy: "209N", closing: "26-Sep", closeDay: "MON", closeTime: "17:30", etd1stL: "28-Sep", etd1stDay: "WED", closingLch: "27-Sep", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "28-Sep", etdLchDay: "WED", etaHph: "2-Oct" },
-    { vessel: "SINAR BROMO", voy: "060N", closing: "3-Oct", closeDay: "MON", closeTime: "17:30", etd1stL: "5-Oct", etd1stDay: "WED", closingLch: "4-Oct", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "5-Oct", etdLchDay: "WED", etaHph: "9-Oct" },
-    { vessel: "MARE FRIO", voy: "210N", closing: "10-Oct", closeDay: "MON", closeTime: "17:30", etd1stL: "12-Oct", etd1stDay: "WED", closingLch: "11-Oct", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "12-Oct", etdLchDay: "WED", etaHph: "16-Oct" },
-    { vessel: "SINAR BROMO", voy: "061N", closing: "17-Oct", closeDay: "MON", closeTime: "17:30", etd1stL: "19-Oct", etd1stDay: "WED", closingLch: "18-Oct", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "19-Oct", etdLchDay: "WED", etaHph: "23-Oct" },
-    { vessel: "MARE FRIO", voy: "211N", closing: "24-Oct", closeDay: "MON", closeTime: "17:30", etd1stL: "26-Oct", etd1stDay: "WED", closingLch: "25-Oct", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "26-Oct", etdLchDay: "WED", etaHph: "30-Oct" },
-    { vessel: "SINAR BROMO", voy: "062N", closing: "31-Oct", closeDay: "MON", closeTime: "17:30", etd1stL: "2-Nov", etd1stDay: "WED", closingLch: "1-Nov", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "2-Nov", etdLchDay: "WED", etaHph: "6-Nov" },
-    { vessel: "MARE FRIO", voy: "212N", closing: "7-Nov", closeDay: "MON", closeTime: "17:30", etd1stL: "9-Nov", etd1stDay: "WED", closingLch: "8-Nov", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "9-Nov", etdLchDay: "WED", etaHph: "13-Nov" },
-    { vessel: "SINAR BROMO", voy: "063N", closing: "14-Nov", closeDay: "MON", closeTime: "17:30", etd1stL: "16-Nov", etd1stDay: "WED", closingLch: "15-Nov", closeLchDay: "MON", closeLchTime: "9:00", etdLch: "16-Nov", etdLchDay: "WED", etaHph: "20-Nov" },
-  ];
-
-  // 📦 ข้อมูลบริการ Siam Liners ตามที่คุณระบุครบถ้วน 100%
+  // 📦 ข้อมูลบริการ 4 ด้านตามที่คุณระบุครบถ้วน
   const completeEbookServices = useMemo(
     () => [
       {
-        id: "nvocc-liner",
-        tabTitle: "สายเรือ (NVOCC)",
-        tag: "CORE SERVICE 01 // NVOCC OPERATOR",
-        title: "สายเรือ (NVOCC)",
-        subtitle: "เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ",
-        desc: "เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ มีตารางเดินเรือที่แน่นอนและความถี่สูงเพื่อให้ธุรกิจของคุณขับเคลื่อนได้อย่างราบรื่น",
+        id: "ocean-freight",
+        tabTitle: "บริการขนส่งทางทะเล",
+        tag: "CORE SERVICE 01 // SEA FREIGHT",
+        title: "บริการขนส่งทางทะเล",
+        subtitle: "FCL & LCL Ocean Solutions with Multi-Carrier Flexibility",
+        desc: "เราให้บริการส่งทั้งแบบ FCL และ LCL พร้อมการบริการสายเรือที่มีให้เลือกหลากหลาย ซึ่งทำให้มีความยืดหยุ่น ในการออกเดินเรือและยังมีพื้นที่บนเรือที่มากขึ้น รวมไปถึงตารางการเดินเรือที่เชื่อถือได้",
         items: [
-          "มีตารางเวลา ความถี่ (Frequency Selling) การเดินเรือ มากเท่าที่คุณต้องการ",
-          "มีตารางเวลาการเดินเรือแน่นอนในทุกเส้นทาง",
-          "มีบุคลากรที่เชี่ยวชาญให้คำปรึกษา ติดต่อและประสานงานตลอดเวลา",
-          "มีความพร้อมด้านเทคโนโลยีในด้านการสื่อสาร",
+          "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load: FCL)",
+          "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load: LCL)",
+          "พันธมิตรสายการเดินเรือที่หลากหลาย เพิ่มความยืดหยุ่นในการจองพื้นที่",
+          "ตารางการเดินเรือที่แม่นยำและเชื่อถือได้สูง",
         ],
         icon: "🚢",
-        img: "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1000&q=80",
+        img: "/images/shipcard.png",
       },
       {
-        id: "specialized-operations",
-        tabTitle: "ปฏิบัติการเฉพาะเจาะจง",
-        tag: "CORE SERVICE 02 // SPECIALIZED OPERATIONS",
-        title: "ปฏิบัติการเฉพาะเจาะจง",
-        subtitle: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า",
-        desc: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า ด้วยทีมงานและอุปกรณ์เฉพาะทางที่พร้อมรองรับการจัดการสินค้าทุกรูปแบบตลอด 24 ชั่วโมง",
+        id: "air-freight",
+        tabTitle: "บริการขนส่งทางอากาศ",
+        tag: "CORE SERVICE 02 // AIR FREIGHT",
+        title: "บริการขนส่งทางอากาศ",
+        subtitle: "Worldwide Express & Door-to-Door Connectivity",
+        desc: "เราให้บริการการขนส่งสินค้าทางอากาศที่ครอบคลุมทั่วโลก ทั้งการส่งออกและนำเข้า พร้อมการบริการแบบ door-to-door (รวมถึงการจัดเตรียมบริการตัวแทนด้านพิธีการศุลกากร)",
         items: [
-          "มีบุคลากรพร้อมบริการดูแลนำสินค้าเข้า – ออกตลอดเวลาจากตู้คอนเทนเนอร์ (Stuffing/un-stuffing)",
-          "มีบริการด้านหีบห่อ re-packing",
-          "พร้อมด้วยบุคลากรประสานงาน ติดตามตลอด 24 ชั่วโมง",
+          "บริการขนส่งสินค้าทางอากาศครอบคลุมทุกปลายทางทั่วโลก",
+          "บริการครบวงจรทั้งนำเข้า (Inbound) และส่งออก (Outbound)",
+          "บริการขนส่งแบบถึงมือผู้รับ Door-to-Door Delivery",
+          "บริการจัดเตรียมและดูแลด้านตัวแทนพิธีการศุลกากรอย่างสมบูรณ์",
         ],
+        icon: "✈️",
+        img: "/images/cardair.png",
+      },
+      {
+        id: "trucking-packing",
+        tabTitle: "บริการขนส่งสินค้าและบรรจุหีบห่อ",
+        tag: "CORE SERVICE 03 // PACKING & TRANSPORT",
+        title: "บริการขนส่งสินค้าและบรรจุหีบห่อ",
+        subtitle: "Transport & Professional Cargo Packaging",
+        desc: "บริการรับจัดการขนส่งสินค้าและบริการแพ็คกิ้งบรรจุหีบห่อมาตรฐานสากลเพื่อความปลอดภัยสูงสุดของสินค้าตลอดการเดินทาง",
+        items: [],
         icon: "📦",
         img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
+      },
+      {
+        id: "customs-clearance",
+        tabTitle: "การบริการพิธีการศุลกากร",
+        tag: "CORE SERVICE 04 // CUSTOMS CLEARANCE",
+        title: "การบริการพิธีการศุลกากร",
+        subtitle: "Professional Customs Brokerage & Advanced Technology",
+        desc: "การประสานงานที่เป็นเลิศ พร้อมดำเนินการพิธีการศุลกากรทุกขั้นตอน รวมไปถึงการใช้เทคโนโลยีที่ทันสมัยและทีมงานที่มากประสบการณ์ เพื่อตอบสนองความพึงพอใจของผู้รับบริการ",
+        items: [
+          "การประสานงานและจัดเตรียมเอกสารพิธีการศุลกากรทุกขั้นตอน",
+          "เทคโนโลยีทันสมัยสำหรับการจัดการระบบ Paperless ที่รวดเร็ว",
+          "ทีมงานชิปปิ้งผู้เชี่ยวชาญและมากประสบการณ์คอยให้คำปรึกษา",
+          "มุ่งเน้นสร้างความพึงพอใจสูงสุดแก่ผู้รับบริการ",
+        ],
+        icon: "📑",
+        img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80",
       },
     ],
     []
@@ -254,7 +270,7 @@ export default function SiamLinersPage() {
               <span
                 className={`text-[11px] font-bold uppercase tracking-widest transition-all duration-300 ${
                   isActive
-                    ? "text-cyan-600 translate-x-0 opacity-100"
+                    ? "text-orange-600 translate-x-0 opacity-100"
                     : "text-gray-400 opacity-0 group-hover:opacity-100 group-hover:-translate-x-1"
                 }`}
               >
@@ -264,8 +280,8 @@ export default function SiamLinersPage() {
                 <span
                   className={`absolute transition-all duration-300 rounded-full ${
                     isActive
-                      ? "w-8 h-[3px] bg-cyan-600 shadow-[0_0_12px_rgba(8,145,178,0.8)]"
-                      : "w-4 h-[1.5px] bg-gray-300 group-hover:bg-cyan-500 group-hover:w-6"
+                      ? "w-8 h-[3px] bg-orange-600"
+                      : "w-4 h-[1.5px] bg-gray-300 group-hover:bg-orange-400 group-hover:w-6"
                   }`}
                 />
               </div>
@@ -281,8 +297,8 @@ export default function SiamLinersPage() {
       >
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=1920&q=80"
-            alt="Siam Liners Background"
+            src="/images/handleinterlogistichere.jpeg"
+            alt="Handle Inter Consolidation Background"
             className="w-full h-full object-cover opacity-50 brightness-90 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent z-10" />
@@ -290,23 +306,23 @@ export default function SiamLinersPage() {
 
         <div className="max-w-5xl mx-auto px-6 text-center space-y-6 relative z-20 pt-20 w-full flex flex-col items-center justify-center">
           <ScrollCardReveal direction="up" delay={100}>
-            <div className="inline-block bg-cyan-600/90 backdrop-blur-md px-5 py-1.5 rounded-full shadow-lg mb-2">
+            <div className="inline-block bg-orange-600/90 backdrop-blur-md px-5 py-1.5 rounded-full shadow-lg mb-2">
               <span className="text-xs font-bold text-white uppercase tracking-widest font-mono">
-                {isMounted && (detailText.heroSub || "SIAM LINERS (NVOCC)")}
+                {isMounted && (detailText.heroSub || "HANDLE INTER CONSOLIDATION")}
               </span>
             </div>
             <h1 className="text-4xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-md mt-2">
-              {isMounted && (detailText.heroTitle || "บริษัท สยามไลน์เนอร์ จำกัด")}
+              {isMounted && (subsidiaries[2]?.name || detailText.heroTitle || "HANDLE INTER CONSOLIDATION CO., LTD.")}
             </h1>
-            <div className="w-20 h-1 bg-cyan-500 mx-auto rounded-full my-4 shadow-[0_0_10px_rgba(6,182,212,0.8)]" />
+            <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full my-4" />
             <p className="text-slate-200 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-normal">
-              {isMounted && detailText.heroDesc}
+              {isMounted && ((subsidiaries[2]?.desc))}
             </p>
 
-            <div className="pt-6 flex flex-wrap gap-4 justify-center">
+            <div className="pt-6">
               <button
                 onClick={() => scrollToSection("ebook-section")}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-xl shadow-cyan-600/30 inline-flex items-center space-x-3 cursor-pointer"
+                className="bg-orange-600 hover:bg-orange-500 text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-xl shadow-orange-600/30 inline-flex items-center space-x-3 cursor-pointer"
               >
                 <span>{lang === "en" ? "EXPLORE DIGITAL BROCHURE" : "เปิดอ่านโบรชัวร์ดิจิทัล"}</span>
                 <span className="animate-bounce">↓</span>
@@ -322,11 +338,11 @@ export default function SiamLinersPage() {
         className="py-20 md:py-28 px-4 sm:px-8 bg-[#222327] text-white relative w-full flex flex-col items-center justify-center min-h-screen border-b border-neutral-800"
       >
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
-          <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest block font-mono">
+          <span className="text-[11px] font-bold text-orange-400 uppercase tracking-widest block font-mono">
             Interactive Presentation
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
-            {lang === "en" ? "Siam Liners Flipbook Catalog" : "เอกสารแนะนำบริษัท สยามไลน์เนอร์ จำกัด"}
+            {lang === "en" ? "Handle Inter Consolidation Catalog" : "เอกสารแนะนำบริษัท แฮนเดิล อินเตอร์ คอนโซลลิเดชั่น จำกัด"}
           </h2>
           <p className="text-xs text-neutral-400">
             {lang === "en" ? "Click the arrows to flip pages or use controls below." : "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร"}
@@ -338,7 +354,7 @@ export default function SiamLinersPage() {
           <button
             onClick={goToPrev}
             disabled={currentStep === 0 || isFlipping}
-            className={`absolute left-0 sm:-left-6 lg:-left-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-cyan-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
+            className={`absolute left-0 sm:-left-6 lg:-left-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
               currentStep === 0 ? "opacity-20 cursor-not-allowed" : "hover:scale-110 active:scale-95"
             }`}
             title="Previous Page"
@@ -367,18 +383,18 @@ export default function SiamLinersPage() {
                     <div className="absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none z-20" />
                     <div className="relative z-10 space-y-4 text-left">
                       <div className="bg-white px-3 py-1 rounded-md inline-block shadow-md">
-                        <div className="text-cyan-900 font-black text-xl tracking-wider flex items-center space-x-1">
-                          <span>SIAM LINERS</span>
-                          <span className="text-xs">🚢</span>
+                        <div className="text-blue-900 font-black text-xl tracking-wider flex items-center space-x-1">
+                          <span>HIC</span>
+                          <span className="text-xs">📦</span>
                         </div>
-                        <div className="text-[8px] font-mono font-bold text-slate-700 tracking-tight">NVOCC & SHIPPING OPERATOR</div>
+                        <div className="text-[8px] font-mono font-bold text-slate-700 tracking-tight">HANDLE INTER CONSOLIDATION</div>
                       </div>
 
                       <div className="pt-2">
                         <h3 className="text-3xl sm:text-4xl font-black text-white leading-none tracking-tight">
                           THE
                         </h3>
-                        <h3 className="text-2xl sm:text-3xl font-extralight text-cyan-300 leading-tight tracking-wider">
+                        <h3 className="text-2xl sm:text-3xl font-extralight text-sky-300 leading-tight tracking-wider">
                           EXPERIENCED
                         </h3>
                       </div>
@@ -387,14 +403,14 @@ export default function SiamLinersPage() {
                     <div className="relative z-10 my-auto py-2">
                       <div className="relative w-full h-52 sm:h-56 rounded-xl overflow-hidden shadow-2xl border border-white/20">
                         <img
-                          src="https://images.unsplash.com/photo-1559297434-fae8a1916a79?auto=format&fit=crop&w=800&q=80"
+                          src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80"
                           alt="Cargo Ocean Ship"
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0c1e38]/80 via-transparent to-transparent" />
                         <div className="absolute bottom-3 left-3 text-left">
-                          <span className="text-[10px] font-mono text-cyan-300 uppercase tracking-widest block font-bold">
-                            NVOCC & CONTAINER SOLUTIONS
+                          <span className="text-[10px] font-mono text-sky-300 uppercase tracking-widest block font-bold">
+                            ONE STOP CONSOLIDATION FORWARDER
                           </span>
                         </div>
                       </div>
@@ -427,23 +443,23 @@ export default function SiamLinersPage() {
                     <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-slate-200 relative bg-gradient-to-b from-white to-slate-50">
                       <div className="space-y-4">
                         <span className="text-2xl sm:text-3xl font-black text-[#1e3a8a] tracking-tight block">
-                          สายเรือ (NVOCC)
+                          THE EXPERIENCED
                         </span>
                         <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal pt-1">
-                          เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ
+                          เราพร้อมให้บริการด้านการรวมตู้สินค้า LCL และการขนส่งแบบครบวงจร เพื่อตอบสนองทุกความต้องการของธุรกิจอย่างคุ้มค่า ปลอดภัย และตรงเวลา
                         </p>
                       </div>
 
                       <div className="mt-4 w-full h-40 sm:h-48 rounded-xl overflow-hidden border border-slate-200 shadow-md relative">
                         <img
-                          src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?auto=format&fit=crop&w=800&q=80"
-                          alt="NVOCC Vessel"
+                          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+                          alt="Warehouse Logistics"
                           className="w-full h-full object-cover"
                         />
                       </div>
 
                       <div className="pt-3 flex justify-between items-center text-[10px] font-mono text-slate-400">
-                        <span>SIAM LINERS (NVOCC)</span>
+                        <span>HANDLE INTER CONSOL</span>
                         <span>01</span>
                       </div>
                     </div>
@@ -451,36 +467,36 @@ export default function SiamLinersPage() {
                     <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between text-left relative bg-gradient-to-b from-white to-slate-50">
                       <div className="space-y-4">
                         <span className="text-xl sm:text-2xl font-black text-[#1e3a8a] tracking-tight block border-b border-slate-200 pb-2">
-                          ปฏิบัติการ<span className="text-cyan-600">เฉพาะเจาะจง</span>
+                          THE EXPERIENCED <span className="text-orange-600">SERVICE</span>
                         </span>
 
                         <div className="space-y-1">
                           <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
                             <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            ตารางเวลา ความถี่ (Frequency Selling)
+                            ขนส่งสินค้าทางทะเล (FCL/LCL)
                           </h4>
                           <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            มีตารางเวลาการเดินเรือแน่นอนในทุกเส้นทาง มากเท่าที่คุณต้องการ
+                            บริการนำเข้าและส่งออกสินค้าทางทะเลทุกเส้นทางทั่วโลก พร้อมบริการสินค้าพิเศษและอาหารแช่แข็ง
                           </p>
                         </div>
 
                         <div className="space-y-1">
                           <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
                             <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            Stuffing / Un-stuffing & Re-packing
+                            บริการรวบรวมสินค้าแบบไม่เต็มตู้
                           </h4>
                           <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            มีบุคลากรพร้อมบริการดูแลนำสินค้าเข้า – ออกตลอดเวลาจากตู้คอนเทนเนอร์ และบริการด้านหีบห่อ
+                            Weekly consolidation ตารางเรือออกรายสัปดาห์ที่แน่นอน จัดการตู้คอนเทนเนอร์อย่างมืออาชีพ
                           </p>
                         </div>
 
                         <div className="space-y-1">
                           <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
                             <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            บุคลากรประสานงานตลอด 24 ชั่วโมง
+                            พิธีการศุลกากรครบวงจร
                           </h4>
                           <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            พร้อมด้วยบุคลากรที่เชี่ยวชาญให้คำปรึกษา และความพร้อมด้านเทคโนโลยีการสื่อสาร
+                            จัดเตรียมเอกสาร ขอคืนภาษีอากร มาตรา 19 ทวิ บีโอไอ และหนังสือรับรองถิ่นกำเนิดสินค้า
                           </p>
                         </div>
                       </div>
@@ -509,7 +525,7 @@ export default function SiamLinersPage() {
                       <h3 className="text-2xl sm:text-3xl font-black tracking-wider text-white uppercase font-sans">
                         WORLDWIDE
                       </h3>
-                      <h3 className="text-xl sm:text-2xl font-light tracking-widest text-cyan-400 uppercase font-sans">
+                      <h3 className="text-xl sm:text-2xl font-light tracking-widest text-sky-400 uppercase font-sans">
                         NETWORK
                       </h3>
                     </div>
@@ -529,11 +545,11 @@ export default function SiamLinersPage() {
                     </div>
 
                     <div className="relative z-10 text-left space-y-2 pt-3 border-t border-white/15 text-[10px] font-mono text-slate-300">
-                      <div className="font-bold text-white text-xs">Siam Liners Co., Ltd.</div>
+                      <div className="font-bold text-white text-xs">Handle Inter Consolidation Co., Ltd.</div>
                       <p className="text-[9px] text-slate-400 leading-tight">
                         1 Handle Inter Group Building, Bangna-Trad Soi 17, Bangkok 10260 Thailand
                       </p>
-                      <div className="flex justify-between items-center pt-1 text-[9px] text-cyan-300">
+                      <div className="flex justify-between items-center pt-1 text-[9px] text-sky-300">
                         <span>Tel: +66 (0) 2393 2300 (Auto)</span>
                         <span>www.handleintergroup.com</span>
                       </div>
@@ -547,7 +563,7 @@ export default function SiamLinersPage() {
           <button
             onClick={goToNext}
             disabled={currentStep === 2 || isFlipping}
-            className={`absolute right-0 sm:-right-6 lg:-right-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-cyan-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
+            className={`absolute right-0 sm:-right-6 lg:-right-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
               currentStep === 2 ? "opacity-20 cursor-not-allowed" : "hover:scale-110 active:scale-95"
             }`}
             title="Next Page"
@@ -564,14 +580,14 @@ export default function SiamLinersPage() {
               setFlipDirection("prev");
               setCurrentStep(0);
             }}
-            className="hover:text-cyan-400 disabled:opacity-30 cursor-pointer transition-colors"
+            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors"
           >
             |‹
           </button>
           <button
             disabled={currentStep === 0}
             onClick={goToPrev}
-            className="hover:text-cyan-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
+            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
           >
             ‹
           </button>
@@ -581,7 +597,7 @@ export default function SiamLinersPage() {
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             className={`cursor-pointer transition-colors px-2 py-0.5 rounded-full ${
-              isPlaying ? "bg-cyan-600 text-white" : "hover:text-cyan-400"
+              isPlaying ? "bg-orange-600 text-white" : "hover:text-orange-400"
             }`}
           >
             {isPlaying ? "❚❚" : "▶"}
@@ -589,7 +605,7 @@ export default function SiamLinersPage() {
           <button
             disabled={currentStep === 2}
             onClick={goToNext}
-            className="hover:text-cyan-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
+            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
           >
             ›
           </button>
@@ -599,7 +615,7 @@ export default function SiamLinersPage() {
               setFlipDirection("next");
               setCurrentStep(2);
             }}
-            className="hover:text-cyan-400 disabled:opacity-30 cursor-pointer transition-colors"
+            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors"
           >
             ›|
           </button>
@@ -613,16 +629,15 @@ export default function SiamLinersPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 3: 3D CINEMATIC SCROLL-LOCKED EXPERIENCE (SOFT CREAM LUXURY THEME) */}
-      <section
-        id="cinematic-scene"
+      {/* 🎯 SECTION 3: 3D CINEMATIC SCROLL-LOCKED EXPERIENCE (FULL TEXT + FULL COLOR + UPRIGHT ON SCROLL) */}
+      <section id="cinematic-scene"
         ref={lockContainerRef}
         className="relative w-full h-[300vh] bg-[#FDFBF7] text-stone-900 border-b border-stone-200"
       >
         {/* Sticky Pinned Viewport Frame: ล็อกหน้าจอ 100vh อยู่กับที่ระหว่างการเลื่อน */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
           
-          {/* Background Atmosphere */}
+          {/* Background Atmosphere (Warm Cream Ambient Glows) */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <img
               src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
@@ -666,7 +681,7 @@ export default function SiamLinersPage() {
           {/* 📍 SCENE 2: REVEAL CONTENT + PURE FLOATING 3D IMAGE */}
           <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center relative z-20 h-[84vh]">
             
-            {/* ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ แสดงข้อความเต็มครบถ้วน ไม่ตัดข้อความทิ้ง */}
+            {/* ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ แสดงข้อความเต็มครบถ้วน */}
             <motion.div
               style={{ opacity: contentOpacity, x: contentX, y: contentY }}
               className="lg:col-span-7 text-left flex flex-col justify-between h-full py-1 pr-1 overflow-y-auto"
@@ -704,7 +719,7 @@ export default function SiamLinersPage() {
                       <div className="bg-[#FAF6EE]/95 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2 backdrop-blur-md shadow-sm">
                         <h5 className="font-bold text-xs sm:text-sm text-stone-900 flex items-center space-x-2">
                           <span className="w-2 h-2 rounded-full bg-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.6)]" />
-                          <span>จุดเด่นและการให้บริการ (Service Capabilities)</span>
+                          <span>ขอบเขตการให้บริการ (Service Scope & Capabilities)</span>
                         </h5>
                         <div className="grid grid-cols-1 gap-2 pt-0.5">
                           {currentService.items.map((item, iIdx) => (
@@ -720,16 +735,16 @@ export default function SiamLinersPage() {
 
                   <div className="pt-2">
                     <button
-                      onClick={() => scrollToSection("schedule")}
+                      onClick={() => scrollToSection("contact-card")}
                       className="bg-amber-700 hover:bg-amber-800 text-amber-50 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3 rounded-full transition-all duration-300 shadow-xl shadow-amber-900/20 hover:scale-105 cursor-pointer active:scale-95"
                     >
-                      <span>View Vessel Schedule ↗</span>
+                      <span>Inquire Service Now ↗</span>
                     </button>
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* 🎛️ Interactive Service Switcher Tabs */}
+              {/* 🎛️ Interactive Service Switcher Tabs สำหรับเลือกบริการ */}
               <div className="pt-3 border-t border-stone-200 space-y-1.5 mt-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
                   Select Core Logistics Service :
@@ -780,7 +795,7 @@ export default function SiamLinersPage() {
                   {/* แสง Glow โทนอุ่นด้านหลังภาพ */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-amber-300/40 via-orange-200/40 to-yellow-200/30 rounded-full blur-3xl opacity-70 pointer-events-none group-hover:opacity-100 transition-opacity duration-700" />
 
-                  {/* ตัวรูปภาพหลัก */}
+                  {/* ตัวรูปภาพหลัก (สีสดใสธรรมชาติ ไร้ grayscale พร้อมขอบมนและเงาสมจริง) */}
                   <div className="relative w-full h-full rounded-[36px] overflow-hidden shadow-[0_25px_60px_rgba(120,53,15,0.18)] border border-stone-200/80 group-hover:scale-105 transition-transform duration-700">
                     <img
                       src={currentService.img}
@@ -794,7 +809,7 @@ export default function SiamLinersPage() {
                     {/* ไตเติลลอยบนรูปภาพ */}
                     <div className="absolute bottom-5 left-5 right-5 text-left space-y-1">
                       <span className="text-[10px] font-mono text-amber-300 font-extrabold uppercase tracking-widest block drop-shadow-md">
-                        SIAM LINERS CO., LTD.
+                        HANDLE INTER CONSOLIDATION CO., LTD.
                       </span>
                       <h5 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug drop-shadow-lg">
                         {currentService.title}
@@ -810,76 +825,7 @@ export default function SiamLinersPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 4: IMPORT VESSEL SCHEDULE TABLE */}
-      <section id="schedule" className="py-24 px-6 max-w-7xl mx-auto relative w-full bg-[#111827] text-slate-100 rounded-[36px] shadow-2xl my-12">
-        <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-          <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest block font-mono">
-            LIVE IMPORT SCHEDULE
-          </span>
-          <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight">
-            {isMounted && (detailText.scheduleTitle || "ตารางเรือนำเข้า (Import Vessel Schedule)")}
-          </h2>
-          <p className="text-xs md:text-sm text-slate-400">
-            {isMounted && (detailText.scheduleSubtitle || "ตารางการออกเดินเรือประจำสัปดาห์สำหรับสินค้าขาเข้า")}
-          </p>
-        </div>
-
-        {/* Table Frame Container */}
-        <ScrollCardReveal direction="up">
-          <div className="bg-slate-950/90 border border-slate-800 rounded-3xl p-4 md:p-6 shadow-2xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300 border-collapse min-w-[800px]">
-                <thead>
-                  <tr className="bg-cyan-950/80 text-cyan-300 font-mono text-[11px] uppercase border-b border-cyan-800/50">
-                    <th className="p-3.5 font-bold">VESSEL NAME</th>
-                    <th className="p-3.5 font-bold">VOY</th>
-                    <th className="p-3.5 font-bold">CLOSING DATE</th>
-                    <th className="p-3.5 font-bold text-center">TIME</th>
-                    <th className="p-3.5 font-bold">ETD 1STL</th>
-                    <th className="p-3.5 font-bold">DATE</th>
-                    <th className="p-3.5 font-bold">CLOSING DATE</th>
-                    <th className="p-3.5 font-bold text-center">TIME</th>
-                    <th className="p-3.5 font-bold">ETD LCH</th>
-                    <th className="p-3.5 font-bold">DATE</th>
-                    <th className="p-3.5 font-bold text-cyan-400 bg-cyan-900/30">ETA HPH</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/80 font-mono">
-                  {scheduleData.map((row, idx) => (
-                    <tr
-                      key={idx}
-                      className="hover:bg-slate-800/50 transition-colors duration-150 group"
-                    >
-                      <td className="p-3.5 font-bold text-red-400 whitespace-nowrap group-hover:text-cyan-300">
-                        {row.vessel}
-                      </td>
-                      <td className="p-3.5 font-bold text-white">{row.voy}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.closing} <span className="text-slate-500">({row.closeDay})</span></td>
-                      <td className="p-3.5 text-center text-slate-400">{row.closeTime}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.etd1stL}</td>
-                      <td className="p-3.5 text-slate-400">{row.etd1stDay}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.closingLch} <span className="text-slate-500">({row.closeLchDay})</span></td>
-                      <td className="p-3.5 text-center text-slate-400">{row.closeLchTime}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.etdLch}</td>
-                      <td className="p-3.5 text-slate-400">{row.etdLchDay}</td>
-                      <td className="p-3.5 font-bold text-cyan-300 bg-cyan-950/30 whitespace-nowrap">
-                        {row.etaHph}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="pt-4 px-2 flex flex-wrap justify-between items-center text-[10px] font-mono text-slate-500 border-t border-slate-900 mt-2">
-              <span>* Schedules are subject to change based on weather and port congestion.</span>
-              <span className="text-cyan-400 font-bold">Siam Liners Vessel Matrix</span>
-            </div>
-          </div>
-        </ScrollCardReveal>
-      </section>
-
-      {/* 🎯 SECTION 5: EXCLUSIVE CONTACT CARDS (SOFT CREAM ASYMMETRICAL ARCH THEME) */}
+      {/* 🎯 SECTION 4: EXCLUSIVE CONTACT CARDS (SOFT CREAM ASYMMETRICAL ARCH THEME) */}
       <section
         id="contact-card"
         className="relative w-full min-h-screen bg-[#FDFBF7] text-stone-900 py-20 lg:py-28 px-6 sm:px-10 lg:px-16 flex flex-col justify-center items-center overflow-hidden border-t border-stone-200"
@@ -894,107 +840,95 @@ export default function SiamLinersPage() {
           <ScrollCardReveal direction="up">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
               <div className="inline-flex items-center space-x-2 bg-amber-50/80 border border-amber-200/60 px-6 py-2 rounded-full text-xs font-bold text-amber-800 font-mono shadow-sm backdrop-blur-md">
-                <i className="fa-solid fa-headset text-amber-700"></i>
-                <span>{lang === "en" ? "Direct Contact Directory" : "ติดต่อเรา — บริษัท สยามไลน์เนอร์ จำกัด"}</span>
+                <i className="fa-solid fa-address-card text-amber-700"></i>
+                <span>{lang === "en" ? "Contact Information" : "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน"}</span>
               </div>
               
               <h3 className="font-black text-stone-900 text-3xl sm:text-5xl tracking-tight">
-                {isMounted && (detailText.contactTitle || "บริษัท สยามไลน์เนอร์ จำกัด")}
+                {lang === "en" ? "Handle Inter Consolidation Co., Ltd." : "บริษัท แฮนเดิล อินเตอร์ คอนโซลลิเดชั่น จำกัด"}
               </h3>
               
               <p className="text-xs sm:text-sm text-stone-500 font-mono max-w-2xl mx-auto">
-                Center Hotline: <span className="text-amber-800 font-bold">{isMounted && detailText.centerPhone}</span> | admincenter@handleintergroup.com
+                Hotline: 0-2393-2300 (Auto) | Fax: 0-2393-7307-10 | admincenter@handleintergroup.com
               </p>
             </div>
           </ScrollCardReveal>
 
-          {/* 🎴 Soft Cream Asymmetrical Arch Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-6xl mx-auto">
-            
-            {/* 🎴 Sales Department Card */}
-            <ScrollCardReveal direction="left" delay={100} className="h-full">
-              <div className="h-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] border border-amber-200/70 hover:border-amber-400/80 rounded-tr-[70px] sm:rounded-tr-[110px] rounded-bl-[70px] sm:rounded-bl-[110px] rounded-tl-3xl rounded-br-3xl p-8 sm:p-10 shadow-[0_20px_50px_rgba(217,119,6,0.08)] backdrop-blur-xl relative overflow-hidden transition-all duration-500 group hover:-translate-y-1.5 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 text-amber-800 flex items-center justify-center text-xl shadow-sm">
-                      <i className="fa-solid fa-briefcase"></i>
-                    </div>
-                    <div className="text-left">
-                      <h4 className="font-black text-stone-900 text-lg sm:text-xl">
-                        {isMounted && detailText.salesDept}
+          {/* 🎴 Business Card แบบ Asymmetrical Arch Shape */}
+          <div className="max-w-4xl w-full mx-auto">
+            <ScrollCardReveal direction="up" delay={100} className="h-full">
+              <div className="h-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] border border-amber-200/70 hover:border-amber-400/80 rounded-tr-[70px] sm:rounded-tr-[110px] rounded-bl-[70px] sm:rounded-bl-[110px] rounded-tl-3xl rounded-br-3xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(217,119,6,0.08)] backdrop-blur-xl relative overflow-hidden transition-all duration-500 group hover:-translate-y-1.5 flex flex-col justify-between">
+                <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-8 sm:gap-10">
+                  
+                  {/* ฝั่งซ้าย: Logo & Company Name */}
+                  <div className="w-full sm:w-5/12 flex flex-col items-center justify-center text-center space-y-3 bg-white/80 border border-amber-100 rounded-tr-[40px] rounded-bl-[40px] rounded-tl-xl rounded-br-xl p-6 shadow-sm">
+                    <img
+                      src="/images/handle inter logistic.png"
+                      alt="Handle Inter Consolidation Logo"
+                      className="h-16 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
+                    />
+                    <div>
+                      <h4 className="font-black text-stone-900 text-sm tracking-wider uppercase font-mono">
+                        HANDLE INTER CONSOL
                       </h4>
-                      <p className="text-xs text-stone-500 font-mono">Rates & Freight Consultation</p>
+                      <p className="text-[10px] text-stone-500 font-medium tracking-tight">
+                        Console & LCL Cargo Hub
+                      </p>
                     </div>
                   </div>
 
-                  <div className="space-y-3 text-xs font-mono text-left">
-                    {isMounted && detailText.salesContacts?.map((contact: { name: string; phone: string }, idx: number) => (
-                      <div key={idx} className="flex justify-between items-center bg-white/80 p-3.5 rounded-xl border border-amber-100 shadow-sm">
-                        <span className="text-stone-800 font-bold">{contact.name}</span>
-                        <a href={`tel:${contact.phone}`} className="text-amber-800 font-bold hover:underline">
-                          <i className="fa-solid fa-phone text-[10px] mr-1.5"></i>
-                          {contact.phone}
+                  {/* เส้นแบ่งแนวตั้งโทนอุ่น */}
+                  <div className="hidden sm:block w-[1.5px] bg-gradient-to-b from-amber-300 via-amber-400/50 to-transparent rounded-full my-1" />
+                  <div className="block sm:hidden w-full h-[1.5px] bg-gradient-to-r from-amber-300 via-amber-400/50 to-transparent rounded-full" />
+
+                  {/* ฝั่งขวา: Executive Info & Contacts */}
+                  <div className="w-full sm:w-7/12 space-y-4 text-left flex flex-col justify-center">
+                    <div>
+                      <h3 className="font-black text-stone-900 text-xl sm:text-2xl tracking-tight leading-snug">
+                        {isMounted && detailText.contact_name}
+                      </h3>
+                      <p className="text-xs font-bold text-amber-700 tracking-wide mt-1 font-mono">
+                        {isMounted && detailText.contact_position}
+                      </p>
+                    </div>
+
+                    <div className="space-y-3 pt-2 text-xs sm:text-sm text-stone-600 font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-sm">
+                          <i className="fa-solid fa-location-dot"></i>
+                        </div>
+                        <span className="line-clamp-1 text-stone-700">Bangkok & Worldwide Hub</span>
+                      </div>
+
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-sm">
+                          <i className="fa-solid fa-phone"></i>
+                        </div>
+                        <a
+                          href={`tel:${isMounted ? detailText.contact_phone : ""}`}
+                          className="hover:text-amber-700 transition-colors font-mono text-stone-800 font-semibold"
+                        >
+                          {isMounted && detailText.contact_phone}
                         </a>
                       </div>
-                    ))}
 
-                    <div className="pt-3 border-t border-amber-200/60 mt-3">
-                      <span className="text-[10px] text-stone-500 uppercase block mb-1">Sales Email:</span>
-                      <a href={`mailto:${isMounted ? detailText.salesEmail : ""}`} className="text-stone-900 hover:text-amber-700 font-bold text-xs underline decoration-amber-500/40">
-                        {isMounted && detailText.salesEmail}
-                      </a>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-sm">
+                          <i className="fa-solid fa-envelope"></i>
+                        </div>
+                        <a
+                          href={`mailto:${isMounted ? detailText.contact_email : ""}`}
+                          className="hover:text-amber-700 transition-colors line-clamp-1 font-mono text-stone-800 font-semibold"
+                        >
+                          {isMounted && detailText.contact_email}
+                        </a>
+                      </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </ScrollCardReveal>
-
-            {/* 🎴 CS (Customer Service) Department Card */}
-            <ScrollCardReveal direction="right" delay={200} className="h-full">
-              <div className="h-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] border border-amber-200/70 hover:border-amber-400/80 rounded-tr-[70px] sm:rounded-tr-[110px] rounded-bl-[70px] sm:rounded-bl-[110px] rounded-tl-3xl rounded-br-3xl p-8 sm:p-10 shadow-[0_20px_50px_rgba(217,119,6,0.08)] backdrop-blur-xl relative overflow-hidden transition-all duration-500 group hover:-translate-y-1.5 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 border border-amber-200 text-amber-800 flex items-center justify-center text-xl shadow-sm">
-                      <i className="fa-solid fa-users-gear"></i>
-                    </div>
-                    <div className="text-left">
-                      <h4 className="font-black text-stone-900 text-lg sm:text-xl">
-                        {isMounted && detailText.csDept}
-                      </h4>
-                      <p className="text-xs text-stone-500 font-mono">Import / Export Operations</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 text-xs font-mono text-left">
-                    {isMounted && detailText.csContacts?.map((contact: { name: string; phone: string }, idx: number) => (
-                      <div key={idx} className="flex justify-between items-center bg-white/80 p-3.5 rounded-xl border border-amber-100 shadow-sm">
-                        <span className="text-stone-800 font-bold">{contact.name}</span>
-                        <a href={`tel:${contact.phone}`} className="text-amber-800 font-bold hover:underline">
-                          <i className="fa-solid fa-phone text-[10px] mr-1.5"></i>
-                          {contact.phone}
-                        </a>
-                      </div>
-                    ))}
-
-                    <div className="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-amber-200/60 mt-3">
-                      <div>
-                        <span className="text-[10px] text-stone-500 uppercase block">Export Email:</span>
-                        <a href={`mailto:${isMounted ? detailText.exportEmail : ""}`} className="text-stone-900 hover:text-amber-700 font-bold text-xs truncate block">
-                          {isMounted && detailText.exportEmail}
-                        </a>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-stone-500 uppercase block">Import Email:</span>
-                        <a href={`mailto:${isMounted ? detailText.importEmail : ""}`} className="text-stone-900 hover:text-amber-700 font-bold text-xs truncate block">
-                          {isMounted && detailText.importEmail}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </ScrollCardReveal>
-
           </div>
 
           {/* ปุ่ม Back to About Us */}

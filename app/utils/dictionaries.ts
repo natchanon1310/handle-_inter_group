@@ -1,9 +1,9 @@
 export const dictionary = {
   en: {
-    nav: { home: "Home", about: "About Us", partners: "Partners", services: "News", news: "Contact us", quote: "Get a Quote" },
+    nav: { home: "Home", about: "About Us", partners: "Affiliated company", services: "News", news: "Contact us", quote: "Get a Quote" },
     hero: { 
       sub: "One Stop Logistics Provider", 
-      title1: "INTER NATTIONNAL LOGISTICS", 
+      title1: "INTER NATIONNAL LOGISTICS", 
       title2: "", 
       title3: "", 
       desc: "With over 30 years of experience in logistics and supply chain solutions.", 
@@ -26,8 +26,13 @@ export const dictionary = {
     news: { sub: "Latest News", title: "Stay Updated With Us", update: "Logistics Expansion News update" },
     contact: { title: "Get In Touch", name: "Name", email: "Email", msg: "Message", send: "Send Message" },
     about: {
-      sub: "Leading Logistics Provider of Thailand", title: "About Handle Inter Group", desc: "Stepping forward with higher stability, sustainability, and quality development for our global customers.",
-      m1_tag: "Established August 8, 2003", m1_title: "A Decade of Stability and Trusted International Standards",
+      sub: "Leading Logistics Provider of Thailand", 
+      title: "About Handle Inter Group", 
+      // 🟢 ข้อความประวัติความเป็นมาสำหรับ Section 1
+      history_title: "Company History & Milestones",
+      desc: "Stepping forward with higher stability, sustainability, and quality development for our global customers.",
+      m1_tag: "Established August 8, 2003", 
+      m1_title: "A Decade of Stability and Trusted International Standards",
       m1_p1: "Handle Inter Group focused on its best logistic system and quality. As a Total Logistic service provider with an international standard, it has been stepping into its tenth year with stability since the first day of its business on August 8, 2003.",
       m1_p2: "Along this successful long way, Handle Inter Group has been growing annually over 20%. This cause the Group develop all business related aspects continuously, becoming the best freight forwarder in Thailand and a leader in this industry.",
       growth: "Annual Growth Rate", sub_count: "Subsidiary Companies",
@@ -43,9 +48,8 @@ export const dictionary = {
     },
     subsidiaries: [
       { name: "H.I.T. Intercon Co., Ltd.", desc: "Covers comprehensive freight forwarding business." },
-      { name: "Handle Inter Consolidation", desc: "Provides console business and container management." },
-      { name: "Handle Inter Logistics", desc: "Specializes in high-efficiency air freight services." },
-      { name: "Handle Inter Service", desc: "Handles fairs, exhibition projects, and road shows." },
+      { name: "Handle Inter Consolidation", desc: "Professional" },
+      { name: "Handle Inter Logistics", desc: "TEAM WORK" },
       { name: "Handle Inter Express", desc: "Takes care of custom clearance and express delivery service." },
       { name: "Console Link", desc: "Provides strategic console services in Asia and Europe." },
       { name: "Siam Liners", desc: "Acts as a total logistics provider supporting the group's network." }
@@ -60,7 +64,7 @@ export const dictionary = {
     hitIntercon: {
       heroSub: "Subsidiary Profile",
       heroTitle: "H.I.T. Intercon Co., Ltd.",
-      heroDesc: "An extensive history of providing end-to-end global supply chain logistics, covering imports and exports to every destination worldwide with master class expert insights.",
+      heroDesc: "THE EXPERIENE",
       coreTitle: "Our Premium Logistical Infrastructure",
       s1_title: "Ocean Freight Solutions",
       s1_desc: "Comprehensive maritime shipping management covering Asia, Europe, Middle East, and the Americas routes with expert shipping structure consultancy.",
@@ -134,52 +138,85 @@ export const dictionary = {
       contact_phone: "08-2790-2863"
     },
     consoleLink: {
-      heroSub: "Subsidiary Consol Profile",
+      heroSub: "Subsidiary Console Profile",
       heroTitle: "Console Link Co., Ltd.",
-      heroDesc: "Committed to world-class logistics integration, providing systematic inbound & outbound cargo planning over expansive networks safely.",
-      coreTitle: "Our Core Strategic Infrastructure",
+      heroDesc: "Commitment to the goal",
+      coreTitle: "Our Core Strategic Capabilities",
       s1_title: "Ocean Freight Solutions",
-      s1_desc: "Dedicated systematic sea freight execution across major international sea routes, covering the Mediterranean, Europe, and Asia.",
-      s1_sub1: "Full Container Load (FCL)",
-      s1_sub2: "Less Than Container Load (LCL)",
-      s2_title: "Air Freight Infrastructure",
-      s2_desc: "Highly systematic air freight management specializing heavily in professional Airfreight Consolidation to optimize logistical speed.",
-      s2_sub1: "Global Door to Door Transport (DDU / DDP / FCA / Ex-work)",
-      s3_title: "SME LCL Cargo Consolidation",
-      s3_desc: "Tailored small-to-medium cargo consolidation planning executed weekly to secure punctual deliveries, specialized in Intra-Asia paths.",
+      s1_desc: "Committed to comprehensive freight logistics for customer shipments, covering inbound and outbound routes across Mediterranean, European, and Asian sectors.",
+      s1_sub1: "Full Container Load (FCL) Services",
+      s1_sub2: "Less Than Container Load (LCL) Services",
+      s2_title: "Air Freight Services",
+      s2_desc: "Dedicated systematic airfreight solutions and consultancy tailored to client needs, with expert focus on Airfreight Consolidation to maximize efficiency.",
+      s2_sub1: "Door to Door Transport Services (DDU / DDP / FCA / Ex-work, etc.)",
+      s3_title: "LCL Cargo Consolidation",
+      s3_desc: "Tailored specifically for SMEs with smaller cargo volumes. We manage consolidation, packing plans, and weekly onward distribution efficiently to destinations like Intra-Asia on time.",
       s5_title: "Land Transportation",
-      s5_subTitle: "Professional Trucking & Distribution Fleet",
-      s5_desc: "Committed freight distribution deployed across every style of utility vehicle to manage supply volumes smoothly.",
+      s5_subTitle: "Professional Trucking & Transport Fleet",
+      s5_desc: "Every commitment delivers services to support all transport demands across all vehicle types safely.",
       s5_t1: "4-Wheel High Roof Trucks",
       s5_t2: "6-Wheel Side-Opening Trucks",
-      s5_t3: "10-Wheel & Heavy Trucks",
-      s5_h1: "Container Trailer (20 FT)",
-      s5_h2: "Container Trailer (40 FT)",
+      s5_t3: "10-Wheel & Heavy Duty Trucks",
+      s5_h1: "20 FT Container Trailers",
+      s5_h2: "40 FT Container Trailers",
+      s4_title: "Customs Clearance Services",
+      s4_desc: "Dedicated border customs execution to ensure smooth and accurate cross-border trade operations.",
+      s4_sub1: "Inbound & Outbound Sea Customs Brokerage",
+      s4_sub2: "Inbound & Outbound Air Customs Brokerage",
+      s4_sub3: "Certificate of Origin (C/O) Issuance",
+      s4_sub4: "Blue Corner Tax Refund / Article 19 Bis / BOI",
       contact_name: "Mr. Nutthapun",
       contact_position: "Marketing Manager",
       contact_email: "nutthapun@consollink.com",
       contact_phone: "08-2486-4319 / 08-1303-4343"
     },
+    // 🟢 อัปเดตข้อมูลภาษาอังกฤษ Siam Liners
     siamLiners: {
-      heroSub: "NVOCC Liner Profile",
+      heroSub: "NVOCC Shipping Line Profile",
       heroTitle: "Siam Liners Co., Ltd.",
-      heroDesc: "Specializing in comprehensive container shipping routes. With our expert maritime logistics foundation, we provide top-tier professional NVOCC operations tailored to fulfill all global trading needs seamlessly.",
-      coreTitle: "Our NVOCC Core Advantages",
-      coreDesc: "Professional maritime route optimization and container logistics structures.",
-      feat1_title: "Flexible Frequency Schedules",
-      feat1_desc: "Offering highly customizable and recurrent shipping dates tailored as much as your commercial volume demands.",
-      feat2_title: "Guaranteed Route Schedules",
-      feat2_desc: "Maintaining concrete, absolute, and trusted fixed container sailing paths across all strategic ocean routes.",
-      feat3_title: "Expert Coordination Crews",
-      feat3_desc: "Highly qualified operational personnel providing continuous assistance and seamless network communication.",
-      feat4_title: "Advanced Tech Integration",
-      feat4_desc: "Utilizing top-tier communications technology to secure live inventory distribution transparency at all touchpoints.",
-      scheduleTitle: "Import & Export Vessel Schedule Matrix",
-      contactTitle: "Departmental Contact Directory"
+      heroDesc: "Specializing in all shipping routes with professional expertise. We are confident in delivering top-tier service to meet all your container shipping and global trade requirements.",
+      coreTitle: "Our Key Advantages & Core Strengths",
+      coreDesc: "Because we specialize, we are ready to offer you more.",
+      feat1_title: "High Frequency Sailing Schedules",
+      feat1_desc: "Providing flexible shipping schedules with high frequency (Frequency Sailing) as much as your commercial volume demands.",
+      feat2_title: "Fixed Vessel Schedules",
+      feat2_desc: "Guaranteed concrete and reliable fixed sailing routes for all shipping paths.",
+      feat3_title: "Expert Consultation Team",
+      feat3_desc: "Qualified professional staff providing continuous consultation, contact, and coordination at all times.",
+      feat4_title: "Advanced Communication Tech",
+      feat4_desc: "Fully equipped with modern communication technology for seamless operations.",
+      
+      more_title: "Why Choose Our Specialized Services?",
+      more1_title: "Stuffing & Un-stuffing Services",
+      more1_desc: "Dedicated professional staff monitoring container loading and unloading (Stuffing/Un-stuffing) at all times.",
+      more2_title: "Packaging & Re-packing",
+      more2_desc: "Professional packaging and re-packing solutions tailored to preserve cargo integrity.",
+      more3_title: "24-Hour Active Support",
+      more3_desc: "Round-the-clock coordination and tracking team providing 24/7 live updates.",
+
+      scheduleTitle: "Import Vessel Schedule Matrix",
+      scheduleSubtitle: "Weekly Updated Maritime Import Schedule",
+      
+      contactTitle: "Contact Siam Liners Co., Ltd.",
+      centerPhone: "02-393-5300 #5141 , 080-993-6445",
+      salesDept: "Sales Department",
+      salesContacts: [
+        { name: "K.Toey", phone: "092-280-6609" },
+        { name: "K.Jame", phone: "099-227-9517" }
+      ],
+      salesEmail: "SLN_SALES@siamliner.com",
+      
+      csDept: "Customer Service (CS) Department",
+      csContacts: [
+        { name: "K.Keaw", phone: "086-894-1581" },
+        { name: "K.Yale", phone: "088-809-9293" }
+      ],
+      exportEmail: "SLN_OUTBOUND@siamliner.com",
+      importEmail: "SLN_INBOUND@siamliner.com"
     }
   },
   th: {
-    nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "พันธมิตร", services: "ข่าวสาร", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
+    nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "บริษัทในเครือ", services: "ข่าวสาร", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
     hero: { 
       sub: "ผู้ให้บริการโลจิสติกส์แบบครบวงจร", 
       title1: "บริการโลจิสติกส์ระดับโลก", 
@@ -205,8 +242,13 @@ export const dictionary = {
     news: { sub: "ข่าวสารล่าสุด", title: "อัปเดตข่าวสารกับเรา", update: "อัปเดตข่าวสารการขยายเครือข่ายโลจิสติกส์ ชุดที่" },
     contact: { title: "ติดต่อเรา", name: "ชื่อของคุณ", email: "อีเมลของคุณ", msg: "ข้อความ", send: "ส่งข้อความ" },
     about: {
-      sub: "ผู้ให้บริการโลจิสติกส์ชั้นนำของประเทศไทย", title: "เกี่ยวกับ แฮนเดิล อินเตอร์ กรุ๊ป", desc: "ก้าวไปข้างหน้าด้วยความมั่นคงที่เหนือกว่า ความยั่งยืน และการพัฒนาคุณภาพเพื่อลูกค้าทั่วโลกของเรา",
-      m1_tag: "ก่อตั้งเมื่อวันที่ 8 สิงหาคม 2546", m1_title: "หนึ่งทศวรรษแห่งความมั่นคงและมาตรฐานสากลที่ได้รับความไว้วางใจ",
+      sub: "ผู้ให้บริการโลจิสติกส์ชั้นนำของประเทศไทย", 
+      title: "เกี่ยวกับ แฮนเดิล อินเตอร์ กรุ๊ป", 
+      // 🟢 ข้อความประวัติความเป็นมาสำหรับ Section 1
+      history_title: "ประวัติความเป็นมาและการเติบโตขององค์กร",
+      desc: "ก้าวไปข้างหน้าด้วยความมั่นคงที่เหนือกว่า ความยั่งยืน และการพัฒนาคุณภาพเพื่อลูกค้าทั่วโลกของเรา",
+      m1_tag: "ก่อตั้งเมื่อวันที่ 8 สิงหาคม 2546", 
+      m1_title: "หนึ่งทศวรรษแห่งความมั่นคงและมาตรฐานสากลที่ได้รับความไว้วางใจ",
       m1_p1: "แฮนเดิล อินเตอร์ กรุ๊ป มุ่งเน้นไปที่ระบบโลจิสติกส์และคุณภาพที่ดีที่สุด ในฐานะผู้ให้บริการโลจิสติกส์ครบวงจร (Total Logistics) ที่มีมาตรฐานสากล บริษัทได้ก้าวเข้าสู่ปีที่สิบด้วยความมั่นคงนับตั้งแต่วันแรกที่เริ่มดำเนินธุรกิจเมื่อวันที่ 8 สิงหาคม พ.ศ. 2546",
       m1_p2: "ตลอดเส้นทางอันยาวนานที่ประสบความสำเร็จ แฮนเดิล อินเตอร์ กรุ๊ป มีการเติบโตประจำปีมากกว่า 20% ส่งผลให้กลุ่มบริษัทพัฒนาแง่มุมที่เกี่ยวข้องกับธุรกิจทั้งหมดอย่างต่อเนื่อง จนกลายเป็นผู้รับจัดการขนส่งสินค้าที่ดีที่สุดในประเทศไทยและเป็นผู้นำในอุตสาหกรรมนี้",
       growth: "อัตราการเติบโตต่อปี", sub_count: "บริษัทในเครือ",
@@ -222,10 +264,9 @@ export const dictionary = {
     },
     subsidiaries: [
       { name: "บริษัท เอช.ไอ.ที. อินเตอร์คอน จำกัด", desc: "ครอบคลุมธุรกิจรับจัดการขนส่งสินค้าซัพพลายเชนระหว่างประเทศอย่างครบวงจร" },
-      { name: "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด", desc: "ให้บริการธุรกิจรวบรวมสินค้า (Console) และการจัดการตู้คอนเทนเนอร์" },
-      { name: "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด", desc: "เชี่ยวชาญด้านบริการขนส่งสินค้าทางอากาศที่มีประสิทธิภาพสูง" },
-      { name: "Handle Inter Service", desc: "จัดการโครงการนิทรรศการ งานแสดงสินค้า และกิจกรรมโรดโชว์ต่าง ๆ" },
-      { name: "Handle Inter Express", desc: "ดูแลพิธีการศุลกากรและบริการจัดส่งสินค้าด่วนพิเศษ" },
+      { name: "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด", desc: "มืออาชีพ" },
+      { name: "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด", desc: "ทำงานเป็นทีม" },
+      { name: "บริษัท แฮนเดิล อินเตอร์ เอ็กซ์เพรส จำกัด", desc: "ดูแลพิธีการศุลกากรและบริการจัดส่งสินค้าด่วนพิเศษ" },
       { name: "บริษัท คอนโซล ลิงค์ จำกัด", desc: "ให้บริการรวบรวมตู้สินค้าเชิงกลยุทธ์ในภูมิภาคเอเชียและยุโรป" },
       { name: "บริษัท สยามไลน์เนอร์ จำกัด", desc: "ผู้ให้บริการโลจิสติกส์ครบวงจรสนับสนุนเครือข่ายทั่วโลก" }
     ],
@@ -239,7 +280,7 @@ export const dictionary = {
     hitIntercon: {
       heroSub: "ข้อมูลบริษัทในเครือ",
       heroTitle: "บริษัท เอช.ไอ.ที. อินเตอร์คอน จำกัด",
-      heroDesc: "ประสบการณ์ด้านการจัดการขนส่งสินค้าที่พร้อมให้คุณได้มากกว่าการบริการ ในฐานะตัวแทนผู้ให้บริการระบบโลจิสติกส์อย่างครบวงจรในทุกเส้นทางขนส่งทั่วโลก",
+      heroDesc: "มากมายประสบการณ์",
       coreTitle: "ขีดความสามารถและบริการหลักของเรา",
       s1_title: "ขนส่งสินค้าทางทะเล",
       s1_desc: "การรับจัดการขนส่งสินค้าระหว่างประเทศทั้งนำเข้าและส่งออก ครอบคลุมเส้นทางหลักทั่วโลก ด้วยประสบการณ์และความรอบรู้จึงสามารถให้คำปรึกษาและวางแผนได้อย่างผู้เชี่ยวชาญ",
@@ -277,12 +318,12 @@ export const dictionary = {
       c3_desc: "การประสานงานที่เป็นเลิศ พร้อมดำเนินการพิธีการศุลกากรทุกขั้นตอน รวมไปถึงการใช้เทคโนโลยีที่ทันสมัยและทีมงานที่มากประสบการณ์ เพื่อตอบสนองความพึงพอใจของผู้รับบริการ",
       specTitle: "ทำไมต้องเลือกบริการคอนโซลิเดชั่นของเรา?",
       spec1: "ตารางเรือออกรายสัปดาห์ที่แน่นอน", spec2: "เชื่อมต่อเส้นทางพันธมิตรทั่วโลก", spec3: "ลดต้นทุนการดำเนินงานของลูกค้า", spec4: "ระบบติดตามสถานะดิจิทัลอัจฉริยะ",
-      contact_name: "Ms. Supattra", contact_position: "Marketing Manager", contact_email: "supattra@handleinterlogistics.com", contact_phone: "08-9683-5897"
+      contact_name: "Ms. Supattra", contact_position: "Marketing Manager", contact_email: "supattra@handleinterlogistics.com", contact_phone: "08-89683-5897"
     },
     interLogistics: {
       heroSub: "ข้อมูลบริษัทในเครือ",
       heroTitle: "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด",
-      heroDesc: "บริการอย่างมืออาชีพด้านการจัดการขนส่งสินค้า ด้วยทีมงานคุณภาพพร้อมให้คำแนะนำ วางแผนการจัดการขนส่งสินค้าข้ามแดนอย่างครบวงจร",
+      heroDesc: "การทำงานเป็นทีม",
       coreTitle: "ขีดความสามารถและบริการหลักของเรา",
       s1_title: "ขนส่งสินค้าทางทะเล",
       s1_desc: "การจัดการด้านการขนส่งทางเรือ ทั้งขาเข้าและขาออก ทีมงานคุณภาพพร้อมให้คำแนะนำ ปรึกษา วางแผนให้การขนส่งเป็นไปได้อย่างง่ายดาย มีเครือข่ายครอบคลุมทั่วทุกเส้นทางการขนส่งทั้งเอเซีย ยุโรป ตะวันออกกลาง และอเมริกา",
@@ -309,14 +350,14 @@ export const dictionary = {
     consoleLink: {
       heroSub: "ข้อมูลบริษัทในเครือ",
       heroTitle: "บริษัท คอนโซล ลิงค์ จำกัด",
-      heroDesc: "มุ่งมั่นบริการ รองรับทุกความต้องการด้านการจัดการขนส่งอย่างครบวงจร ทั้งสินค้าขาเข้าและขาออก ด้วยเครือข่ายที่มั่นคงและครอบคลุมทั่วโลก",
+      heroDesc: "ความมุ่งมั่น....สู้เป้าหมาย",
       coreTitle: "ขีดความสามารถและบริการหลักของเรา",
       s1_title: "ขนส่งสินค้าทางทะเล",
-      s1_desc: "มุ่งมั่นในการบริการด้านการขนส่งสินค้าของลูกค้าอย่างครบวงจร ทั้งขาเข้าและขาออก มีเครือข่ายครอบคลุมทั่วทุกเส้นทางในโซนเมดิเตอร์เรเนี่ยน ยุโรป และเอเชีย",
+      s1_desc: "มุ่งมั่นในการบริการด้านการขนส่ง สินค้าของลูกค้าทุกความต้องการอย่างครบวงจร รวมถึงให้บริการด้านการขนส่งสินค้าขาเข้า และขาออก ที่มีเครือข่ายครอบคลุมทั่วทุกเส้นทางในโซนเมดิเตอร์เรเนี่ยน ยุโรป และเอเชีย",
       s1_sub1: "บริการจัดการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load: FCL)",
       s1_sub2: "บริการจัดการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load: LCL)",
       s2_title: "ขนส่งสินค้าทางอากาศ",
-      s2_desc: "ทีมงานพร้อมด้วยความมุ่งมั่นที่จะให้บริการอย่างเป็นระบบ ครอบคลุมทั้งการให้คำแนะนำ บริหารจัดการขนส่งสินค้าทางอากาศประสิทธิภาพสูงตอบสนองทุกความต้องการอย่างแท้จริง",
+      s2_desc: "ทีมงานที่พร้อมด้วยความมุ่งมั่นที่จะให้บริการอย่างเป็นระบบ ครอบคลุมทั้งการให้คำแนะนำ ปรึกษา และบริหารการจัดการการขนส่งตามความต้องการของลูกค้าอย่างสูงสุด โดยเฉพาะการรวบรวมสินค้า (Airfreight Consol) แล้วนำมาบริหารการจัดการการขนส่งให้มีประสิทธิภาพตอบสนองทุกความต้องการของลูกค้าอย่างแท้จริง",
       s2_sub1: "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU/DDP/FCA/Ex-work) etc.,",
       s3_title: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์",
       s3_desc: "คำนึงถึงธุรกิจขนาดเล็กและขนาดกลาง (SMEs) ที่ต้องการขนส่งสินค้าจำนวนไม่มาก เรามีการบริการรวบรวมสินค้า บริหารวางแผนจัดวางและกระจายสินค้าไปยังปลายทางอย่าง Intra-Asia ได้อย่างตรงเวลาในทุกๆ สัปดาห์",
@@ -324,25 +365,61 @@ export const dictionary = {
       s5_subTitle: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง",
       s5_desc: "ทุกความมุ่งมั่น คือทุกการบริการเพื่อรองรับความต้องการด้วยรถบรรทุกทุกประเภท ทุกการใช้งาน พร้อมดูแลสินค้าอย่างปลอดภัย",
       s5_t1: "4 ล้อหลังคาสูง", s5_t2: "6 ล้อเปิดข้าง", s5_t3: "10 ล้อขึ้นไป",
-      s5_h1: "รถหัวลากคอนเทนเนอร์ 20 ฟุต", s5_h2: "รถหัวลากคอนเทนเนอร์ 40 ฟุต",
-      contact_name: "Mr. Nutthapun", contact_position: "Marketing Manager", contact_email: "nutthapun@consollink.com", contact_phone: "08-2486-4319 / 08-1303-4343"
+      s5_h1: "รถหัวลาก 20 ฟุต", s5_h2: "รถหัวลาก 40 ฟุต",
+      s4_title: "ดำเนินการพิธีการศุลกากร",
+      s4_desc: "การบริการของการเดินพิธีการผ่านแดนเป็นอีกหนึ่งบริการที่มุ่งมั่น",
+      s4_sub1: "บริการดำเนินพิธีการทางเรือ ทั้งขาเข้า-ขาออก",
+      s4_sub2: "บริการดำเนินพิธีการทางอากาศ ทั้งขาเข้า-ขาออก",
+      s4_sub3: "บริการออกหนังสือรับรองถิ่นกำเนิดสินค้า (Certificate of Origin)",
+      s4_sub4: "บริการขอคืนภาษีอากรสำหรับผู้ส่งออก (มุมน้ำเงิน) /มาตรา 19 ทวี/บีโอไอ",
+      contact_name: "Mr. Nutthapun",
+      contact_position: "Marketing Manager",
+      contact_email: "nutthapun@consollink.com",
+      contact_phone: "08-2486-4319 / 08-1303-4343"
     },
+    // 🟢 อัปเดตข้อมูลภาษาไทย Siam Liners
     siamLiners: {
-      heroSub: "ข้อมูลบริษัทในเครือ (NVOCC)",
+      heroSub: "สายเรือ (NVOCC)",
       heroTitle: "บริษัท สยามไลน์เนอร์ จำกัด",
-      heroDesc: "เชี่ยวชาญทุกเส้นทางการเดินเรือ (NVOCC) มั่นใจในการให้บริการอย่างมืออาชีพ พร้อมตอบสนองและรองรับในทุกความต้องการด้านการขนส่งตู้คอนเทนเนอร์และซัพพลายเชนระดับโลก",
-      coreTitle: "ขีดความสามารถและบริการของสายเรือเรา",
-      coreDesc: "ปฏิบัติการเฉพาะเจาะจงเพื่อเพิ่มเสถียรภาพและความคุ้มค่าในตารางการเดินเรือของคุณ",
-      feat1_title: "ตารางเวลาและความถี่สูง",
-      feat1_desc: "เชี่ยวชาญทุกเส้นทางการเดินเรือ มีตารางความถี่การเดินเรือ (Frequency Sailing) รองรับสินค้ามากเท่าที่คุณต้องการอย่างมืออาชีพ",
-      feat2_title: "เส้นทางเดินเรือที่แน่นอน",
-      feat2_desc: "มีตารางเวลาการออกเรือและโครงสร้างสายเรือตู้สินค้าคอนเทนเนอร์ที่แน่นอน แม่นยำ ในทุกเส้นทางสากล",
-      feat3_title: "ทีมงานผู้เชี่ยวชาญ",
-      feat3_desc: "มีบุคลากรที่มีความเชี่ยวชาญสายตรงพร้อมให้คำปรึกษา ติดต่อ และประสานงานเคียงข้างคุณตลอดเวลา",
-      feat4_title: "เทคโนโลยีการสื่อสารที่ทันสมัย",
-      feat4_desc: "มีความพร้อมด้านเทคโนโลยีและระบบจัดเตรียมข้อมูลสื่อสาร เพื่อความโปร่งใสและแม่นยำในขั้นตอนลอจิสติกส์",
-      scheduleTitle: "ตัวอย่างตารางเรือนำเข้าและส่งออกประจำสัปดาห์",
-      contactTitle: "ข้อมูลการติดต่อประสานงานแยกแผนก"
+      heroDesc: "ตารางเรือ นำเข้า และ ส่งออก",
+      coreTitle: "จุดเด่นและขีดความสามารถหลักของเรา",
+      coreDesc: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า",
+      feat1_title: "ตารางเวลา ความถี่ (Frequency Sailing)",
+      feat1_desc: "มีตารางเวลา ความถี่การเดินเรือ มากเท่าที่คุณต้องการ รองรับปริมาณสินค้าได้อย่างมืออาชีพ",
+      feat2_title: "ตารางเวลาเดินเรือที่แน่นอน",
+      feat2_desc: "มีตารางเวลาการเดินเรือที่แน่นอนในทุกเส้นทาง ให้คุณวางแผนโลจิสติกส์ได้อย่างแม่นยำ",
+      feat3_title: "บุคลากรเชี่ยวชาญพร้อมให้คำปรึกษา",
+      feat3_desc: "มีบุคลากรที่เชี่ยวชาญให้คำปรึกษา ติดต่อและประสานงานตลอดเวลา",
+      feat4_title: "เทคโนโลยีสื่อสารทันสมัย",
+      feat4_desc: "มีความพร้อมด้านเทคโนโลยีในด้านการสื่อสาร เพื่อความโปร่งใสและรวดเร็วในการติดตามงาน",
+
+      more_title: "บริการพิเศษที่พร้อมให้คุณมากกว่า",
+      more1_title: "บริการขนถ่ายสินค้าตู้คอนเทนเนอร์",
+      more1_desc: "มีบุคลากรพร้อมบริการดูแลนำสินค้าเข้า – ออกตลอดเวลาจากตู้คอนเทนเนอร์ (Stuffing/un-stuffing)",
+      more2_title: "บริการด้านหีบห่อ (Re-packing)",
+      more2_desc: "มีบริการด้านหีบห่อ re-packing ที่ได้มาตรฐาน เพื่อความปลอดภัยสูงสุดของสินค้า",
+      more3_title: "ทีมงานประสานงานตลอด 24 ชั่วโมง",
+      more3_desc: "พร้อมด้วยบุคลากรประสานงาน ติดตามสถานะสินค้าตลอด 24 ชั่วโมง",
+
+      scheduleTitle: "ตารางเรือนำเข้า (Import Vessel Schedule)",
+      scheduleSubtitle: "ตารางการออกเดินเรือประจำสัปดาห์สำหรับสินค้าขาเข้า",
+
+      contactTitle: "ติดต่อเรา — บริษัท สยามไลน์เนอร์ จำกัด",
+      centerPhone: "02-393-5300 #5141 , 080-993-6445",
+      salesDept: "แผนก Sales",
+      salesContacts: [
+        { name: "K.Toey", phone: "092-280-6609" },
+        { name: "K.Jame", phone: "099-227-9517" }
+      ],
+      salesEmail: "SLN_SALES@siamliner.com",
+
+      csDept: "แผนก CS (Customer Service)",
+      csContacts: [
+        { name: "K.Keaw", phone: "086-894-1581" },
+        { name: "K.Yale", phone: "088-809-9293" }
+      ],
+      exportEmail: "SLN_OUTBOUND@siamliner.com",
+      importEmail: "SLN_INBOUND@siamliner.com"
     }
   }
 };
