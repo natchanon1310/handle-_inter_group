@@ -3,7 +3,7 @@ export const dictionary = {
     nav: { home: "Home", about: "About Us", partners: "Affiliated company", services: "News", news: "Contact us", quote: "Get a Quote" },
     hero: { 
       sub: "One Stop Logistics Provider", 
-      title1: "INTER NATIONNAL LOGISTICS", 
+      title1: "INTERNATIONAL LOGISTICS", 
       title2: "", 
       title3: "", 
       desc: "With over 30 years of experience in logistics and supply chain solutions.", 
@@ -28,10 +28,14 @@ export const dictionary = {
     about: {
       sub: "Leading Logistics Provider of Thailand", 
       title: "About Handle Inter Group", 
-      // 🟢 ข้อความประวัติความเป็นมาสำหรับ Section 1
       history_title: "Company History & Milestones",
       desc: "Stepping forward with higher stability, sustainability, and quality development for our global customers.",
+      devsuvt: "Enhancing readiness for the opening of the AEC",
+      m1_h1: "Customers are partners.",
+      m1_h2: "The most important business avenue",
       m1_tag: "Established August 8, 2003", 
+      m1_tag2: "Khun Somchai Rungborwornwong",
+      m1_tag3: "managing director",
       m1_title: "A Decade of Stability and Trusted International Standards",
       m1_p1: "Handle Inter Group focused on its best logistic system and quality. As a Total Logistic service provider with an international standard, it has been stepping into its tenth year with stability since the first day of its business on August 8, 2003.",
       m1_p2: "Along this successful long way, Handle Inter Group has been growing annually over 20%. This cause the Group develop all business related aspects continuously, becoming the best freight forwarder in Thailand and a leader in this industry.",
@@ -44,7 +48,9 @@ export const dictionary = {
       sub_sub: "Total Integrated Network", sub_title: "Our 7 Subsidiary Companies", sub_desc: "Ready to provide full air, land, and maritime services to cater to all the individual needs of our customers.",
       aec_tag: "Strategic Preparation", aec_title: "Keep Developing for AEC & Beyond",
       aec_desc: "Logistics providers must be prepared for higher competition and foreign penetration into Thailand, as well as expansion into other ASEAN nations. This is why Handle Inter Group has kept developing its strategies and human resources seamlessly.",
-      aec_foot: "10 years in the business is the absolute proof of our success."
+      aec_foot: "10 years in the business is the absolute proof of our success.",
+      bt_m1: "Read the business partner vision ↗",
+      bt_m2: "✓ The Best Transport & Service",
     },
     subsidiaries: [
       { name: "H.I.T. Intercon Co., Ltd.", desc: "Covers comprehensive freight forwarding business." },
@@ -52,7 +58,9 @@ export const dictionary = {
       { name: "Handle Inter Logistics", desc: "TEAM WORK" },
       { name: "Handle Inter Express", desc: "Takes care of custom clearance and express delivery service." },
       { name: "Console Link", desc: "Provides strategic console services in Asia and Europe." },
-      { name: "Siam Liners", desc: "Acts as a total logistics provider supporting the group's network." }
+      { name: "Siam Liners", desc: "Acts as a total logistics provider supporting the group's network." },
+      { name: "Pkt Logistic", desc: "" }
+
     ],
     footer: {
       visit: "Visit Us", subsidiaries: "Subsidiary Companies", news: "News & Activities", mapTitle: "Find Us Here",
@@ -62,76 +70,225 @@ export const dictionary = {
       newsList: ["General News", "Knowledge Base", "Activities", "Privacy Policy"], mapBtn: "Global Connectivity Map"
     },
     hitIntercon: {
-      heroSub: "Subsidiary Profile",
-      heroTitle: "H.I.T. Intercon Co., Ltd.",
-      heroDesc: "THE EXPERIENE",
-      coreTitle: "Our Premium Logistical Infrastructure",
+      heroSub: "H.I.T. INTERCON",
+      heroTitle: "H.I.T. INTERCON CO., LTD.",
+      heroDesc: "THE EXPERIENCE",
+      exploreBtn: "EXPLORE DIGITAL BROCHURE",
+      inquireBtn: "Inquire Service Now ↗",
+      backAboutBtn: "Back to About Us",
+      scopeTitle: "Service Scope & Capabilities",
+      selectServiceTitle: "Select Core Logistics Service :",
+      contactBadge: "Contact Information",
+      contactHeadOffice: "Bangkok & Worldwide Hub",
+      catalogTitle: "H.I.T. Intercon Flipbook Catalog",
+      catalogSubtitle: "Click the arrows to flip pages or use controls below.",
+      coverSub: "ONE STOP FREIGHT FORWARDER",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "We are able to provide you a one stop service where all your needs and demand will be met. Our professional and experience marketing team will ensure that all your goods will be taken care of from it’s origin to it’s destination on time. Choose us, choose superior experiencing service quality.",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+      s1_tab: "Ocean Freight",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
       s1_title: "Ocean Freight Solutions",
-      s1_desc: "Comprehensive maritime shipping management covering Asia, Europe, Middle East, and the Americas routes with expert shipping structure consultancy.",
-      s1_sub1: "Full Container Load (FCL) Handling",
-      s1_sub2: "Less Than Container Load (LCL) Solutions",
-      s1_sub3: "Cross-Border Transport Frameworks",
-      s1_sub4: "Specialized Deep-Freeze Frozen Seafood Logistics",
-      s1_sub5: "Special Heavy Duty & Oversize Cargo Handling",
+      s1_sub: "Professional Logistics Management by Expert Teams",
+      s1_desc: "With a professional team, sea freight management for both import and export makes everything seamless. Our quality team is ready to provide consultation, planning, and smooth shipping with networks covering Asia, Europe, Middle East, and America.",
+      s1_items: [
+        "Full Container Load (FCL) Handling",
+        "Less Than Container Load (LCL) Solutions",
+        "Cross-Border Transport Frameworks",
+        "Specialized Deep-Freeze Frozen Seafood Logistics",
+        "Special Heavy Duty & Oversize Cargo Handling"
+      ],
+      s2_tab: "Air Freight",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
       s2_title: "Air Freight Services",
-      s2_desc: "Inbound and outbound air cargo transport to every corner of the world. Managed efficiently to response perfectly to your schedule and volume demands.",
-      s2_sub1: "Seamless Door to Door Delivery (DDU / DDP / FCA / Ex-work)",
-      s3_title: "Weekly LCL Consolidation",
-      s3_desc: "Securing small-to-medium enterprise orders via highly structured container allocation, optimized packing layouts, and trusted weekly consolidation frequencies.",
-      s5_title: "Land Transportation",
-      s5_subTitle: "Flexible Trucking & Domestic Fleet",
-      s5_desc: "Comprehensive container haulage and truck logistics configured perfectly to answer any domestic supply path demands.",
-      s5_t1: "4-Wheel High Roof Trucks",
-      s5_t2: "6-Wheel Side-Opening Trucks",
-      s5_t3: "10-Wheel & Heavy Duty Vehicles",
-      s5_h1: "Container Trailer (20 FT)",
-      s5_h2: "Container Trailer (40 FT)",
+      s2_sub: "Worldwide Inbound & Outbound Connectivity",
+      s2_desc: "Extensive air cargo transport expertise for both inbound and outbound routes to every corner of the world, 24/7. Responding precisely to your schedules with specialized Intra-Asia coverage.",
+      s2_items: [
+        "Seamless Door to Door Delivery (DDU / DDP / FCA / Ex-work)",
+        "Urgent & Temperature-controlled Cargo Logistics",
+        "Global Major Airport Network Reach"
+      ],
+      s3_tab: "LCL Consolidation",
+      s3_tag: "CORE SERVICE 03 // LCL CONSOLIDATION",
+      s3_title: "LCL Cargo Consolidation",
+      s3_sub: "Secure Planning for Small & Medium Cargo",
+      s3_desc: "Securing small-to-medium enterprise orders via highly structured container allocation, optimized packing layouts, and trusted weekly consolidation frequencies across Intra-Asia and global destinations.",
+      s3_items: [
+        "Weekly Consolidation with concrete sailing schedules",
+        "Standardized container allocation & management",
+        "Maximized stuffing layout efficiency",
+        "Continuous warehouse container opening hub"
+      ],
+      s4_tab: "Land Transport",
+      s4_tag: "CORE SERVICE 04 // LAND TRANSPORT",
+      s4_title: "Land Transportation",
+      s4_sub: "Flexible Trucking & Domestic Fleet",
+      s4_desc: "Supporting all cargo transportation requirements across all truck types and usages, equipped with 24/7 GPS tracking systems for maximum transit safety.",
+      s4_items: [
+        "4-Wheel High Roof Trucks",
+        "6-Wheel Side-Opening Trucks",
+        "10-Wheel & Heavy Duty Trucks",
+        "20 FT Container Trailers",
+        "40 FT Container Trailers"
+      ],
+      s5_tab: "Customs Clearance",
+      s5_tag: "CORE SERVICE 05 // CUSTOMS CLEARANCE",
+      s5_title: "Customs Clearance & Brokerage",
+      s5_sub: "Modern Paperless Customs Technology",
+      s5_desc: "Experienced broker teams providing full advice, fast paperless customs clearances, and maximizing all legal tax privileges for both sea and air borders.",
+      s5_items: [
+        "Inbound & Outbound Ocean Customs Services",
+        "Inbound & Outbound Air Customs Services",
+        "Certificate of Origin (C/O) Issuance",
+        "Blue Corner Tax Refund / Article 19 Bis / BOI Privileges"
+      ],
       c1_name: "Ms. Siripimon", c1_pos: "Marketing Director", c1_mail: "siripimon@hitintercon.com", c1_phone: "08-2486-4243",
       c2_name: "Mr. Teerapong", c2_pos: "Marketing Manager", c2_mail: "teerapong@hitintercon.com", c2_phone: "09-0678-8284"
     },
     consolidation: {
-      heroSub: "Subsidiary Profile",
-      heroTitle: "Handle Inter Consolidation",
-      heroDesc: "Empowering global trade through world-class cargo consolidation, precise container management, and reliable supply chain networks.",
-      coreTitle: "Core Services & Capabilities",
-      c1_title: "Ocean Freight Service",
-      c1_desc: "We provide both FCL and LCL shipping with a wide choice of ocean liners, offering flexibility in sailings, increased vessel space, and highly reliable schedules.",
-      c2_title: "Air Freight Service",
-      c2_desc: "We offer comprehensive global air freight services for both import and export shipments, along with seamless door-to-door services including customs brokerage solutions.",
-      c3_title: "Customs Clearance Service",
-      c3_desc: "Seamless coordination executing every step of customs clearance. Powered by modern technology and highly experienced teams to maximize customer satisfaction.",
-      specTitle: "Why Choose Our Consolidation?",
-      spec1: "Scheduled Weekly Departures", spec2: "Global Route Connectivity", spec3: "Optimized Operational Costs", spec4: "Seamless Digital Tracking",
-      contact_name: "Ms. Supattra", contact_position: "Marketing Manager", contact_email: "supattra@handleinterlogistics.com", contact_phone: "08-9683-5897"
+      heroSub: "HANDLE INTER CONSOLIDATION",
+      heroTitle: "HANDLE INTER CONSOLIDATION CO., LTD.",
+      heroDesc: "professional",
+      exploreBtn: "EXPLORE DIGITAL BROCHURE",
+      inquireBtn: "Inquire Service Now ↗",
+      backAboutBtn: "Back to About Us",
+      scopeTitle: "Service Scope & Capabilities",
+      selectServiceTitle: "Select Core Logistics Service :",
+      contactBadge: "Contact Information",
+      contactHub: "Bangkok & Worldwide Hub",
+
+      // 📖 Flipbook Section
+      catalogTitle: "Handle Inter Consolidation Catalog",
+      catalogSubtitle: "Click the arrows to flip pages or use controls below.",
+      coverSub: "ONE STOP CONSOLIDATION FORWARDER",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "We provide comprehensive LCL cargo consolidation and end-to-end logistics solutions, ensuring safety, reliability, and punctuality for every shipment.",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+
+      // 🚢 Services 1-4
+      s1_tab: "Ocean Freight",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
+      s1_title: "Ocean Freight Solutions",
+      s1_sub: "FCL & LCL Ocean Solutions with Multi-Carrier Flexibility",
+      s1_desc: "We provide both FCL and LCL shipping with a wide choice of ocean liners, offering flexibility in sailings, increased vessel space, and highly reliable schedules.",
+      s1_items: [
+        "Full Container Load (FCL) Shipping Solutions",
+        "Less Than Container Load (LCL) Consolidation",
+        "Multi-Carrier Partnerships for High Space Flexibility",
+        "Reliable & Precise Sailing Schedules"
+      ],
+
+      s2_tab: "Air Freight",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
+      s2_title: "Air Freight Services",
+      s2_sub: "Worldwide Express & Door-to-Door Connectivity",
+      s2_desc: "We offer comprehensive global air freight services for both import and export shipments, along with seamless door-to-door services including customs brokerage solutions.",
+      s2_items: [
+        "Worldwide Air Cargo Solutions across Key Hubs",
+        "Comprehensive Inbound & Outbound Handling",
+        "Full Door-to-Door Delivery Service",
+        "Dedicated Customs Brokerage Representation"
+      ],
+
+      s3_tab: "Packing & Transport",
+      s3_tag: "CORE SERVICE 03 // PACKING & TRANSPORT",
+      s3_title: "Trucking & Packing Services",
+      s3_sub: "Transport & Professional Cargo Packaging",
+      s3_desc: "Professional cargo transportation and international standard packing services to guarantee maximum security for your cargo during transit.",
+      s3_items: [
+        "Standardized Export Packing & Re-packing",
+        "Cargo Securing and Fragile Protection Handling",
+        "Comprehensive Transport Fleet Integration"
+      ],
+
+      s4_tab: "Customs Clearance",
+      s4_tag: "CORE SERVICE 04 // CUSTOMS CLEARANCE",
+      s4_title: "Customs Clearance Services",
+      s4_sub: "Professional Customs Brokerage & Advanced Technology",
+      s4_desc: "Seamless coordination executing every step of customs clearance. Powered by modern technology and highly experienced teams to maximize customer satisfaction.",
+      s4_items: [
+        "End-to-End Customs Brokerage Documentation",
+        "Modern Paperless Customs Clearance Technology",
+        "Professional Licensed Broker Consultation",
+        "Maximized Duty Privileges and Tax Planning"
+      ],
+
+      // 🎴 Contacts
+      contact_name: "Ms. Supattra", 
+      contact_position: "Marketing Manager", 
+      contact_email: "supattra@handleinterlogistics.com", 
+      contact_phone: "08-9683-5897"
     },
     interLogistics: {
-      heroSub: "Subsidiary Freight Profile",
-      heroTitle: "Handle Inter Logistics Co., Ltd.",
-      heroDesc: "Professional cargo management and shipping infrastructure handling inbound & outbound global supply chain sectors seamlessly.",
-      coreTitle: "Our Strategic Scope & Capabilities",
+      heroSub: "HANDLE INTER LOGISTICS",
+      heroTitle: "HANDLE INTER LOGISTICS CO., LTD.",
+      heroDesc: "TEAM WORK",
+      exploreBtn: "EXPLORE DIGITAL BROCHURE",
+      inquireBtn: "Inquire Service Now ↗",
+      backAboutBtn: "Back to About Us",
+      scopeTitle: "Service Scope & Capabilities",
+      selectServiceTitle: "Select Core Logistics Service :",
+      contactBadge: "Contact Information",
+      contactFleetHub: "Bangkok & ASEAN Logistics Fleet Hub",
+      catalogTitle: "Handle Inter Logistics Catalog",
+      catalogSubtitle: "Click the arrows to flip pages or use controls below.",
+      coverSub: "ONE STOP TOTAL LOGISTICS",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "We provide international freight forwarding and comprehensive trucking fleet services with speed, reliability, and precision across Southeast Asia.",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+      s1_tab: "Ocean Freight",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
       s1_title: "Ocean Freight Services",
+      s1_sub: "Professional Maritime Logistics Management",
       s1_desc: "Professional maritime shipping management handling both inbound and outbound cargo routes across Asia, Europe, Middle East, and the Americas.",
-      s1_sub1: "Full Container Load (FCL)",
-      s1_sub2: "Less Than Container Load (LCL)",
+      s1_items: [
+        "Full Container Load (FCL) Services",
+        "Less Than Container Load (LCL) Services"
+      ],
+      s2_tab: "Air Freight",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
       s2_title: "Air Freight Services",
+      s2_sub: "Global Express Air Cargo & Intra-Asia Hub",
       s2_desc: "Professional inbound and outbound global air transport covering crucial global networks, specialized strongly in the Intra-Asia sector.",
-      s2_sub1: "Comprehensive Door to Door Delivery (DDU / DDP / FCA / Ex-work)",
-      s3_title: "Consolidation (LCL Cargo)",
+      s2_items: [
+        "Door to Door Delivery (DDU / DDP / FCA / Ex-work) etc.,"
+      ],
+      s3_tab: "LCL Consolidation",
+      s3_tag: "CORE SERVICE 03 // LCL SERVICE",
+      s3_title: "LCL Cargo Consolidation",
+      s3_sub: "Comprehensive Small Cargo Management",
       s3_desc: "Comprehensive small shipment consolidation management tailored for Intra-Asia and global destinations utilizing dedicated expert crews.",
-      s4_title: "Customs Clearance & Brokerage",
-      s4_desc: "Expert border compliance execution managing cross-border logistics paperwork and tax-saving structures.",
-      s4_sub1: "Inbound & Outbound Sea Customs",
-      s4_sub2: "Inbound & Outbound Air Customs",
-      s4_sub3: "Certificate of Origin (C/O) Issuance",
-      s4_sub4: "Blue Corner Tax Refund / Article 19 Bis / BOI",
-      s5_title: "Land Transportation",
-      s5_subTitle: "Professional Trucking & Distribution",
-      s5_desc: "Comprehensive fleet deployment handling every type of usage and commercial volume demands safely.",
-      s5_t1: "4-Wheel High Roof Trucks",
-      s5_t2: "6-Wheel Side-Opening Trucks",
-      s5_t3: "10-Wheel & Heavy Duty Trucks",
-      s5_h1: "Container Trailer (20 FT)",
-      s5_h2: "Container Trailer (40 FT)",
+      s3_items: [
+        "Consolidation container space allocation",
+        "Dedicated small shipment management",
+        "Fixed scheduled departures to Intra-Asia"
+      ],
+      s4_tab: "Land Transport",
+      s4_tag: "CORE SERVICE 04 // LAND TRANSPORT",
+      s4_title: "Land Transportation",
+      s4_sub: "Professional Trucking & Transport Fleet",
+      s4_desc: "Comprehensive fleet deployment handling every type of usage and commercial volume demands safely with GPS monitoring.",
+      s4_items: [
+        "4-Wheel High Roof Trucks",
+        "6-Wheel Side-Opening Trucks",
+        "10-Wheel & Heavy Duty Trucks",
+        "20 FT Container Trailers",
+        "40 FT Container Trailers"
+      ],
+      s5_tab: "Customs Clearance",
+      s5_tag: "CORE SERVICE 05 // CUSTOMS CLEARANCE",
+      s5_title: "Customs Clearance & Brokerage",
+      s5_sub: "Paperless Border Crossing Brokerage",
+      s5_desc: "Expert border compliance execution managing cross-border logistics paperwork and tax-saving structures.",
+      s5_items: [
+        "Inbound & Outbound Sea Customs",
+        "Inbound & Outbound Air Customs",
+        "Certificate of Origin (C/O) Issuance",
+        "Blue Corner Tax Refund / Article 19 Bis / BOI"
+      ],
       contact_name: "Mr. Atthakit",
       contact_position: "Marketing Manager",
       contact_email: "atthakit@handleinterconsol.com",
@@ -170,36 +327,65 @@ export const dictionary = {
       contact_email: "nutthapun@consollink.com",
       contact_phone: "08-2486-4319 / 08-1303-4343"
     },
-    // 🟢 อัปเดตข้อมูลภาษาอังกฤษ Siam Liners
     siamLiners: {
       heroSub: "NVOCC Shipping Line Profile",
       heroTitle: "Siam Liners Co., Ltd.",
-      heroDesc: "Specializing in all shipping routes with professional expertise. We are confident in delivering top-tier service to meet all your container shipping and global trade requirements.",
-      coreTitle: "Our Key Advantages & Core Strengths",
-      coreDesc: "Because we specialize, we are ready to offer you more.",
-      feat1_title: "High Frequency Sailing Schedules",
-      feat1_desc: "Providing flexible shipping schedules with high frequency (Frequency Sailing) as much as your commercial volume demands.",
-      feat2_title: "Fixed Vessel Schedules",
-      feat2_desc: "Guaranteed concrete and reliable fixed sailing routes for all shipping paths.",
-      feat3_title: "Expert Consultation Team",
-      feat3_desc: "Qualified professional staff providing continuous consultation, contact, and coordination at all times.",
-      feat4_title: "Advanced Communication Tech",
-      feat4_desc: "Fully equipped with modern communication technology for seamless operations.",
-      
-      more_title: "Why Choose Our Specialized Services?",
-      more1_title: "Stuffing & Un-stuffing Services",
-      more1_desc: "Dedicated professional staff monitoring container loading and unloading (Stuffing/Un-stuffing) at all times.",
-      more2_title: "Packaging & Re-packing",
-      more2_desc: "Professional packaging and re-packing solutions tailored to preserve cargo integrity.",
-      more3_title: "24-Hour Active Support",
-      more3_desc: "Round-the-clock coordination and tracking team providing 24/7 live updates.",
+      heroDesc: "Import and export shipping schedules.",
+      exploreBtn: "EXPLORE DIGITAL BROCHURE",
+      vesselBtn: "View Vessel Schedule ↗",
+      backAboutBtn: "Back to About Us",
+      scopeTitle: "Service Capabilities",
+      selectServiceTitle: "Select Core Logistics Service :",
+      contactBadge: "Direct Contact Directory",
 
+      // 📖 Flipbook Section
+      catalogTitle: "Siam Liners Flipbook Catalog",
+      catalogSubtitle: "Click the arrows to flip pages or use controls below.",
+      coverBadge: "SIAM LINERS",
+      coverSubBadge: "NVOCC & SHIPPING OPERATOR",
+      coverTitle1: "THE",
+      coverTitle2: "EXPERIENCED",
+      coverSub: "NVOCC & CONTAINER SOLUTIONS",
+      insidePageTitle: "NVOCC Carrier Line",
+      insidePageDesc: "Specializing in all maritime routes with professional expertise. We deliver top-tier service tailored to all your shipping demands with scheduled sailings and high reliability.",
+      insideServiceHead: "SPECIALIZED OPERATIONS",
+      backCoverTitle: "WORLDWIDE NETWORK",
+
+      // 🚢 Services 1-2
+      s1_tab: "NVOCC Line",
+      s1_tag: "CORE SERVICE 01 // NVOCC OPERATOR",
+      s1_title: "NVOCC Carrier Services",
+      s1_sub: "Specializing in comprehensive maritime liner routes",
+      s1_desc: "Specializing in all shipping routes with top-tier professional expertise to drive your logistics forward smoothly with high frequency sailings.",
+      s1_items: [
+        "High frequency sailing schedules (Frequency Sailing) tailored to your volume",
+        "Fixed and concrete vessel schedules across all routes",
+        "Qualified professional team providing continuous consultation and support",
+        "Fully equipped with modern communication technology"
+      ],
+
+      s2_tab: "Specialized Operations",
+      s2_tag: "CORE SERVICE 02 // SPECIALIZED OPERATIONS",
+      s2_title: "Specialized Operations",
+      s2_sub: "Because we specialize, we are ready to offer you more",
+      s2_desc: "Dedicated operations and specialized ground handling teams supporting container management, stuffing, and packaging 24/7.",
+      s2_items: [
+        "Dedicated staff monitoring container loading and unloading (Stuffing/Un-stuffing) 24/7",
+        "Standardized export packaging and re-packing solutions",
+        "24-Hour live tracking and operational coordination team"
+      ],
+
+      // 📅 Schedule Matrix
       scheduleTitle: "Import Vessel Schedule Matrix",
       scheduleSubtitle: "Weekly Updated Maritime Import Schedule",
-      
+      scheduleNote: "* Schedules are subject to change based on weather and port congestion.",
+      scheduleMatrixLabel: "Siam Liners Vessel Matrix",
+
+      // 🎴 Contacts
       contactTitle: "Contact Siam Liners Co., Ltd.",
       centerPhone: "02-393-5300 #5141 , 080-993-6445",
       salesDept: "Sales Department",
+      salesSub: "Rates & Freight Consultation",
       salesContacts: [
         { name: "K.Toey", phone: "092-280-6609" },
         { name: "K.Jame", phone: "099-227-9517" }
@@ -207,13 +393,14 @@ export const dictionary = {
       salesEmail: "SLN_SALES@siamliner.com",
       
       csDept: "Customer Service (CS) Department",
+      csSub: "Import / Export Operations",
       csContacts: [
         { name: "K.Keaw", phone: "086-894-1581" },
         { name: "K.Yale", phone: "088-809-9293" }
       ],
       exportEmail: "SLN_OUTBOUND@siamliner.com",
       importEmail: "SLN_INBOUND@siamliner.com"
-    }
+    },
   },
   th: {
     nav: { home: "หน้าแรก", about: "เกี่ยวกับเรา", partners: "บริษัทในเครือ", services: "ข่าวสาร", news: "ติดต่อเรา", quote: "ขอใบเสนอราคา" },
@@ -244,11 +431,15 @@ export const dictionary = {
     about: {
       sub: "ผู้ให้บริการโลจิสติกส์ชั้นนำของประเทศไทย", 
       title: "เกี่ยวกับ แฮนเดิล อินเตอร์ กรุ๊ป", 
-      // 🟢 ข้อความประวัติความเป็นมาสำหรับ Section 1
       history_title: "ประวัติความเป็นมาและการเติบโตขององค์กร",
       desc: "ก้าวไปข้างหน้าด้วยความมั่นคงที่เหนือกว่า ความยั่งยืน และการพัฒนาคุณภาพเพื่อลูกค้าทั่วโลกของเรา",
+      devsuvt: "พัฒนาศักยภาพรับมือเปิดเสรี AEC",
+      m1_h1: "ลูกค้าคือพันธมิตร",
+      m1_h2: "ทางธุรกิจที่สำคัญที่สุด",
       m1_tag: "ก่อตั้งเมื่อวันที่ 8 สิงหาคม 2546", 
       m1_title: "หนึ่งทศวรรษแห่งความมั่นคงและมาตรฐานสากลที่ได้รับความไว้วางใจ",
+      m1_tag2: "คุณสมชาย รุ่งบวรวงศ์",
+      m1_tag3: "กรรมการผู้จัดการ",
       m1_p1: "แฮนเดิล อินเตอร์ กรุ๊ป มุ่งเน้นไปที่ระบบโลจิสติกส์และคุณภาพที่ดีที่สุด ในฐานะผู้ให้บริการโลจิสติกส์ครบวงจร (Total Logistics) ที่มีมาตรฐานสากล บริษัทได้ก้าวเข้าสู่ปีที่สิบด้วยความมั่นคงนับตั้งแต่วันแรกที่เริ่มดำเนินธุรกิจเมื่อวันที่ 8 สิงหาคม พ.ศ. 2546",
       m1_p2: "ตลอดเส้นทางอันยาวนานที่ประสบความสำเร็จ แฮนเดิล อินเตอร์ กรุ๊ป มีการเติบโตประจำปีมากกว่า 20% ส่งผลให้กลุ่มบริษัทพัฒนาแง่มุมที่เกี่ยวข้องกับธุรกิจทั้งหมดอย่างต่อเนื่อง จนกลายเป็นผู้รับจัดการขนส่งสินค้าที่ดีที่สุดในประเทศไทยและเป็นผู้นำในอุตสาหกรรมนี้",
       growth: "อัตราการเติบโตต่อปี", sub_count: "บริษัทในเครือ",
@@ -260,7 +451,9 @@ export const dictionary = {
       sub_sub: "เครือข่ายแบบบูรณาการเบ็ดเสร็จ", sub_title: "7 บริษัทในเครือของเรา", sub_desc: "พร้อมให้บริการขนส่งทางอากาศ ทางบก และทางทะเลอย่างเต็มรูปแบบ เพื่อตอบสนองทุกความต้องการเฉพาะของลูกค้า",
       aec_tag: "การเตรียมความพร้อมเชิงกลยุทธ์", aec_title: "พัฒนาอย่างต่อเนื่องเพื่อรองรับ AEC และอนาคต",
       aec_desc: "ผู้ให้บริการโลจิสติกส์ต้องพร้อมสำหรับความท้าทายและการแข่งขันที่สูงขึ้น รวมถึงการขยายธุรกิจไปยังประเทศอื่นๆ ในอาเซียน นี่คือเหตุผลที่ แฮนเดิล อินเตอร์ กรุ๊ป พัฒนากลยุทธ์และบุคลากรอย่างต่อเนื่องมาโดยตลอด",
-      aec_foot: "ระยะเวลา 10 ปีในธุรกิจคือข้อพิสูจน์ที่ชัดเจนถึงความสำเร็จของเรา"
+      aec_foot: "ระยะเวลา 10 ปีในธุรกิจคือข้อพิสูจน์ที่ชัดเจนถึงความสำเร็จของเรา",
+      bt_m1: "อ่านวิสัยทัศน์พันธมิตรธุรกิจ ↗",
+      bt_m2: "✓ การขนส่งและบริการที่ดีที่สุด",
     },
     subsidiaries: [
       { name: "บริษัท เอช.ไอ.ที. อินเตอร์คอน จำกัด", desc: "ครอบคลุมธุรกิจรับจัดการขนส่งสินค้าซัพพลายเชนระหว่างประเทศอย่างครบวงจร" },
@@ -268,7 +461,8 @@ export const dictionary = {
       { name: "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด", desc: "ทำงานเป็นทีม" },
       { name: "บริษัท แฮนเดิล อินเตอร์ เอ็กซ์เพรส จำกัด", desc: "ดูแลพิธีการศุลกากรและบริการจัดส่งสินค้าด่วนพิเศษ" },
       { name: "บริษัท คอนโซล ลิงค์ จำกัด", desc: "ให้บริการรวบรวมตู้สินค้าเชิงกลยุทธ์ในภูมิภาคเอเชียและยุโรป" },
-      { name: "บริษัท สยามไลน์เนอร์ จำกัด", desc: "ผู้ให้บริการโลจิสติกส์ครบวงจรสนับสนุนเครือข่ายทั่วโลก" }
+      { name: "บริษัท สยามไลน์เนอร์ จำกัด", desc: "ผู้ให้บริการโลจิสติกส์ครบวงจรสนับสนุนเครือข่ายทั่วโลก" },
+      { name: "บริษัท พีเคที โลจิสติกส์ (ประเทศไทย) จำกัด", desc: "" }
     ],
     footer: {
       visit: "เยี่ยมชม", subsidiaries: "บริษัทในเครือ", news: "ข่าวสารและกิจกรรม", mapTitle: "เยี่ยมชมเรา",
@@ -278,74 +472,229 @@ export const dictionary = {
       newsList: ["ข่าวสารทั่วไป", "ข่าวสารความรู้", "กิจกรรม", "นโยบายคุ้มครองข้อมูลส่วนบุคคล"], mapBtn: "แผนที่นำทางสำนักงานใหญ่"
     },
     hitIntercon: {
-      heroSub: "ข้อมูลบริษัทในเครือ",
+      heroSub: "H.I.T. INTERCON",
       heroTitle: "บริษัท เอช.ไอ.ที. อินเตอร์คอน จำกัด",
       heroDesc: "มากมายประสบการณ์",
-      coreTitle: "ขีดความสามารถและบริการหลักของเรา",
+      exploreBtn: "เปิดอ่านโบรชัวร์ดิจิทัล",
+      inquireBtn: "ติดต่อสอบถามบริการ ↗",
+      backAboutBtn: "กลับสู่หน้าเกี่ยวกับเรา",
+      scopeTitle: "ขอบเขตการให้บริการ",
+      selectServiceTitle: "เลือกบริการหลัก :",
+      contactBadge: "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน",
+      contactHeadOffice: "กรุงเทพฯ และศูนย์กลางการขนส่งระดับโลก",
+      catalogTitle: "เอกสารแนะนำบริษัท เอช.ไอ.ที. อินเตอร์คอน จำกัด",
+      catalogSubtitle: "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร",
+      coverSub: "ONE STOP FREIGHT FORWARDER",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "เราพร้อมให้บริการแบบครบวงจร (One Stop Service) เพื่อตอบสนองทุกความต้องการของลูกค้า โดยทีมงานการตลาดมืออาชีพที่มีประสบการณ์ยาวนาน พร้อมดูแลสินค้าของท่านตั้งแต่ต้นทางจนถึงปลายทางอย่างตรงต่อเวลา มั่นใจในคุณภาพการบริการที่เหนือระดับ",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+      s1_tab: "ขนส่งสินค้าทางทะเล",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
       s1_title: "ขนส่งสินค้าทางทะเล",
-      s1_desc: "การรับจัดการขนส่งสินค้าระหว่างประเทศทั้งนำเข้าและส่งออก ครอบคลุมเส้นทางหลักทั่วโลก ด้วยประสบการณ์และความรอบรู้จึงสามารถให้คำปรึกษาและวางแผนได้อย่างผู้เชี่ยวชาญ",
-      s1_sub1: "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load: FCL)",
-      s1_sub2: "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load: LCL)",
-      s1_sub3: "บริการขนส่งสินค้าข้ามแดน (Cross border transport)",
-      s1_sub4: "บริการขนส่งสินค้าอาหารทะเลแช่แข็ง ด้วยประสบการณ์เฉพาะทางยาวนาน",
-      s1_sub5: "บริการขนส่งสินค้าขนาดพิเศษ (Oversize Cargo)",
+      s1_sub: "บริการอย่างมืออาชีพด้านการจัดการขนส่งสินค้า ด้วยทีมงานมืออาชีพ",
+      s1_desc: "ด้วยทีมงานมืออาชีพ การจัดการด้านการขนส่งทางเรือ ทั้งขาเข้าและขาออก จึงไม่มีสิ่งใดเป็นไปไม่ได้ ทีมงานคุณภาพพร้อมให้คำแนะนำ ปรึกษา วางแผนให้การขนส่งเป็นไปได้อย่างง่ายดาย มีเครือข่ายครอบคลุมทั่วทุกเส้นทางการขนส่งทั้งเอเซีย ยุโรป ตะวันออกกลาง และอเมริกา ตลอดเส้นทางการขนส่ง",
+      s1_items: [
+        "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load : FCL)",
+        "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load : LCL)",
+        "บริการขนส่งสินค้าข้ามแดน (Cross border transport)",
+        "บริการด้านการขนส่งสินค้าอาหารทะเลแช่แข็ง ด้วยประสบการณ์เฉพาะทางมาอย่างยาวนาน",
+        "บริการขนส่งสินค้าที่พิเศษ (Oversize Cargo)"
+      ],
+      s2_tab: "ขนส่งสินค้าทางอากาศ",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
       s2_title: "ขนส่งสินค้าทางอากาศ",
-      s2_desc: "ประสบการณ์การขนส่งสินค้าทางอากาศทั้งขาเข้าและขาออก ไปยังทุกมุมทั่วโลก ทุกเส้นทาง ทุกเวลา ทุกประเภทสินค้า จัดการได้ตามความต้องการแบบรู้จริงทุกเส้นทาง",
-      s2_sub1: "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU/ DDP/ FCA/ Ex-work)",
-      s3_title: "บริการรวบรวมสินค้า (ไม่เต็มตู้)",
-      s3_desc: "เพื่อให้ธุรกิจขนาดเล็กและขนาดกลางไม่พลาดแม้การสั่งซื้อจำนวนน้อย ทีมงานพร้อมจัดการหาตู้คอนเทนเนอร์ วางแผนจัดวางสินค้าเข้าตู้อย่างมีประสิทธิภาพ และมีตารางการขนส่งที่แน่นอนทุกสัปดาห์ (Weekly consolidation)",
-      s5_title: "ขนส่งสินค้าทางรถ",
-      s5_subTitle: "รองรับทุกความต้องการด้านการขนส่งทางบก",
-      s5_desc: "บริการรถบรรทุกทุกประเภท ทุกการใช้งาน พร้อมเครือข่ายหัวลากและหางลากที่ได้มาตรฐาน มั่นใจได้ในความปลอดภัยตลอดเส้นทาง",
-      s5_t1: "4 ล้อหลังคาสูง",
-      s5_t2: "6 ล้อเปิดข้าง",
-      s5_t3: "10 ล้อขึ้นไป",
-      s5_h1: "รถหัวลากคอนเทนเนอร์ 20 ฟุต",
-      s5_h2: "รถหัวลากคอนเทนเนอร์ 40 ฟุต",
+      s2_sub: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก",
+      s2_desc: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก ตอบสนองทุกเส้นทางการขนส่ง มีเครือข่ายรองรับการบริการขนส่งทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia) เพราะเราสามารถตอบโจทย์ความต้องการของคุณ และสามารถให้บริการอย่างมืออาชีพเพื่อธุรกิจของคุณ",
+      s2_items: [
+        "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU / DDP / FCA / Ex-work) etc.,",
+        "บริการขนส่งสินค้าเร่งด่วนและสินค้าควบคุมอุณหภูมิ",
+        "บริการจัดส่งสินค้าครอบคลุมทุกสนามบินหลักทั่วโลก"
+      ],
+      s3_tab: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
+      s3_tag: "CORE SERVICE 03 // LCL CONSOLIDATION",
+      s3_title: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
+      s3_sub: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ",
+      s3_desc: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ ด้วยทีมงานที่มีความชำนาญ, รองรับการบริการการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ เพื่อให้คุณไม่พลาดแม้การขนส่งขนาดเล็กไปยังปลายทางทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia)",
+      s3_items: [
+        "Weekly consolidation บริหารตารางการขนส่งสินค้าที่แน่นอนทุกสัปดาห์",
+        "การจัดการหาตู้คอนเทนเนอร์ที่ได้มาตรฐาน",
+        "การวางแผนการจัดวางสินค้าเข้าตู้อย่างมีประสิทธิภาพสูงสุด",
+        "ศูนย์คลังสินค้าเปิดตู้รับสินค้าต่อเนื่อง"
+      ],
+      s4_tab: "ขนส่งสินค้าทางรถ",
+      s4_tag: "CORE SERVICE 04 // LAND TRANSPORT",
+      s4_title: "ขนส่งสินค้าทางรถ",
+      s4_sub: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง",
+      s4_desc: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง รถบรรทุก ทุกประเภท ทุกการใช้งาน พร้อมระบบติดตามความปลอดภัยในการเดินทาง",
+      s4_items: [
+        "4 ล้อหลังคาสูง",
+        "6 ล้อเปิดข้าง",
+        "10 ล้อขึ้นไป",
+        "รถหัวลาก 20 ฟุต",
+        "รถหัวลาก 40 ฟุต"
+      ],
+      s5_tab: "ดำเนินการพิธีการศุลกากร",
+      s5_tag: "CORE SERVICE 05 // CUSTOMS CLEARANCE",
+      s5_title: "ดำเนินการพิธีการศุลกากร",
+      s5_sub: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน",
+      s5_desc: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน เพื่อความถูกต้อง แม่นยำ และรวดเร็วในทุกขั้นตอน ด้วยเทคโนโลยีที่ทันสมัย",
+      s5_items: [
+        "บริการดำเนินพิธีการทางเรือ ทั้งขาเข้า-ขาออก",
+        "บริการดำเนินพิธีการทางอากาศ ทั้งขาเข้า-ขาออก",
+        "บริการออกหนังสือรับรองถิ่นกำเนิดสินค้า (Certificate of orgin)",
+        "บริการขอคืนภาษีอากรสำหรับผู้ส่งออก (มุมน้ำเงิน) /มาตรา 19 ทวี/บีโอไอ"
+      ],
       c1_name: "Ms. Siripimon", c1_pos: "Marketing Director", c1_mail: "siripimon@hitintercon.com", c1_phone: "08-2486-4243",
       c2_name: "Mr. Teerapong", c2_pos: "Marketing Manager", c2_mail: "teerapong@hitintercon.com", c2_phone: "09-0678-8284"
     },
-    consolidation: {
-      heroSub: "ข้อมูลบริษัทในเครือ",
-      heroTitle: "แฮนเดิล อินเตอร์ คอนโซลิเดชั่น",
-      heroDesc: "ขับเคลื่อนการค้าระหว่างประเทศด้วยบริการรวบรวมตู้สินค้า (Consolidation) มาตรฐานระดับโลก การบริหารจัดการตู้คอนเทนเนอร์ที่แม่นยำ และเครือข่ายซัพพลายเชนที่มั่นคง",
-      coreTitle: "ขีดความสามารถและบริการหลักของเรา",
-      c1_title: "บริการขนส่งทางทะเล",
-      c1_desc: "เราให้บริการส่งทั้งแบบ FCL และ LCL พร้อมการบริการสายเรือที่มีให้เลือกหลากหลาย ซึ่งทำให้มีความยืดหยุ่นในการออกเดินเรือและยังมีพื้นที่บนเรือที่มากขึ้น รวมไปถึงตารางการเดินเรือที่เชื่อถือได้",
-      c2_title: "บริการขนส่งทางอากาศ",
-      c2_desc: "เราให้บริการการขนส่งสินค้าทางอากาศที่ครอบคลุมทั่วโลก ทั้งการส่งส่งออกและนำเข้า พร้อมการบริการแบบ door-to-door (รวมถึงการจัดเตรียมบริการตัวแทนด้านพิธีการศุลกากร)",
-      c3_title: "การบริการพิธีการศุลกากร",
-      c3_desc: "การประสานงานที่เป็นเลิศ พร้อมดำเนินการพิธีการศุลกากรทุกขั้นตอน รวมไปถึงการใช้เทคโนโลยีที่ทันสมัยและทีมงานที่มากประสบการณ์ เพื่อตอบสนองความพึงพอใจของผู้รับบริการ",
-      specTitle: "ทำไมต้องเลือกบริการคอนโซลิเดชั่นของเรา?",
-      spec1: "ตารางเรือออกรายสัปดาห์ที่แน่นอน", spec2: "เชื่อมต่อเส้นทางพันธมิตรทั่วโลก", spec3: "ลดต้นทุนการดำเนินงานของลูกค้า", spec4: "ระบบติดตามสถานะดิจิทัลอัจฉริยะ",
-      contact_name: "Ms. Supattra", contact_position: "Marketing Manager", contact_email: "supattra@handleinterlogistics.com", contact_phone: "08-89683-5897"
+  consolidation: {
+      heroSub: "HANDLE INTER CONSOLIDATION",
+      heroTitle: "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด",
+      heroDesc: "มืออาชีพ",
+      exploreBtn: "เปิดอ่านโบรชัวร์ดิจิทัล",
+      inquireBtn: "ติดต่อสอบถามบริการ ↗",
+      backAboutBtn: "กลับสู่หน้าเกี่ยวกับเรา",
+      scopeTitle: "ขอบเขตการให้บริการ",
+      selectServiceTitle: "เลือกบริการหลัก :",
+      contactBadge: "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน",
+      contactHub: "กรุงเทพฯ และศูนย์กลางการรวมตู้สินค้าระดับโลก",
+
+      // 📖 Flipbook Section
+      catalogTitle: "เอกสารแนะนำบริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด",
+      catalogSubtitle: "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร",
+      coverSub: "ONE STOP CONSOLIDATION FORWARDER",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "เราพร้อมให้บริการด้านการรวมตู้สินค้า LCL และการขนส่งแบบครบวงจร เพื่อตอบสนองทุกความต้องการของธุรกิจอย่างคุ้มค่า ปลอดภัย และตรงต่อเวลา",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+
+      // 🚢 Services 1-4
+      s1_tab: "บริการขนส่งทางทะเล",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
+      s1_title: "บริการขนส่งทางทะเล",
+      s1_sub: "FCL & LCL Ocean Solutions with Multi-Carrier Flexibility",
+      s1_desc: "เราให้บริการส่งทั้งแบบ FCL และ LCL พร้อมการบริการสายเรือที่มีให้เลือกหลากหลาย ซึ่งทำให้มีความยืดหยุ่น ในการออกเดินเรือและยังมีพื้นที่บนเรือที่มากขึ้น รวมไปถึงตารางการเดินเรือที่เชื่อถือได้",
+      s1_items: [
+        "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load: FCL)",
+        "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load: LCL)",
+        "พันธมิตรสายการเดินเรือที่หลากหลาย เพิ่มความยืดหยุ่นในการจองพื้นที่",
+        "ตารางการเดินเรือที่แม่นยำและเชื่อถือได้สูง"
+      ],
+
+      s2_tab: "บริการขนส่งทางอากาศ",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
+      s2_title: "บริการขนส่งทางอากาศ",
+      s2_sub: "Worldwide Express & Door-to-Door Connectivity",
+      s2_desc: "เราให้บริการการขนส่งสินค้าทางอากาศที่ครอบคลุมทั่วโลก ทั้งการส่งออกและนำเข้า พร้อมการบริการแบบ door-to-door (รวมถึงการจัดเตรียมบริการตัวแทนด้านพิธีการศุลกากร)",
+      s2_items: [
+        "บริการขนส่งสินค้าทางอากาศครอบคลุมทุกปลายทางทั่วโลก",
+        "บริการครบวงจรทั้งนำเข้า (Inbound) และส่งออก (Outbound)",
+        "บริการขนส่งแบบถึงมือผู้รับ Door-to-Door Delivery",
+        "บริการจัดเตรียมและดูแลด้านตัวแทนพิธีการศุลกากรอย่างสมบูรณ์"
+      ],
+
+      s3_tab: "บริการขนส่งสินค้าและบรรจุหีบห่อ",
+      s3_tag: "CORE SERVICE 03 // PACKING & TRANSPORT",
+      s3_title: "บริการขนส่งสินค้าและบรรจุหีบห่อ",
+      s3_sub: "Transport & Professional Cargo Packaging",
+      s3_desc: "บริการรับจัดการขนส่งสินค้าและบริการแพ็คกิ้งบรรจุหีบห่อมาตรฐานสากลเพื่อความปลอดภัยสูงสุดของสินค้าตลอดการเดินทาง",
+      s3_items: [
+        "บริการแพ็คกิ้งบรรจุหีบห่อและ Re-packing มาตรฐานส่งออก",
+        "ดูแลป้องกันสินค้าแตกหักเสียหายอย่างมืออาชีพ",
+        "รองรับการกระจายสินค้าต่อเนื่องด้วยฟลีตขนส่งครบวงจร"
+      ],
+
+      s4_tab: "การบริการพิธีการศุลกากร",
+      s4_tag: "CORE SERVICE 04 // CUSTOMS CLEARANCE",
+      s4_title: "การบริการพิธีการศุลกากร",
+      s4_sub: "Professional Customs Brokerage & Advanced Technology",
+      s4_desc: "การประสานงานที่เป็นเลิศ พร้อมดำเนินการพิธีการศุลกากรทุกขั้นตอน รวมไปถึงการใช้เทคโนโลยีที่ทันสมัยและทีมงานที่มากประสบการณ์ เพื่อตอบสนองความพึงพอใจของผู้รับบริการ",
+      s4_items: [
+        "การประสานงานและจัดเตรียมเอกสารพิธีการศุลกากรทุกขั้นตอน",
+        "เทคโนโลยีทันสมัยสำหรับการจัดการระบบ Paperless ที่รวดเร็ว",
+        "ทีมงานชิปปิ้งผู้เชี่ยวชาญและมากประสบการณ์คอยให้คำปรึกษา",
+        "มุ่งเน้นสร้างความพึงพอใจสูงสุดแก่ผู้รับบริการ"
+      ],
+
+      // 🎴 Contacts
+      contact_name: "Ms. Supattra", 
+      contact_position: "Marketing Manager", 
+      contact_email: "supattra@handleinterlogistics.com", 
+      contact_phone: "08-89683-5897"
     },
     interLogistics: {
-      heroSub: "ข้อมูลบริษัทในเครือ",
+      heroSub: "HANDLE INTER LOGISTICS",
       heroTitle: "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด",
       heroDesc: "การทำงานเป็นทีม",
-      coreTitle: "ขีดความสามารถและบริการหลักของเรา",
+      exploreBtn: "เปิดอ่านโบรชัวร์ดิจิทัล",
+      inquireBtn: "ติดต่อสอบถามบริการ ↗",
+      backAboutBtn: "กลับสู่หน้าเกี่ยวกับเรา",
+      scopeTitle: "ขอบเขตการให้บริการ",
+      selectServiceTitle: "เลือกบริการหลัก :",
+      contactBadge: "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน",
+      contactFleetHub: "กรุงเทพฯ และศูนย์ฟลีตขนส่งครอบคลุมอาเซียน",
+      catalogTitle: "เอกสารแนะนำบริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จำกัด",
+      catalogSubtitle: "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร",
+      coverSub: "ONE STOP TOTAL LOGISTICS",
+      insidePageTitle: "THE EXPERIENCED",
+      insidePageDesc: "เราให้บริการรับจัดการขนส่งสินค้าระหว่างประเทศและบริการฟลีตรถบรรทุกครบวงจร รวดเร็ว ปลอดภัย และตรงต่อเวลาครอบคลุมภูมิภาคเอเชียตะวันออกเฉียงใต้",
+      insideServiceHead: "THE EXPERIENCED SERVICE",
+      backCoverTitle: "WORLDWIDE NETWORK",
+      s1_tab: "ขนส่งสินค้าทางทะเล",
+      s1_tag: "CORE SERVICE 01 // SEA FREIGHT",
       s1_title: "ขนส่งสินค้าทางทะเล",
-      s1_desc: "การจัดการด้านการขนส่งทางเรือ ทั้งขาเข้าและขาออก ทีมงานคุณภาพพร้อมให้คำแนะนำ ปรึกษา วางแผนให้การขนส่งเป็นไปได้อย่างง่ายดาย มีเครือข่ายครอบคลุมทั่วทุกเส้นทางการขนส่งทั้งเอเซีย ยุโรป ตะวันออกกลาง และอเมริกา",
-      s1_sub1: "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load : FCL)",
-      s1_sub2: "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load : LCL)",
+      s1_sub: "บริการอย่างมืออาชีพด้านการจัดการขนส่งสินค้า ด้วยทีมงานมืออาชีพ",
+      s1_desc: "ด้วยทีมงานมืออาชีพ การจัดการด้านการขนส่งทางเรือ ทั้งขาเข้าและขาออก จึงไม่มีสิ่งใดเป็นไปไม่ได้ ทีมงานคุณภาพพร้อมให้คำแนะนำ ปรึกษา วางแผนให้การขนส่งเป็นไปได้อย่างง่ายดาย มีเครือข่ายครอบคลุมทั่วทุกเส้นทางการขนส่งทั้งเอเซีย ยุโรป ตะวันออกกลาง และอเมริกา ตลอดเส้นทางการขนส่ง",
+      s1_items: [
+        "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load : FCL)",
+        "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load : LCL)"
+      ],
+      s2_tab: "ขนส่งสินค้าทางอากาศ",
+      s2_tag: "CORE SERVICE 02 // AIR FREIGHT",
       s2_title: "ขนส่งสินค้าทางอากาศ",
-      s2_desc: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก ตอบสนองทุกเส้นทางการขนส่ง มีเครือข่ายรองรับการบริการขนส่งทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia) ตอบโจทย์ทุกความต้องการของธุรกิจ",
-      s2_sub1: "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU / DDP / FCA / Ex-work) etc.,",
-      s3_title: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์",
-      s3_desc: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ ด้วยทีมงานที่มีความชำนาญ รองรับการบริการการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ เพื่อให้คุณไม่พลาดแม้การขนส่งขนาดเล็กไปยังปลายทางทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia)",
-      s4_title: "ดำเนินการพิธีการศุลกากร",
-      s4_desc: "มืออาชีพเช่นเรา พร้อมแล้วในการให้บริการทุกขั้นตอนของการเดินพิธีการผ่านแดน เพื่อความถูกต้อง รวดเร็ว และพึงพอใจสูงสุด",
-      s4_sub1: "บริการดำเนินพิธีการทางเรือ ทั้งขาเข้า-ขาออก",
-      s4_sub2: "บริการดำเนินพิธีการทางอากาศ ทั้งขาเข้า-ขาออก",
-      s4_sub3: "บริการออกหนังสือรับรองถิ่นกำเนิดสินค้า (Certificate of origin)",
-      s4_sub4: "บริการขอคืนภาษีอากรสำหรับผู้ส่งออก (มุมน้ำเงิน) / มาตรา 19 ทวี / บีโอไอ",
-      s5_title: "ขนส่งสินค้าทางรถ",
-      s5_subTitle: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการ",
-      s5_desc: "เรามีรถบรรทุกทุกประเภท ทุกการใช้งาน พร้อมทีมงานที่ชำนาญเส้นทางคอยดูแลสินค้าของท่านตลอดการเดินทาง",
-      s5_t1: "4 ล้อหลังคาสูง", s5_t2: "6 ล้อเปิดข้าง", s5_t3: "10 ล้อขึ้นไป",
-      s5_h1: "รถหัวลากคอนเทนเนอร์ 20 ฟุต", s5_h2: "รถหัวลากคอนเทนเนอร์ 40 ฟุต",
-      contact_name: "Mr. Atthakit", contact_position: "Marketing Manager", contact_email: "atthakit@handleinterconsol.com", contact_phone: "08-2790-2863"
+      s2_sub: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก",
+      s2_desc: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก ตอบสนองทุกเส้นทางการขนส่ง มีเครือข่ายรองรับการบริการขนส่งทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia) เพราะเราสามารถตอบโจทย์ความต้องการของคุณ และสามารถให้บริการอย่างมืออาชีพเพื่อธุรกิจของคุณ",
+      s2_items: [
+        "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU / DDP / FCA / Ex-work) etc.,"
+      ],
+      s3_tab: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
+      s3_tag: "CORE SERVICE 03 // LCL SERVICE",
+      s3_title: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
+      s3_sub: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ",
+      s3_desc: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ ด้วยทีมงานที่มีความชำนาญ, รองรับการบริการการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ เพื่อให้คุณไม่พลาดแม้การขนส่งขนาดเล็กไปยังปลายทางทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia)",
+      s3_items: [
+        "การจัดสรรพื้นที่ตู้สินค้าแบบคอนโซล",
+        "บริการดูแลนำสินค้าขนาดเล็กอย่างเชี่ยวชาญ",
+        "ตารางการเดินทางตรงเวลาไปยัง Intra-Asia"
+      ],
+      s4_tab: "ขนส่งสินค้าทางรถ",
+      s4_tag: "CORE SERVICE 04 // LAND TRANSPORT",
+      s4_title: "ขนส่งสินค้าทางรถ",
+      s4_sub: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง",
+      s4_desc: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง รถบรรทุก ทุกประเภท ทุกการใช้งาน พร้อมระบบความปลอดภัย",
+      s4_items: [
+        "4 ล้อหลังคาสูง",
+        "6 ล้อเปิดข้าง",
+        "10 ล้อขึ้นไป",
+        "รถหัวลาก 20 ฟุต",
+        "รถหัวลาก 40 ฟุต"
+      ],
+      s5_tab: "ดำเนินการพิธีการศุลกากร",
+      s5_tag: "CORE SERVICE 05 // CUSTOMS CLEARANCE",
+      s5_title: "ดำเนินการพิธีการศุลกากร",
+      s5_sub: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน",
+      s5_desc: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน เพื่อความถูกต้อง แม่นยำ และรวดเร็วในทุกขั้นตอน",
+      s5_items: [
+        "บริการดำเนินพิธีการทางเรือ ทั้งขาเข้า-ขาออก",
+        "บริการดำเนินพิธีการทางอากาศ ทั้งขาเข้า-ขาออก",
+        "บริการออกหนังสือรับรองถิ่นกำเนิดสินค้า (Certificate of orgin)",
+        "บริการขอคืนภาษีอากรสำหรับผู้ส่งออก (มุมน้ำเงิน) /มาตรา 19 ทวี/บีโอไอ"
+      ],
+      contact_name: "Mr. Atthakit",
+      contact_position: "Marketing Manager",
+      contact_email: "atthakit@handleinterconsol.com",
+      contact_phone: "08-2790-2863"
     },
     consoleLink: {
       heroSub: "ข้อมูลบริษัทในเครือ",
@@ -377,49 +726,80 @@ export const dictionary = {
       contact_email: "nutthapun@consollink.com",
       contact_phone: "08-2486-4319 / 08-1303-4343"
     },
-    // 🟢 อัปเดตข้อมูลภาษาไทย Siam Liners
     siamLiners: {
       heroSub: "สายเรือ (NVOCC)",
       heroTitle: "บริษัท สยามไลน์เนอร์ จำกัด",
       heroDesc: "ตารางเรือ นำเข้า และ ส่งออก",
-      coreTitle: "จุดเด่นและขีดความสามารถหลักของเรา",
-      coreDesc: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า",
-      feat1_title: "ตารางเวลา ความถี่ (Frequency Sailing)",
-      feat1_desc: "มีตารางเวลา ความถี่การเดินเรือ มากเท่าที่คุณต้องการ รองรับปริมาณสินค้าได้อย่างมืออาชีพ",
-      feat2_title: "ตารางเวลาเดินเรือที่แน่นอน",
-      feat2_desc: "มีตารางเวลาการเดินเรือที่แน่นอนในทุกเส้นทาง ให้คุณวางแผนโลจิสติกส์ได้อย่างแม่นยำ",
-      feat3_title: "บุคลากรเชี่ยวชาญพร้อมให้คำปรึกษา",
-      feat3_desc: "มีบุคลากรที่เชี่ยวชาญให้คำปรึกษา ติดต่อและประสานงานตลอดเวลา",
-      feat4_title: "เทคโนโลยีสื่อสารทันสมัย",
-      feat4_desc: "มีความพร้อมด้านเทคโนโลยีในด้านการสื่อสาร เพื่อความโปร่งใสและรวดเร็วในการติดตามงาน",
+      exploreBtn: "เปิดอ่านโบรชัวร์ดิจิทัล",
+      vesselBtn: "ดูตารางการเดินเรือ ↗",
+      backAboutBtn: "กลับสู่หน้าเกี่ยวกับเรา",
+      scopeTitle: "จุดเด่นและการให้บริการ",
+      selectServiceTitle: "เลือกบริการหลัก :",
+      contactBadge: "ติดต่อเรา — บริษัท สยามไลน์เนอร์ จำกัด",
 
-      more_title: "บริการพิเศษที่พร้อมให้คุณมากกว่า",
-      more1_title: "บริการขนถ่ายสินค้าตู้คอนเทนเนอร์",
-      more1_desc: "มีบุคลากรพร้อมบริการดูแลนำสินค้าเข้า – ออกตลอดเวลาจากตู้คอนเทนเนอร์ (Stuffing/un-stuffing)",
-      more2_title: "บริการด้านหีบห่อ (Re-packing)",
-      more2_desc: "มีบริการด้านหีบห่อ re-packing ที่ได้มาตรฐาน เพื่อความปลอดภัยสูงสุดของสินค้า",
-      more3_title: "ทีมงานประสานงานตลอด 24 ชั่วโมง",
-      more3_desc: "พร้อมด้วยบุคลากรประสานงาน ติดตามสถานะสินค้าตลอด 24 ชั่วโมง",
+      // 📖 Flipbook Section
+      catalogTitle: "เอกสารแนะนำบริษัท สยามไลน์เนอร์ จำกัด",
+      catalogSubtitle: "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร",
+      coverBadge: "SIAM LINERS",
+      coverSubBadge: "NVOCC & SHIPPING OPERATOR",
+      coverTitle1: "THE",
+      coverTitle2: "EXPERIENCED",
+      coverSub: "NVOCC & CONTAINER SOLUTIONS",
+      insidePageTitle: "สายเรือ (NVOCC)",
+      insidePageDesc: "เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ",
+      insideServiceHead: "ปฏิบัติการเฉพาะเจาะจง",
+      backCoverTitle: "WORLDWIDE NETWORK",
 
+      // 🚢 Services 1-2
+      s1_tab: "สายเรือ (NVOCC)",
+      s1_tag: "CORE SERVICE 01 // NVOCC OPERATOR",
+      s1_title: "สายเรือ (NVOCC)",
+      s1_sub: "เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ",
+      s1_desc: "เชี่ยวชาญทุกเส้นทางการเดินเรือ เพราะเราเชี่ยวชาญเราจึงมั่นใจในการให้บริการอย่างมืออาชีพ และพร้อมตอบสนองในทุกความต้องการ มีตารางเดินเรือที่แน่นอนและความถี่สูงเพื่อให้ธุรกิจของคุณขับเคลื่อนได้อย่างราบรื่น",
+      s1_items: [
+        "มีตารางเวลา ความถี่ (Frequency Sailing) การเดินเรือ มากเท่าที่คุณต้องการ",
+        "มีตารางเวลาการเดินเรือแน่นอนในทุกเส้นทาง",
+        "มีบุคลากรที่เชี่ยวชาญให้คำปรึกษา ติดต่อและประสานงานตลอดเวลา",
+        "มีความพร้อมด้านเทคโนโลยีในด้านการสื่อสาร"
+      ],
+
+      s2_tab: "ปฏิบัติการเฉพาะเจาะจง",
+      s2_tag: "CORE SERVICE 02 // SPECIALIZED OPERATIONS",
+      s2_title: "ปฏิบัติการเฉพาะเจาะจง",
+      s2_sub: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า",
+      s2_desc: "เพราะเราเชี่ยวชาญ เราจึงมีความพร้อมให้คุณได้มากกว่า ด้วยทีมงานและอุปกรณ์เฉพาะทางที่พร้อมรองรับการจัดการสินค้าทุกรูปแบบตลอด 24 ชั่วโมง",
+      s2_items: [
+        "มีบุคลากรพร้อมบริการดูแลนำสินค้าเข้า – ออกตลอดเวลาจากตู้คอนเทนเนอร์ (Stuffing/un-stuffing)",
+        "มีบริการด้านหีบห่อ re-packing",
+        "พร้อมด้วยบุคลากรประสานงาน ติดตามตลอด 24 ชั่วโมง"
+      ],
+
+      // 📅 Schedule Matrix
       scheduleTitle: "ตารางเรือนำเข้า (Import Vessel Schedule)",
       scheduleSubtitle: "ตารางการออกเดินเรือประจำสัปดาห์สำหรับสินค้าขาเข้า",
+      scheduleNote: "* ตารางการเดินเรืออาจมีการเปลี่ยนแปลงขึ้นอยู่กับสภาพอากาศและความหนาแน่นของท่าเรือ",
+      scheduleMatrixLabel: "Siam Liners Vessel Matrix",
 
+      // 🎴 Contacts
       contactTitle: "ติดต่อเรา — บริษัท สยามไลน์เนอร์ จำกัด",
       centerPhone: "02-393-5300 #5141 , 080-993-6445",
       salesDept: "แผนก Sales",
+      salesSub: "สอบถามราคาและปรึกษาเส้นทางขนส่ง",
       salesContacts: [
         { name: "K.Toey", phone: "092-280-6609" },
         { name: "K.Jame", phone: "099-227-9517" }
       ],
       salesEmail: "SLN_SALES@siamliner.com",
-
+      
       csDept: "แผนก CS (Customer Service)",
+      csSub: "ฝ่ายปฏิบัติการและบริการลูกค้า ขาเข้า / ขาออก",
       csContacts: [
         { name: "K.Keaw", phone: "086-894-1581" },
         { name: "K.Yale", phone: "088-809-9293" }
       ],
       exportEmail: "SLN_OUTBOUND@siamliner.com",
       importEmail: "SLN_INBOUND@siamliner.com"
-    }
+    },
   }
 };
+

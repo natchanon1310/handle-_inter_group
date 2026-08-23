@@ -314,8 +314,8 @@ export default function AboutPage() {
       {/* ส่วนท้ายแสดงชื่อผู้บริหาร */}
       <div className="pt-6 mt-6 border-t border-slate-100 text-left flex items-center justify-between">
         <div>
-          <p className="font-black text-sm md:text-base text-slate-900">คุณสมชาย รุ่งบวรวงศ์</p>
-          <p className="text-xs font-bold text-sky-600 tracking-wider pt-0.5">กรรมการผู้จัดการ Handle Inter Group</p>
+          <p className="font-black text-sm md:text-base text-slate-900">{isMounted && t.m1_tag2}</p>
+          <p className="text-xs font-bold text-sky-600 tracking-wider pt-0.5">{isMounted && t.m1_tag3}</p>
         </div>
         <span className="text-2xl">🏆</span>
       </div>
@@ -472,23 +472,23 @@ export default function AboutPage() {
                 >
                   {/* กรอบรูปภาพ */}
                   <div className="w-full h-52 sm:h-60 rounded-2xl overflow-hidden bg-neutral-950 relative group">
-                    <motion.img
-                      initial={{ scale: 1.08 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.7 }}
-                      src={currentSub.img}
-                      alt={currentSub.name}
-                      className="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    <div className="absolute bottom-3 left-3">
-                      <span className="bg-black/80 backdrop-blur-md text-white font-mono text-[11px] font-bold px-3 py-1 rounded-md border border-neutral-700 flex items-center space-x-1.5">
-                        <span>{currentSub.icon}</span>
-                        <span>{currentSub.tag}</span>
-                      </span>
-                    </div>
-                  </div>
+  <motion.img
+    initial={{ scale: 1.08 }}
+    animate={{ scale: 1 }}
+    transition={{ duration: 0.7 }}
+    src={currentSub.img}
+    alt={currentSub.name}
+    className="w-full h-full object-cover contrast-125 group-hover:scale-105 transition-all duration-700 ease-out"
+  />
+  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+  
+  <div className="absolute bottom-3 left-3">
+    <span className="bg-black/80 backdrop-blur-md text-white font-mono text-[11px] font-bold px-3 py-1 rounded-md border border-neutral-700 flex items-center space-x-1.5">
+      <span>{currentSub.icon}</span>
+      <span>{currentSub.tag}</span>
+    </span>
+  </div>
+</div>
 
                   {/* ข้อมูลบริษัทและปุ่มเชื่อมต่อ */}
                   <div className="space-y-3">
@@ -571,7 +571,7 @@ export default function AboutPage() {
                         : '"Preparedness is the absolute key to competitive advantage. Handle Inter Group is 100% ready for AEC."'}
                     </p>
                     <p className="text-[10px] font-mono text-right text-slate-400 font-bold">
-                      — คุณสมชาย รุ่งบวรวงศ์
+                     {isMounted && t.m1_tag2 && `- ${t.m1_tag2}`}
                     </p>
                   </motion.div>
                 </div>
@@ -590,8 +590,8 @@ export default function AboutPage() {
                 </span>
 
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
-                  พัฒนาศักยภาพรับมือเปิดเสรี AEC
-                </h2>
+  {isMounted && t.devsuvt}
+</h2>
 
                 {/* เนื้อหาเต็มย่อหน้าที่ 1 */}
                 <p className="text-slate-700 text-sm md:text-base leading-relaxed font-normal">
@@ -624,7 +624,7 @@ export default function AboutPage() {
                     }}
                     className="inline-flex items-center space-x-3 bg-orange-600 hover:bg-orange-500 text-white text-xs md:text-sm font-extrabold uppercase font-mono px-8 py-3.5 rounded-full transition-all duration-300 shadow-lg hover:shadow-orange-600/30 hover:scale-105 cursor-pointer active:scale-95"
                   >
-                    <span>อ่านวิสัยทัศน์พันธมิตรธุรกิจ ↗</span>
+                    <span>{isMounted && t.bt_m1}</span>
                   </button>
                 </div>
               </motion.div>
@@ -655,7 +655,7 @@ export default function AboutPage() {
                 </span>
 
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight uppercase leading-[1.1]">
-                  ลูกค้าคือพันธมิตร<br />ทางธุรกิจที่สำคัญที่สุด
+                 {isMounted && t.m1_h1} <br />{isMounted && t.m1_h2}
                 </h2>
 
                 {/* ข้อความเต็มย่อหน้าของลูกค้าคือพันธมิตรสำคัญที่สุด */}
@@ -670,7 +670,7 @@ export default function AboutPage() {
                     whileHover={{ scale: 1.04 }}
                     className="inline-flex items-center space-x-3 bg-slate-900 text-white font-mono text-xs md:text-sm font-bold px-7 py-3.5 rounded-full shadow-xl border border-slate-800"
                   >
-                    <span>✓ การขนส่งและบริการที่ดีที่สุด (The Best Transport & Service)</span>
+                    <span>{isMounted && t.bt_m2}</span>
                   </motion.div>
                 </div>
               </motion.div>

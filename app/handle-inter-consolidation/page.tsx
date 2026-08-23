@@ -52,19 +52,12 @@ function ScrollCardReveal({
   );
 }
 
-export default function HandleInterLogisticsPage() {
+export default function HandleInterConsolidationPage() {
   const [activeSection, setActiveSection] = useState("overview");
   const [lang, setLang] = useState<"en" | "th">("en");
   const [isMounted, setIsMounted] = useState(false);
 
-  // 📖 E-Book Flipbook State (Section 2)
-  const [currentStep, setCurrentStep] = useState(0);
-  const [flipDirection, setFlipDirection] = useState<"next" | "prev">("next");
-  const [isFlipping, setIsFlipping] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isZoomed, setIsZoomed] = useState(false);
-
-  // 🎥 3D Cinematic Scroll-Locking Reference (Section 3)
+  // 🎥 Smooth Scroll-Locking Reference (Section 3)
   const lockContainerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: lockContainerRef,
@@ -72,27 +65,22 @@ export default function HandleInterLogisticsPage() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 24,
+    stiffness: 70,
+    damping: 20,
     restDelta: 0.001,
   });
 
-  // 🌟 Phase 1: หัวข้อใหญ่ตรงกลาง (Fade Out ช่วงต้นของการ Scroll Lock)
-  const titleOpacity = useTransform(smoothProgress, [0, 0.16, 0.23], [1, 0.9, 0]);
-  const titleY = useTransform(smoothProgress, [0, 0.23], [0, -60]);
-  const titleScale = useTransform(smoothProgress, [0, 0.23], [1, 0.9]);
+  // 🌟 Phase 1: หัวข้อหลักตรงกลาง ค่อยๆ จางหายไปเมื่อเริ่มเลื่อน
+  const titleOpacity = useTransform(smoothProgress, [0, 0.15, 0.25], [1, 0.6, 0]);
+  const titleScale = useTransform(smoothProgress, [0, 0.25], [1, 0.95]);
 
-  // 🌟 Phase 2: ภาพลอยเดี่ยว จากกึ่งกลางจอ -> ขยับไปฝั่งขวาพร้อมย่อขนาดและหมุนเอียง
-  const objectX = useTransform(smoothProgress, [0.12, 0.52], ["0%", "28%"]);
-  const objectY = useTransform(smoothProgress, [0.12, 0.52], ["0%", "0%"]);
-  const objectScale = useTransform(smoothProgress, [0, 0.15, 0.52], [1.3, 1.22, 1.05]);
-  const objectRotateZ = useTransform(smoothProgress, [0.12, 0.52], [-8, 4]);
-  const objectRotateY = useTransform(smoothProgress, [0.12, 0.52], [16, -6]);
+  // 🌟 Phase 2: แอนิเมชัน Smooth Split Reveal
+  const contentX = useTransform(smoothProgress, [0.2, 0.55], [-60, 0]);
+  const contentOpacity = useTransform(smoothProgress, [0.2, 0.5], [0, 1]);
 
-  // 🌟 Phase 3: กล่องเนื้อหา E-Book ฝั่งซ้ายสไลด์ขึ้นมา
-  const contentOpacity = useTransform(smoothProgress, [0.28, 0.55], [0, 1]);
-  const contentX = useTransform(smoothProgress, [0.28, 0.55], [-40, 0]);
-  const contentY = useTransform(smoothProgress, [0.28, 0.55], [30, 0]);
+  const imageX = useTransform(smoothProgress, [0.2, 0.55], [60, 0]);
+  const imageOpacity = useTransform(smoothProgress, [0.2, 0.5], [0, 1]);
+  const imageScale = useTransform(smoothProgress, [0.2, 0.55], [0.95, 1]);
 
   // Selected Service Chapter (Section 3)
   const [activeServiceTab, setActiveServiceTab] = useState<number>(0);
@@ -109,130 +97,70 @@ export default function HandleInterLogisticsPage() {
   }, []);
 
   const t = dictionary[lang] || dictionary.en;
-  const subsidiaries = t.subsidiaries || [];
-  const detailText = t.interLogistics || {};
+  const detailText = t.consolidation || {};
 
   const sections = useMemo(
     () => [
-     { id: "overview", label: lang === "en" ? "Overview" : "ภาพรวม" },
-      { id: "ebook-section", label: lang === "en" ? "Companyprofie" : "เอกสารบริษัท" },
-      { id: "cinematic-scene", label: lang === "en" ? "Our service" : "บริการของเรา" },
-      { id: "contact-card", label: lang === "en" ? "Contact Us" : "ติดต่อเรา" },
+      { id: "overview", label: lang === "en" ? "Overview" : "ภาพรวม" },
+      { id: "companyprofile", label: lang === "en" ? "Company Profile" : "เอกสารบริษัท" },
+      { id: "Our service", label: lang === "en" ? "Capabilities" : "ขีดความสามารถ" },
+      { id: "Contact Us", label: lang === "en" ? "Contact Us" : "ติดต่อเรา" },
     ],
     [lang]
   );
 
-  // 📦 ข้อมูลบริการทั้งหมด 5 ด้าน ตรงตามข้อความที่ระบุครบถ้วน 100%
+  // 📦 ดึงข้อมูลบริการ 4 ด้านจาก dictionary
   const completeEbookServices = useMemo(
     () => [
       {
         id: "ocean-freight",
-        tabTitle: "ขนส่งสินค้าทางทะเล",
-        tag: "CORE SERVICE 01 // SEA FREIGHT",
-        title: "ขนส่งสินค้าทางทะเล",
-        subtitle: "บริการอย่างมืออาชีพด้านการจัดการขนส่งสินค้า ด้วยทีมงานมืออาชีพ",
-        desc: "ด้วยทีมงานมืออาชีพ การจัดการด้านการขนส่งทางเรือ ทั้งขาเข้าและขาออก จึงไม่มีสิ่งใดเป็นไปไม่ได้ ทีมงานคุณภาพพร้อมให้คำแนะนำ ปรึกษา วางแผนให้การขนส่งเป็นไปได้อย่างง่ายดาย มีเครือข่ายครอบคลุมทั่วทุกเส้นทางการขนส่งทั้งเอเซีย ยุโรป ตะวันออกกลาง และอเมริกา ตลอดเส้นทางการขนส่ง",
-        items: [
-          "บริการขนส่งสินค้าแบบเต็มตู้คอนเทนเนอร์ (Full Container Load : FCL)",
-          "บริการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ (Less Than Container Load : LCL)",
-        ],
+        tabTitle: detailText.s1_tab || "Ocean Freight",
+        tag: detailText.s1_tag || "CORE SERVICE 01 // SEA FREIGHT",
+        title: detailText.s1_title || "Ocean Freight Solutions",
+        subtitle: detailText.s1_sub || "",
+        desc: detailText.s1_desc || "",
+        items: detailText.s1_items || [],
         icon: "🚢",
         img: "/images/shipcard.png",
       },
       {
         id: "air-freight",
-        tabTitle: "ขนส่งสินค้าทางอากาศ",
-        tag: "CORE SERVICE 02 // AIR FREIGHT",
-        title: "ขนส่งสินค้าทางอากาศ",
-        subtitle: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก",
-        desc: "มืออาชีพด้านการขนส่งสินค้าทางอากาศ ทั้งขาเข้า และขาออก ตอบสนองทุกเส้นทางการขนส่ง มีเครือข่ายรองรับการบริการขนส่งทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia) เพราะเราสามารถตอบโจทย์ความต้องการของคุณ และสามารถให้บริการอย่างมืออาชีพเพื่อธุรกิจของคุณ",
-        items: [
-          "บริการขนส่งสินค้าแบบถึงมือผู้รับ Door to door (DDU / DDP / FCA / Ex-work) etc.,",
-        ],
+        tabTitle: detailText.s2_tab || "Air Freight",
+        tag: detailText.s2_tag || "CORE SERVICE 02 // AIR FREIGHT",
+        title: detailText.s2_title || "Air Freight Services",
+        subtitle: detailText.s2_sub || "",
+        desc: detailText.s2_desc || "",
+        items: detailText.s2_items || [],
         icon: "✈️",
         img: "/images/cardair.png",
       },
       {
-        id: "lcl-consolidation",
-        tabTitle: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
-        tag: "CORE SERVICE 03 // LCL SERVICE",
-        title: "ขนส่งสินค้าแบบไม่เต็มตู้คอนเทรนเนอร์",
-        subtitle: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ",
-        desc: "บริการที่ครอบคลุมทุกความต้องการด้านการจัดการขนส่งอย่างมืออาชีพ ด้วยทีมงานที่มีความชำนาญ, รองรับการบริการการขนส่งสินค้าแบบไม่เต็มตู้คอนเทนเนอร์ เพื่อให้คุณไม่พลาดแม้การขนส่งขนาดเล็กไปยังปลายทางทั่วโลก โดยเฉพาะโซนเอเซีย (Intra-Asia)",
-        items: [],
+        id: "trucking-packing",
+        tabTitle: detailText.s3_tab || "Packing & Transport",
+        tag: detailText.s3_tag || "CORE SERVICE 03 // PACKING & TRANSPORT",
+        title: detailText.s3_title || "Trucking & Packing Services",
+        subtitle: detailText.s3_sub || "",
+        desc: detailText.s3_desc || "",
+        items: detailText.s3_items || [],
         icon: "📦",
         img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
       },
       {
-        id: "trucking-fleet",
-        tabTitle: "ขนส่งสินค้าทางรถ",
-        tag: "CORE SERVICE 04 // LAND TRANSPORT",
-        title: "ขนส่งสินค้าทางรถ",
-        subtitle: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง",
-        desc: "บริการทุกขั้นตอนอย่างมืออาชีพ รองรับทุกความต้องการของการขนส่ง รถบรรทุก ทุกประเภท ทุกการใช้งาน",
-        items: [
-          "4 ล้อหลังคาสูง",
-          "6 ล้อเปิดข้าง",
-          "10 ล้อขึ้นไป",
-          "รถหัวลาก 20 ฟุต",
-          "รถหัวลาก 40 ฟุต",
-        ],
-        icon: "🚛",
-        img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
-      },
-      {
         id: "customs-clearance",
-        tabTitle: "ดำเนินการพิธีการศุลกากร",
-        tag: "CORE SERVICE 05 // CUSTOMS CLEARANCE",
-        title: "ดำเนินการพิธีการศุลกากร",
-        subtitle: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน",
-        desc: "มืออาชีพ เช่น เรา พร้อมแล้วในการให้บริการทุกขึ้นตอนของการเดินพิธีการผ่านแดน",
-        items: [
-          "บริการดำเนินพิธีการทางเรือ ทั้งขาเข้า-ขาออก",
-          "บริการดำเนินพิธีการทางอากาศ ทั้งขาเข้า-ขาออก",
-          "บริการออกหนังสือรับรองถิ่นกำเนิดสินค้า (Certificate of orgin)",
-          "บริการขอคืนภาษีอากรสำหรับผู้ส่งออก (มุมน้ำเงิน) /มาตรา 19 ทวี/บีโอไอ",
-        ],
+        tabTitle: detailText.s4_tab || "Customs Clearance",
+        tag: detailText.s4_tag || "CORE SERVICE 04 // CUSTOMS CLEARANCE",
+        title: detailText.s4_title || "Customs Clearance Services",
+        subtitle: detailText.s4_sub || "",
+        desc: detailText.s4_desc || "",
+        items: detailText.s4_items || [],
         icon: "📑",
         img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1000&q=80",
       },
     ],
-    []
+    [detailText]
   );
 
   const currentService = completeEbookServices[activeServiceTab];
-
-  // ควบคุม Flipbook (Section 2)
-  const goToNext = () => {
-    if (isFlipping || currentStep >= 2) return;
-    setIsFlipping(true);
-    setFlipDirection("next");
-    setCurrentStep((prev) => prev + 1);
-    setTimeout(() => setIsFlipping(false), 700);
-  };
-
-  const goToPrev = () => {
-    if (isFlipping || currentStep <= 0) return;
-    setIsFlipping(true);
-    setFlipDirection("prev");
-    setCurrentStep((prev) => prev - 1);
-    setTimeout(() => setIsFlipping(false), 700);
-  };
-
-  useEffect(() => {
-    if (!isPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentStep((prev) => {
-        if (prev >= 2) {
-          setIsPlaying(false);
-          return 2;
-        }
-        setFlipDirection("next");
-        return prev + 1;
-      });
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [isPlaying]);
 
   useEffect(() => {
     if (!isMounted) return;
@@ -292,7 +220,7 @@ export default function HandleInterLogisticsPage() {
                 <span
                   className={`absolute transition-all duration-300 rounded-full ${
                     isActive
-                      ? "w-8 h-[3px] bg-orange-600"
+                      ? "w-8 h-[3px] bg-orange-600 shadow-[0_0_8px_rgba(234,88,12,0.8)]"
                       : "w-4 h-[1.5px] bg-gray-300 group-hover:bg-orange-400 group-hover:w-6"
                   }`}
                 />
@@ -309,8 +237,8 @@ export default function HandleInterLogisticsPage() {
       >
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/handleinterconhero.jpeg"
-            alt="Handle Inter Logistics Hub"
+            src="/images/handleinterlogistichere.jpeg"
+            alt="Handle Inter Consolidation Background"
             className="w-full h-full object-cover opacity-50 brightness-90 contrast-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent z-10" />
@@ -320,23 +248,23 @@ export default function HandleInterLogisticsPage() {
           <ScrollCardReveal direction="up" delay={100}>
             <div className="inline-block bg-orange-600/90 backdrop-blur-md px-5 py-1.5 rounded-full shadow-lg mb-2">
               <span className="text-xs font-bold text-white uppercase tracking-widest font-mono">
-                {isMounted && (detailText.heroSub || "HANDLE INTER LOGISTICS")}
+                {isMounted && (detailText.heroSub || "HANDLE INTER CONSOLIDATION")}
               </span>
             </div>
             <h1 className="text-4xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-md mt-2">
-              {isMounted && (subsidiaries[1]?.name || detailText.heroTitle || "HANDLE INTER LOGISTICS CO., LTD.")}
+              {isMounted && (detailText.heroTitle || "HANDLE INTER CONSOLIDATION CO., LTD.")}
             </h1>
             <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full my-4" />
-            <p className="text-slate-200 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-normal">
-              {isMounted && (subsidiaries[1]?.desc || "")}
+            <p className="text-slate-200 max-w-4xl mx-auto text-xl md:text-4xl leading-relaxed font-normal">
+              {isMounted && detailText.heroDesc}
             </p>
 
             <div className="pt-6">
               <button
-                onClick={() => scrollToSection("ebook-section")}
+                onClick={() => scrollToSection("companyprofile")}
                 className="bg-orange-600 hover:bg-orange-500 text-white px-8 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-xl shadow-orange-600/30 inline-flex items-center space-x-3 cursor-pointer"
               >
-                <span>{lang === "en" ? "EXPLORE DIGITAL BROCHURE" : "เปิดอ่านโบรชัวร์ดิจิทัล"}</span>
+                <span>{detailText.exploreBtn || (lang === "en" ? "EXPLORE DIGITAL BROCHURE" : "เปิดอ่านโบรชัวร์ดิจิทัล")}</span>
                 <span className="animate-bounce">↓</span>
               </button>
             </div>
@@ -344,310 +272,42 @@ export default function HandleInterLogisticsPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 2: REALISTIC FLIPBOOK VIEWER */}
+      {/* 🎯 SECTION 2: HEYZINE FLIPBOOK VIEWER */}
       <section
-        id="ebook-section"
-        className="py-20 md:py-28 px-4 sm:px-8 bg-[#222327] text-white relative w-full flex flex-col items-center justify-center min-h-screen border-b border-neutral-800"
+        id="companyprofile"
+        className="py-16 md:py-24 px-4 sm:px-8 bg-[#222327] text-white relative w-full flex flex-col items-center justify-center min-h-screen border-b border-neutral-800"
       >
         <div className="text-center max-w-2xl mx-auto space-y-2 mb-8">
           <span className="text-[11px] font-bold text-orange-400 uppercase tracking-widest block font-mono">
             Interactive Presentation
           </span>
           <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
-            {lang === "en" ? "Handle Inter Logistics Catalog" : "เอกสารแนะนำบริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จำกัด"}
+            {detailText.catalogTitle || "Handle Inter Consolidation Catalog"}
           </h2>
           <p className="text-xs text-neutral-400">
-            {lang === "en" ? "Click the arrows to flip pages or use controls below." : "คลิกลูกศรด้านข้างหรือแถบควบคุมด้านล่างเพื่อเปิดพลิกหน้าเอกสาร"}
+            {detailText.catalogSubtitle || (lang === "en" ? "Browse our official digital company brochure below." : "คลิกเปิดอ่านโบรชัวร์ดิจิทัลของบริษัทได้จากหน้าต่างด้านล่าง")}
           </p>
         </div>
 
-        {/* FLIPBOOK VIEWER WRAPPER */}
-        <div className="w-full max-w-5xl relative flex items-center justify-center my-auto">
-          <button
-            onClick={goToPrev}
-            disabled={currentStep === 0 || isFlipping}
-            className={`absolute left-0 sm:-left-6 lg:-left-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
-              currentStep === 0 ? "opacity-20 cursor-not-allowed" : "hover:scale-110 active:scale-95"
-            }`}
-            title="Previous Page"
-          >
-            <span className="text-lg font-bold">‹</span>
-          </button>
-
-          <div
-            className={`w-full transition-all duration-500 perspective-2000 flex items-center justify-center ${
-              isZoomed ? "scale-105 sm:scale-110" : "scale-100"
-            }`}
-          >
-            <div className="relative w-full max-w-[860px] min-h-[480px] sm:min-h-[560px] md:min-h-[600px] flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                {/* STEP 0: FRONT COVER */}
-                {currentStep === 0 && (
-                  <motion.div
-                    key="cover"
-                    initial={{ rotateY: flipDirection === "next" ? -80 : 80, opacity: 0, scale: 0.95 }}
-                    animate={{ rotateY: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotateY: -80, opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ transformOrigin: "left center", transformStyle: "preserve-3d" }}
-                    className="w-full max-w-[420px] h-[540px] sm:h-[580px] bg-[#0c1e38] rounded-r-2xl rounded-l-md shadow-[0_25px_60px_rgba(0,0,0,0.85)] border-r-4 border-b-4 border-slate-700/60 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden text-white"
-                  >
-                    <div className="absolute top-0 bottom-0 left-0 w-4 bg-gradient-to-r from-black/80 via-black/30 to-transparent pointer-events-none z-20" />
-                    <div className="relative z-10 space-y-4 text-left">
-                      <div className="bg-white px-3 py-1 rounded-md inline-block shadow-md">
-                        <div className="text-blue-900 font-black text-xl tracking-wider flex items-center space-x-1">
-                          <span>HIL</span>
-                          <span className="text-xs">🚛</span>
-                        </div>
-                        <div className="text-[8px] font-mono font-bold text-slate-700 tracking-tight">HANDLE INTER LOGISTICS</div>
-                      </div>
-
-                      <div className="pt-2">
-                        <h3 className="text-3xl sm:text-4xl font-black text-white leading-none tracking-tight">
-                          THE
-                        </h3>
-                        <h3 className="text-2xl sm:text-3xl font-extralight text-sky-300 leading-tight tracking-wider">
-                          EXPERIENCED
-                        </h3>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 my-auto py-2">
-                      <div className="relative w-full h-52 sm:h-56 rounded-xl overflow-hidden shadow-2xl border border-white/20">
-                        <img
-                          src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80"
-                          alt="Cargo Ocean Ship"
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0c1e38]/80 via-transparent to-transparent" />
-                        <div className="absolute bottom-3 left-3 text-left">
-                          <span className="text-[10px] font-mono text-sky-300 uppercase tracking-widest block font-bold">
-                            ONE STOP TOTAL LOGISTICS
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 pt-4 border-t border-white/10 flex justify-between items-center text-[10px] font-mono text-slate-300">
-                      <span>www.handleintergroup.com</span>
-                      <div className="flex items-center space-x-1.5 bg-white/10 px-2.5 py-1 rounded border border-white/20">
-                        <span>ISO 9001</span>
-                        <span>•</span>
-                        <span>TIFFA</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 1: 2-PAGE SPREAD */}
-                {currentStep === 1 && (
-                  <motion.div
-                    key="spread"
-                    initial={{ rotateY: flipDirection === "next" ? 70 : -70, opacity: 0 }}
-                    animate={{ rotateY: 0, opacity: 1 }}
-                    exit={{ rotateY: flipDirection === "next" ? -70 : 70, opacity: 0 }}
-                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ transformStyle: "preserve-3d" }}
-                    className="w-full grid grid-cols-1 md:grid-cols-2 bg-[#f8fafc] text-slate-900 rounded-2xl shadow-[0_30px_90px_rgba(0,0,0,0.85)] border border-slate-300 relative overflow-hidden min-h-[540px] sm:min-h-[580px]"
-                  >
-                    <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-black/25 via-black/5 to-black/25 pointer-events-none z-30" />
-
-                    <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between text-left border-b md:border-b-0 md:border-r border-slate-200 relative bg-gradient-to-b from-white to-slate-50">
-                      <div className="space-y-4">
-                        <span className="text-2xl sm:text-3xl font-black text-[#1e3a8a] tracking-tight block">
-                          THE EXPERIENCED
-                        </span>
-                        <p className="text-slate-700 text-xs sm:text-sm leading-relaxed font-normal pt-1">
-                          เราให้บริการรับจัดการขนส่งสินค้าระหว่างประเทศและบริการฟลีตรถบรรทุกครบวงจร รวดเร็ว ปลอดภัย และตรงต่อเวลา
-                        </p>
-                      </div>
-
-                      <div className="mt-4 w-full h-40 sm:h-48 rounded-xl overflow-hidden border border-slate-200 shadow-md relative">
-                        <img
-                          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                          alt="Warehouse Logistics"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-
-                      <div className="pt-3 flex justify-between items-center text-[10px] font-mono text-slate-400">
-                        <span>HANDLE INTER LOGISTICS</span>
-                        <span>01</span>
-                      </div>
-                    </div>
-
-                    <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between text-left relative bg-gradient-to-b from-white to-slate-50">
-                      <div className="space-y-4">
-                        <span className="text-xl sm:text-2xl font-black text-[#1e3a8a] tracking-tight block border-b border-slate-200 pb-2">
-                          THE EXPERIENCED <span className="text-orange-600">SERVICE</span>
-                        </span>
-
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
-                            <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            บริการขนส่งทางทะเล (FCL/LCL)
-                          </h4>
-                          <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            บริการส่งทั้งแบบ FCL และ LCL พร้อมสายเรือหลากหลาย มีความยืดหยุ่นและตารางเดินเรือที่เชื่อถือได้
-                          </p>
-                        </div>
-
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
-                            <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            บริการขนส่งทางอากาศ
-                          </h4>
-                          <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            ครอบคลุมทั่วโลกทั้งส่งออกและนำเข้า พร้อมการบริการแบบ door-to-door และตัวแทนพิธีการศุลกากร
-                          </p>
-                        </div>
-
-                        <div className="space-y-1">
-                          <h4 className="font-bold text-xs sm:text-sm text-slate-900 flex items-center">
-                            <span className="w-2 h-2 rounded-full bg-blue-900 mr-2 shrink-0" />
-                            การบริการพิธีการศุลกากร
-                          </h4>
-                          <p className="text-[11px] sm:text-xs text-slate-600 pl-4 leading-relaxed font-light">
-                            การประสานงานที่เป็นเลิศ ดำเนินการทุกขั้นตอน ด้วยเทคโนโลยีที่ทันสมัยและทีมงานมากประสบการณ์
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="pt-3 flex justify-between items-center text-[10px] font-mono text-slate-400 border-t border-slate-100">
-                        <span>02</span>
-                        <span>EXCELLENCE IN MOTION</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* STEP 2: BACK COVER */}
-                {currentStep === 2 && (
-                  <motion.div
-                    key="backcover"
-                    initial={{ rotateY: flipDirection === "next" ? 80 : -80, opacity: 0, scale: 0.95 }}
-                    animate={{ rotateY: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotateY: 80, opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ transformOrigin: "right center", transformStyle: "preserve-3d" }}
-                    className="w-full max-w-[420px] h-[540px] sm:h-[580px] bg-gradient-to-b from-[#0a192f] via-[#0d223f] to-[#081326] rounded-l-2xl rounded-r-md shadow-[0_25px_60px_rgba(0,0,0,0.85)] border-l-4 border-b-4 border-slate-700/60 p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden text-white"
-                  >
-                    <div className="absolute top-0 bottom-0 right-0 w-4 bg-gradient-to-l from-black/80 via-black/30 to-transparent pointer-events-none z-20" />
-                    <div className="text-center relative z-10 space-y-1">
-                      <h3 className="text-2xl sm:text-3xl font-black tracking-wider text-white uppercase font-sans">
-                        WORLDWIDE
-                      </h3>
-                      <h3 className="text-xl sm:text-2xl font-light tracking-widest text-sky-400 uppercase font-sans">
-                        NETWORK
-                      </h3>
-                    </div>
-
-                    <div className="relative z-10 my-auto py-2 flex items-center justify-center">
-                      <div className="relative w-full h-52 sm:h-60 rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-slate-950">
-                        <img
-                          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80"
-                          alt="Worldwide Logistics Network"
-                          className="w-full h-full object-cover opacity-85"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-transparent to-transparent" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-5xl filter drop-shadow-2xl">🌐</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="relative z-10 text-left space-y-2 pt-3 border-t border-white/15 text-[10px] font-mono text-slate-300">
-                      <div className="font-bold text-white text-xs">Handle Inter Logistics Co., Ltd.</div>
-                      <p className="text-[9px] text-slate-400 leading-tight">
-                        1 Handle Inter Group Building, Bangna-Trad Soi 17, Bangkok 10260 Thailand
-                      </p>
-                      <div className="flex justify-between items-center pt-1 text-[9px] text-sky-300">
-                        <span>Tel: +66 (0) 2393 2300 (Auto)</span>
-                        <span>www.handleintergroup.com</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+        {/* 📖 Responsive Heyzine Flipbook Embed Container */}
+        <div className="w-full max-w-5xl mx-auto bg-black/40 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] border border-white/10 p-2 sm:p-4 backdrop-blur-md">
+          <div className="relative w-full h-[520px] sm:h-[620px] md:h-[700px] rounded-xl overflow-hidden">
+            <iframe
+              src="https://heyzine.com/flip-book/a37ef833fa.html"
+              title="Handle Inter Consolidation Flipbook"
+              className="w-full h-full border-0 rounded-xl"
+              allowFullScreen
+            />
           </div>
-
-          <button
-            onClick={goToNext}
-            disabled={currentStep === 2 || isFlipping}
-            className={`absolute right-0 sm:-right-6 lg:-right-12 z-30 w-11 h-11 rounded-full bg-black/60 hover:bg-orange-600 text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer border border-white/20 shadow-2xl ${
-              currentStep === 2 ? "opacity-20 cursor-not-allowed" : "hover:scale-110 active:scale-95"
-            }`}
-            title="Next Page"
-          >
-            <span className="text-lg font-bold">›</span>
-          </button>
-        </div>
-
-        {/* BOTTOM CONTROL TOOLBAR */}
-        <div className="bg-black/70 border border-white/15 rounded-full px-5 py-2.5 flex items-center space-x-4 sm:space-x-6 text-white text-xs font-mono backdrop-blur-xl shadow-2xl z-20 mt-6">
-          <button
-            disabled={currentStep === 0}
-            onClick={() => {
-              setFlipDirection("prev");
-              setCurrentStep(0);
-            }}
-            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors"
-          >
-            |‹
-          </button>
-          <button
-            disabled={currentStep === 0}
-            onClick={goToPrev}
-            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
-          >
-            ‹
-          </button>
-          <span className="text-neutral-300 font-bold px-2">
-            {currentStep === 0 ? "1 / 4 (Cover)" : currentStep === 1 ? "2-3 / 4 (Inside)" : "4 / 4 (Back)"}
-          </span>
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className={`cursor-pointer transition-colors px-2 py-0.5 rounded-full ${
-              isPlaying ? "bg-orange-600 text-white" : "hover:text-orange-400"
-            }`}
-          >
-            {isPlaying ? "❚❚" : "▶"}
-          </button>
-          <button
-            disabled={currentStep === 2}
-            onClick={goToNext}
-            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors text-sm"
-          >
-            ›
-          </button>
-          <button
-            disabled={currentStep === 2}
-            onClick={() => {
-              setFlipDirection("next");
-              setCurrentStep(2);
-            }}
-            className="hover:text-orange-400 disabled:opacity-30 cursor-pointer transition-colors"
-          >
-            ›|
-          </button>
-          <span className="w-[1px] h-4 bg-white/20" />
-          <button
-            onClick={() => setIsZoomed(!isZoomed)}
-            className="hover:text-orange-400 cursor-pointer transition-colors"
-          >
-            {isZoomed ? "🔍-" : "🔍+"}
-          </button>
         </div>
       </section>
 
-      {/* 🎯 SECTION 3: 3D CINEMATIC SCROLL-LOCKED EXPERIENCE */}
+      {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL (ค่อยๆ แยกออกจากกันอย่างนุ่มนวล) */}
       <section
-        id="cinematic-scene"
+        id="Our service"
         ref={lockContainerRef}
-        className="relative w-full h-[300vh] bg-[#FDFBF7] text-stone-900 border-b border-stone-200"
+        className="relative w-full h-[250vh] bg-[#FDFBF7] text-stone-900 border-b border-stone-200"
       >
-        {/* Sticky Pinned Viewport Frame: ล็อกหน้าจอ 100vh อยู่กับที่ระหว่างการเลื่อน */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
           
           {/* Background Atmosphere */}
@@ -664,17 +324,16 @@ export default function HandleInterLogisticsPage() {
 
           {/* 📍 SCENE 1: INITIAL CENTER TITLE */}
           <motion.div
-            style={{ opacity: titleOpacity, y: titleY, scale: titleScale }}
+            style={{ opacity: titleOpacity, scale: titleScale }}
             className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
           >
-            <span className="text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.3em] text-amber-800 bg-amber-100/80 border border-amber-300/60 px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-sm">
-              Total Logistics Experience
-            </span>
+           
 
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
-              The Experienced, <br />
+              {lang === "en" ? "HANDLE INTER CONSOLIDATION CO., LTD." : "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด"} 
+              <br />
               <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                Anytime, Anywhere.
+                {lang === "en" ? "professional," : "มืออาชีพ"}
               </span>
             </h2>
 
@@ -686,26 +345,26 @@ export default function HandleInterLogisticsPage() {
 
             <div className="pt-2">
               <span className="inline-block bg-stone-900 text-amber-50 font-mono font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg">
-                Scroll Down ↓
+                {lang === "en" ? "Scroll Down ↓" : "เลื่อนลงเพื่อดูข้อมูล ↓"}
               </span>
             </div>
           </motion.div>
 
-          {/* 📍 SCENE 2: REVEAL CONTENT + PURE FLOATING 3D IMAGE */}
-          <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center relative z-20 h-[84vh]">
+          {/* 📍 SCENE 2: REVEAL CONTENT + SMOOTH SPLIT */}
+          <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-20 h-[84vh]">
             
-            {/* ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ แสดงข้อความเต็มครบถ้วน ไม่ตัดข้อความทิ้ง */}
+            {/* 👈 ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ */}
             <motion.div
-              style={{ opacity: contentOpacity, x: contentX, y: contentY }}
-              className="lg:col-span-7 text-left flex flex-col justify-between h-full py-1 pr-1 overflow-y-auto"
+              style={{ opacity: contentOpacity, x: contentX }}
+              className="lg:col-span-7 text-left flex flex-col justify-between h-full py-2 pr-2 overflow-y-auto"
             >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentService.id}
-                  initial={{ opacity: 0, y: 15, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -15, filter: "blur(4px)" }}
-                  transition={{ duration: 0.3 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
                   className="space-y-3"
                 >
                   <div className="inline-block font-mono text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 border border-amber-300/80 px-3.5 py-1 rounded-full shadow-sm">
@@ -721,21 +380,19 @@ export default function HandleInterLogisticsPage() {
                     </h4>
                   </div>
 
-                  {/* ข้อความบรรยายเต็ม */}
                   <p className="text-stone-700 text-xs sm:text-sm md:text-base leading-relaxed font-normal">
                     {currentService.desc}
                   </p>
 
-                  {/* รายการบริการย่อยทั้งหมด (แสดงเฉพาะหัวข้อที่มีรายการย่อย) */}
-                  {currentService.items.length > 0 && (
+                  {currentService.items && currentService.items.length > 0 && (
                     <div className="space-y-2 pt-1">
                       <div className="bg-[#FAF6EE]/95 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2 backdrop-blur-md shadow-sm">
                         <h5 className="font-bold text-xs sm:text-sm text-stone-900 flex items-center space-x-2">
                           <span className="w-2 h-2 rounded-full bg-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.6)]" />
-                          <span>ขอบเขตการให้บริการ (Service Scope & Capabilities)</span>
+                          <span>{detailText.scopeTitle || (lang === "en" ? "Service Scope & Capabilities" : "ขอบเขตการให้บริการ")}</span>
                         </h5>
                         <div className="grid grid-cols-1 gap-2 pt-0.5">
-                          {currentService.items.map((item, iIdx) => (
+                          {currentService.items.map((item: string, iIdx: number) => (
                             <div key={iIdx} className="flex items-start space-x-2 text-xs sm:text-sm text-stone-700">
                               <span className="text-amber-700 font-bold text-xs mt-0.5">✓</span>
                               <span className="leading-relaxed whitespace-normal break-words">{item}</span>
@@ -748,19 +405,19 @@ export default function HandleInterLogisticsPage() {
 
                   <div className="pt-2">
                     <button
-                      onClick={() => scrollToSection("contact-card")}
+                      onClick={() => scrollToSection("Contact Us")}
                       className="bg-amber-700 hover:bg-amber-800 text-amber-50 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3 rounded-full transition-all duration-300 shadow-xl shadow-amber-900/20 hover:scale-105 cursor-pointer active:scale-95"
                     >
-                      <span>Inquire Service Now ↗</span>
+                      <span>{detailText.inquireBtn || (lang === "en" ? "Inquire Service Now ↗" : "ติดต่อสอบถามบริการ ↗")}</span>
                     </button>
                   </div>
                 </motion.div>
               </AnimatePresence>
 
-              {/* 🎛️ Interactive Service Switcher Tabs สำหรับเลือกบริการทั้ง 5 หัวข้อ */}
+              {/* 🎛️ Interactive Service Switcher Tabs */}
               <div className="pt-3 border-t border-stone-200 space-y-1.5 mt-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
-                  Select Core Logistics Service :
+                  {detailText.selectServiceTitle || (lang === "en" ? "Select Core Logistics Service :" : "เลือกบริการหลัก :")}
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {completeEbookServices.map((ch, idx) => (
@@ -780,56 +437,38 @@ export default function HandleInterLogisticsPage() {
               </div>
             </motion.div>
 
-            {/* 🌟 ฝั่งขวา: Pure Floating 3D Image (ภาพสีสมบูรณ์ + ตั้งตรง 0 องศาเมื่อ Scroll เสร็จ) */}
-            <div className="lg:col-span-5 flex items-center justify-center relative perspective-2000 h-full">
+            {/* 👉 ฝั่งขวา: รูปภาพประกอบ */}
+            <div className="lg:col-span-5 flex items-center justify-center relative h-full">
               <motion.div
                 style={{
-                  x: objectX,
-                  y: objectY,
-                  scale: objectScale,
-                  rotateZ: useTransform(smoothProgress, [0.12, 0.45, 0.6], [-8, 2, 0]),
-                  rotateY: useTransform(smoothProgress, [0.12, 0.45, 0.6], [16, -4, 0]),
+                  opacity: imageOpacity,
+                  x: imageX,
+                  scale: imageScale,
                 }}
-                className="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center justify-center pointer-events-auto"
+                className="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center justify-center"
               >
-                {/* 🌟 อนิเมชันลอยตัวขึ้น-ลงอย่างนุ่มนวล */}
-                <motion.div
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                  className="relative w-full aspect-[4/5] max-h-[460px] sm:max-h-[500px] flex items-center justify-center group cursor-pointer"
-                >
-                  {/* แสง Glow โทนอุ่นด้านหลังภาพ */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-300/40 via-orange-200/40 to-yellow-200/30 rounded-full blur-3xl opacity-70 pointer-events-none group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="relative w-full aspect-[4/5] max-h-[460px] sm:max-h-[500px] flex items-center justify-center group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-300/30 via-orange-200/30 to-yellow-200/20 rounded-full blur-2xl opacity-60 pointer-events-none group-hover:opacity-100 transition-opacity duration-700" />
 
-                  {/* ตัวรูปภาพหลัก (สีสดใสธรรมชาติ ไร้ grayscale พร้อมขอบมนและเงาสมจริง) */}
-                  <div className="relative w-full h-full rounded-[36px] overflow-hidden shadow-[0_25px_60px_rgba(120,53,15,0.18)] border border-stone-200/80 group-hover:scale-105 transition-transform duration-700">
+                  <div className="relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(120,53,15,0.14)] border border-stone-200/90 group-hover:scale-[1.02] transition-transform duration-500">
                     <img
                       src={currentService.img}
                       alt={currentService.title}
-                      className="w-full h-full object-cover transition-all duration-700"
+                      className="w-full h-full object-cover transition-all duration-500"
                     />
                     
-                    {/* แสงเงา Overlay สไตล์ Cinematic Warm Film */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     
-                    {/* ไตเติลลอยบนรูปภาพ */}
                     <div className="absolute bottom-5 left-5 right-5 text-left space-y-1">
                       <span className="text-[10px] font-mono text-amber-300 font-extrabold uppercase tracking-widest block drop-shadow-md">
-                        HANDLE INTER CONSOLIDATION
+                        {isMounted && (detailText.heroTitle || "HANDLE INTER CONSOLIDATION CO., LTD.")}
                       </span>
                       <h5 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug drop-shadow-lg">
                         {currentService.title}
                       </h5>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             </div>
 
@@ -838,27 +477,25 @@ export default function HandleInterLogisticsPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 4: EXCLUSIVE CONTACT CARDS (SOFT CREAM ASYMMETRICAL ARCH THEME) */}
+      {/* 🎯 SECTION 4: EXCLUSIVE CONTACT CARDS */}
       <section
-        id="contact-card"
+        id="Contact Us"
         className="relative w-full min-h-screen bg-[#FDFBF7] text-stone-900 py-20 lg:py-28 px-6 sm:px-10 lg:px-16 flex flex-col justify-center items-center overflow-hidden border-t border-stone-200"
       >
-        {/* Background Ambient Warm Glows */}
         <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-amber-200/40 rounded-full blur-[140px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100/60 rounded-full blur-[150px] pointer-events-none" />
 
         <div className="w-full max-w-7xl mx-auto flex flex-col justify-center items-center relative z-10 space-y-12">
           
-          {/* Header Title */}
           <ScrollCardReveal direction="up">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
               <div className="inline-flex items-center space-x-2 bg-amber-50/80 border border-amber-200/60 px-6 py-2 rounded-full text-xs font-bold text-amber-800 font-mono shadow-sm backdrop-blur-md">
                 <i className="fa-solid fa-address-card text-amber-700"></i>
-                <span>{lang === "en" ? "Contact Information" : "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน"}</span>
+                <span>{detailText.contactBadge || (lang === "en" ? "Contact Information" : "ข้อมูลติดต่อฝ่ายการตลาดและประสานงาน")}</span>
               </div>
               
               <h3 className="font-black text-stone-900 text-3xl sm:text-5xl tracking-tight">
-                {lang === "en" ? "Handle Inter Logistics Co., Ltd." : "บริษัท แฮนเดิล อินเตอร์ โลจิสติกส์ จํากัด"}
+                {isMounted && (detailText.heroTitle || (lang === "en" ? "Handle Inter Consolidation Co., Ltd." : "บริษัท แฮนเดิล อินเตอร์ คอนโซลลิเดชั่น จำกัด"))}
               </h3>
               
               <p className="text-xs sm:text-sm text-stone-500 font-mono max-w-2xl mx-auto">
@@ -867,34 +504,31 @@ export default function HandleInterLogisticsPage() {
             </div>
           </ScrollCardReveal>
 
-          {/* 🎴 Business Card แบบ Asymmetrical Arch Shape */}
+          {/* 🎴 Business Card */}
           <div className="max-w-4xl w-full mx-auto">
             <ScrollCardReveal direction="up" delay={100} className="h-full">
               <div className="h-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] border border-amber-200/70 hover:border-amber-400/80 rounded-tr-[70px] sm:rounded-tr-[110px] rounded-bl-[70px] sm:rounded-bl-[110px] rounded-tl-3xl rounded-br-3xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(217,119,6,0.08)] backdrop-blur-xl relative overflow-hidden transition-all duration-500 group hover:-translate-y-1.5 flex flex-col justify-between">
                 <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-8 sm:gap-10">
                   
-                  {/* ฝั่งซ้าย: Logo & Company Name */}
                   <div className="w-full sm:w-5/12 flex flex-col items-center justify-center text-center space-y-3 bg-white/80 border border-amber-100 rounded-tr-[40px] rounded-bl-[40px] rounded-tl-xl rounded-br-xl p-6 shadow-sm">
                     <img
-                      src="/images/handle inter con.png"
-                      alt="Handle Inter Logistics Logo"
-                      className="h-16 md:h-20 w-auto object-contain transition-transform group-hover:scale-105"
+                      src="/images/handle inter logistic.png"
+                      alt="Handle Inter Consolidation Logo"
+                      className="h-16 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
                     />
                     <div>
                       <h4 className="font-black text-stone-900 text-sm tracking-wider uppercase font-mono">
-                        HANDLE INTER LOGISTICS
+                        HANDLE INTER CONSOL
                       </h4>
                       <p className="text-[10px] text-stone-500 font-medium tracking-tight">
-                        Freight & Trucking Fleet Solution
+                        Console & LCL Cargo Hub
                       </p>
                     </div>
                   </div>
 
-                  {/* เส้นแบ่งแนวตั้งโทนอุ่น */}
                   <div className="hidden sm:block w-[1.5px] bg-gradient-to-b from-amber-300 via-amber-400/50 to-transparent rounded-full my-1" />
                   <div className="block sm:hidden w-full h-[1.5px] bg-gradient-to-r from-amber-300 via-amber-400/50 to-transparent rounded-full" />
 
-                  {/* ฝั่งขวา: Executive Info & Contacts */}
                   <div className="w-full sm:w-7/12 space-y-4 text-left flex flex-col justify-center">
                     <div>
                       <h3 className="font-black text-stone-900 text-xl sm:text-2xl tracking-tight leading-snug">
@@ -910,7 +544,9 @@ export default function HandleInterLogisticsPage() {
                         <div className="w-8 h-8 rounded-full bg-amber-100/80 border border-amber-200 text-amber-800 flex items-center justify-center text-xs shrink-0 shadow-sm">
                           <i className="fa-solid fa-location-dot"></i>
                         </div>
-                        <span className="line-clamp-1 text-stone-700">Bangkok & ASEAN Logistics Fleet</span>
+                        <span className="line-clamp-1 text-stone-700">
+                          {detailText.contactHub || (lang === "en" ? "Bangkok & Worldwide Hub" : "กรุงเทพฯ และศูนย์กลางการรวมตู้สินค้าระดับโลก")}
+                        </span>
                       </div>
 
                       <div className="flex items-center space-x-3">
@@ -952,7 +588,7 @@ export default function HandleInterLogisticsPage() {
                 className="inline-flex items-center space-x-2 bg-stone-900 hover:bg-amber-800 text-amber-50 border border-stone-800 text-xs font-mono font-bold px-8 py-4 rounded-full shadow-lg transition-all duration-300 cursor-pointer hover:scale-105"
               >
                 <i className="fa-solid fa-arrow-left text-[10px] mr-1"></i>
-                <span>{lang === "en" ? "Back to About Us" : "กลับสู่หน้าเกี่ยวกับเรา"}</span>
+                <span>{detailText.backAboutBtn || (lang === "en" ? "Back to About Us" : "กลับสู่หน้าเกี่ยวกับเรา")}</span>
               </Link>
             </div>
           </ScrollCardReveal>

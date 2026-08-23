@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { dictionary } from "./utils/dictionaries"; // 🌟 Import dictionary แยกมาจากไฟล์ภายนอก
+import { dictionary } from "./utils/dictionaries";
 
 // 🎬 Component ตัวอักษรโผล่มาทีละตัว
 function TextReveal({ 
@@ -132,12 +132,11 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   );
 }
 
-// 🎯 Component การ์ดบริการวิดีโอเต็มใบ
+// 🎯 Component การ์ดบริการวิดีโอเต็มใบ (หัวข้อที่ 3: ขนาด 300/360/400px x 480/520px)
 function FullVideoServiceCard({
   idx,
   service,
   desc,
-  tags,
   bgImg,
   videoSrc,
   lang,
@@ -146,7 +145,6 @@ function FullVideoServiceCard({
   idx: number;
   service: string;
   desc: string;
-  tags: string[];
   bgImg: string;
   videoSrc: string;
   lang: "en" | "th";
@@ -206,17 +204,6 @@ function FullVideoServiceCard({
           <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center font-mono text-xs font-bold text-white shadow-sm">
             0{idx + 1}
           </div>
-
-          <div className="flex space-x-1.5">
-            {tags.map((tag, i) => (
-              <span
-                key={i}
-                className="bg-white/20 backdrop-blur-md border border-white/30 text-[10px] font-mono text-white px-3 py-1 rounded-full uppercase tracking-wider"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="relative z-20 flex justify-between items-end gap-4 w-full pt-4">
@@ -260,7 +247,6 @@ function BusinessGroupVideoBannerCard({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // ดึงโลโก้สำหรับล้อมรอบ 6 วง
   const surroundingItems = useMemo(() => surroundingLogos || [], [surroundingLogos]);
   const totalLogos = surroundingItems.length;
 
@@ -275,7 +261,6 @@ function BusinessGroupVideoBannerCard({
         setIsHovered(false);
       }}
     >
-      {/* 🎥 Background Video Player (โชว์วิดีโอสว่างคมชัด 100%) */}
       <video
         ref={videoRef}
         src={videoSrc}
@@ -287,21 +272,14 @@ function BusinessGroupVideoBannerCard({
         }`}
       />
 
-      {/* 🌤️ Soft Translucent Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/70 z-10 pointer-events-none" />
 
-      {/* 📝 Content Layout */}
       <div className="relative z-20 w-full h-full p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 my-auto">
-        
-        {/* 🌟 โครงสร้างวงกลมล้อมรอบ */}
         <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] shrink-0 flex items-center justify-center">
-          
-          {/* เส้นออร่าเรืองแสงวงกลมด้านหลัง */}
           <div className="absolute inset-2 rounded-full border border-white/30 animate-pulse pointer-events-none" />
 
-          {/* 🌀 วงกลมโลโก้ล้อมรอบ */}
           {surroundingItems.map((logo, idx) => {
-            const radius = 40; // % ระยะห่างรัศมีจากศูนย์กลาง
+            const radius = 40;
             const angleDegree = -90 + (idx * (360 / Math.max(1, totalLogos)));
             const angleRad = (angleDegree * Math.PI) / 180;
 
@@ -349,10 +327,8 @@ function BusinessGroupVideoBannerCard({
               <div key={idx}>{circleContent}</div>
             );
           })}
-
         </div>
 
-        {/* 📄 ฝั่งขวา: ข้อความกลุ่มธุรกิจ */}
         <div className="flex-1 space-y-4 text-left">
           <div className="flex items-center space-x-3">
             <span className="bg-orange-600 text-white font-mono text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-md">
@@ -376,13 +352,12 @@ function BusinessGroupVideoBannerCard({
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );
 }
 
-// 🎬 Component การ์ดบริษัทในเครือ (Curved Timeline - สีเทาโปร่งแสง)
+// 🎬 Component การ์ดบริษัทในเครือ (ปรับขนาดให้ตรงกับการ์ดในหัวข้อที่ 3: w-[300px] sm:w-[360px] md:w-[400px] และ h-[480px] md:h-[520px])
 function CurvedTimelinePartnerCardLocked({
   idx,
   name,
@@ -432,12 +407,13 @@ function CurvedTimelinePartnerCardLocked({
   return (
     <motion.div
       style={{ x, y, opacity, scale }}
-      className="absolute top-1/2 -translate-y-1/2 will-change-transform z-20 pointer-events-auto"
+      className="absolute top-1/2 -translate-y-1/2 will-change-transform z-20 pointer-events-auto shrink-0 w-[300px] sm:w-[360px] md:w-[400px]"
     >
       <Link href={link}>
-        <div className="bg-slate-900/75 backdrop-blur-xl rounded-[32px] border border-white/20 p-7 sm:p-8 md:p-9 shadow-2xl shadow-black/60 w-[290px] sm:w-[350px] md:w-[380px] flex flex-col justify-between transition-all duration-300 hover:shadow-orange-500/30 hover:border-orange-500 hover:scale-105 cursor-pointer select-none group">
+        <div className="bg-slate-900/80 backdrop-blur-xl rounded-[32px] border border-white/20 p-8 h-[480px] md:h-[520px] w-full shadow-2xl shadow-black/60 flex flex-col justify-between transition-all duration-500 hover:shadow-orange-500/30 hover:border-orange-500 hover:scale-105 cursor-pointer select-none group">
           
-          <div className="flex justify-between items-center mb-3">
+          {/* Header */}
+          <div className="flex justify-between items-center w-full">
             <span className="text-3xl md:text-4xl font-black font-mono text-orange-400 tracking-tighter">
               '{String(idx + 1).padStart(2, "0")}
             </span>
@@ -446,16 +422,18 @@ function CurvedTimelinePartnerCardLocked({
             </span>
           </div>
 
-          <div className="my-2 py-2 flex items-center justify-start min-h-[85px] bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+          {/* Logo Box */}
+          <div className="my-auto py-4 flex items-center justify-center min-h-[140px] md:min-h-[160px] bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:border-orange-500/40 transition-colors">
             <img
               src={logoSrc}
               alt={name}
-              className="h-14 md:h-18 w-auto max-w-[90%] object-contain drop-shadow-md transition-all duration-300 group-hover:scale-105 origin-left"
+              className="h-16 md:h-20 w-auto max-w-[85%] object-contain drop-shadow-md transition-all duration-500 group-hover:scale-110"
             />
           </div>
 
-          <div className="space-y-2 text-left mb-2">
-            <h3 className="text-lg md:text-2xl font-black text-white tracking-tight leading-snug group-hover:text-orange-400 transition-colors">
+          {/* Details */}
+          <div className="space-y-2 text-left w-full">
+            <h3 className="text-xl md:text-2xl font-black text-white tracking-tight leading-snug group-hover:text-orange-400 transition-colors line-clamp-1">
               {name}
             </h3>
             <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-normal line-clamp-2">
@@ -463,7 +441,8 @@ function CurvedTimelinePartnerCardLocked({
             </p>
           </div>
 
-          <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between">
+          {/* Footer Action */}
+          <div className="pt-4 border-t border-white/10 flex items-center justify-between w-full">
             <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
               EXPLORE HUB
             </span>
@@ -577,10 +556,10 @@ export default function HomePage() {
     { id: "news", label: lang === "en" ? "Update" : "ข่าวสาร" },
   ], [lang]);
 
-  // 📹 ข้อมูลแบนเนอร์วิดีโอ 3 กลุ่มธุรกิจ (สลับสองภาษาผ่าน Dictionary + มี 6 โลโก้ล้อมรอบ)
+  // 📹 ข้อมูลแบนเนอร์วิดีโอ 3 กลุ่มธุรกิจ
   const businessGroupBanners = [
     {
-      title: t.businessGroups.freightTitle.replace(/^[0-9.]+\s*/, ""), // ตัดเลข 1. ด้านหน้าออก
+      title: t.businessGroups.freightTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.freightSub,
       videoSrc: "/images/handle fright.mp4",
       tag: "FREIGHT GROUP",
@@ -594,18 +573,17 @@ export default function HomePage() {
       ]
     },
     {
-      title: t.businessGroups.shippingTitle.replace(/^[0-9.]+\s*/, ""), // ตัดเลข 2. ด้านหน้าออก
+      title: t.businessGroups.shippingTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.shippingSub,
       videoSrc: "/images/ship.mp4",
       tag: "SHIPPING GROUP",
       logos: [
         { name: "APS SHIPPING", src: "/images/aps.png", link: "siam-liners" },
         { name: "SIAM LINERS", src: "/images/siam liner.png", link: "siam-liners" },
-      
       ]
     },
     {
-      title: t.businessGroups.tradingTitle.replace(/^[0-9.]+\s*/, ""), // ตัดเลข 3. ด้านหน้าออก
+      title: t.businessGroups.tradingTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.tradingSub,
       videoSrc: "/images/total trading.mp4",
       tag: "TRADING GROUP",
@@ -614,8 +592,6 @@ export default function HomePage() {
         { name: "ATE TOOLS", src: "/images/ate.png", link: "#" },
         { name: "APS", src: "/images/aps.png", link: "#" },
         { name: "ALL SUPLY", src: "/images/all suply.png", link: "#" },
-       
-        
       ]
     }
   ];
@@ -624,42 +600,36 @@ export default function HomePage() {
     {
       title: lang === "en" ? "Sea Freight" : "ขนส่งทางทะเล",
       desc: lang === "en" ? "Comprehensive ocean freight solutions with international container tracking." : "บริการขนส่งสินค้าทางเรือครอบคลุมทั่วโลก ปลอดภัย พร้อมระบบติดตาม",
-      tags: ["SEA", "CONTAINER", "INTERNATIONAL"],
       bg: "/images/shipcard.png",
       video: "images/shipcard.mp4"
     },
     {
       title: lang === "en" ? "Air Freight" : "ขนส่งทางอากาศ",
       desc: lang === "en" ? "Express air cargo services for time-critical international deliveries." : "จัดส่งสินค้ารวดเร็วทันใจทางเครื่องบิน ตอบโจทย์ทุกเวลาเร่งด่วน",
-      tags: ["AIR", "EXPRESS", "CARGO"],
       bg: "/images/cardair.png",
       video: "images/aircard.mp4"
     },
     {
       title: lang === "en" ? "Land Transport" : "ขนส่งทางบก",
       desc: lang === "en" ? "Cross-border and domestic trucking network with maximum safety." : "เครือข่ายรถบรรทุกขนส่งภายในประเทศและข้ามแดนอย่างมีประสิทธิภาพ",
-      tags: ["TRUCK", "DOMESTIC", "CROSS-BORDER"],
       bg: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80",
       video: "images/containnercard.mp4"
     },
     {
       title: lang === "en" ? "Warehousing" : "คลังสินค้า",
       desc: lang === "en" ? "Modern warehouse management with real-time inventory control." : "ระบบจัดเก็บและบริหารคลังสินค้าอัจฉริยะ ตรวจสอบได้แบบเรียลไทม์",
-      tags: ["STORAGE", "LOGISTICS", "SMART"],
       bg: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
       video: "images/inventorycard.mp4"
     },
     {
       title: lang === "en" ? "Customs Clearance" : "พิธีการศุลกากร",
       desc: lang === "en" ? "Seamless import-export documentation by certified specialists." : "จัดการเอกสารนำเข้า-ส่งออกอย่างถูกต้องรวดเร็ว โดยผู้เชี่ยวชาญ",
-      tags: ["CUSTOMS", "EXPORT", "IMPORT"],
       bg: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
       video: "images/customscard.mp4"
     },
     {
       title: lang === "en" ? "Project Cargo" : "สินค้าโครงการ",
       desc: lang === "en" ? "Specialized heavy-lift and oversized cargo handling." : "การดูแลขนส่งเครื่องจักรขนาดใหญ่และสินค้าโครงการพิเศษครบวงจร",
-      tags: ["PROJECT", "HEAVY", "SPECIAL"],
       bg: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
       video: "images/projectcard.mp4"
     }
@@ -756,7 +726,6 @@ export default function HomePage() {
     }
   ];
 
-  // 🌟 คำนวณการจัดกลุ่มการ์ดสำหรับหน้าละ 3 ใบ (สำหรับสไลเดอร์ในหัวข้อข่าวสาร)
   const itemsPerPage = 3;
   const newsPages = useMemo(() => {
     const pages = [];
@@ -1073,7 +1042,6 @@ export default function HomePage() {
                   idx={idx}
                   service={item.title}
                   desc={item.desc}
-                  tags={item.tags}
                   bgImg={item.bg}
                   videoSrc={item.video}
                   lang={lang}
@@ -1094,23 +1062,20 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 🔒 SECTION: SUBSIDIARIES (Pinned Sticky Section - ปรับภาพพื้นหลังเรือใบพอดีสเกลหน้าจอ 100%) */}
+      {/* 🔒 SECTION: SUBSIDIARIES (หัวข้อที่ 4: ปรับขนาดการ์ดและ container ให้เท่ากับหัวข้อที่ 3) */}
       <section 
         id="subsidiaries" 
         ref={subsidiariesContainerRef}
         className="relative h-[450vh] w-full bg-slate-950 text-white border-y border-slate-200/80"
       >
-        {/* 🔒 Sticky Locked Viewport Container */}
         <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden z-20 py-10">
           
-          {/* 🖼️ Background Image Cover (ปรับสเกลภาพเรือใบให้พอดีหน้าจอ w-full h-full object-cover 100%) */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden w-full h-full">
             <img 
               src="/images/shiip.png" 
               alt="Subsidiaries Sailing Ship Background" 
               className="w-full h-full object-cover opacity-100 brightness-120 contrast-105 scale-150"
             />
-            {/* Overlay ช่วยให้อ่านข้อความและมองเห็นการ์ดชัดขึ้น */}
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-slate-950/70 z-10" />
           </div>
 
@@ -1146,8 +1111,8 @@ export default function HomePage() {
             </svg>
           </div>
 
-          {/* 🎴 Moving Cards Container */}
-          <div className="relative w-full h-[420px] sm:h-[450px] max-w-7xl mx-auto flex items-center justify-center z-20 overflow-hidden my-auto">
+          {/* 🎴 Moving Cards Container (ปรับความสูงเป็น h-[520px] md:h-[560px] เพื่อรองรับการ์ดขนาดเดียวกับหัวข้อที่ 3) */}
+          <div className="relative w-full h-[520px] md:h-[560px] max-w-7xl mx-auto flex items-center justify-center z-20 overflow-hidden my-auto">
             {partnerLogos.map((item, index) => (
               <CurvedTimelinePartnerCardLocked
                 key={index}
@@ -1173,13 +1138,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SECTION 4: WORLDWIDE (หัวข้อที่ 4: แบ็คกราวด์มืด + การ์ดสีเทาโปร่งแสง + เลื่อนจากซ้ายไปขวา) */}
+      {/* SECTION 5: WORLDWIDE */}
       <section 
         id="worldwide" 
         ref={worldwideWrapperRef}
         className="min-h-screen flex items-center border-b border-slate-200/80 relative z-10 overflow-hidden bg-slate-950 text-white group cursor-pointer py-24"
       >
-        {/* 🖤 Translucent Overlay Background (นำแบ็คกราวด์ดีไซน์มืดแบบหัวข้อที่ 5 มาใส่) */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           <img 
             src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1920&q=80" 
@@ -1191,7 +1155,6 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-20 w-full">
-          {/* 🎴 Motion Container เลื่อนจากซ้ายไปขวา (Left to Right Motion) */}
           <motion.div 
             style={{ x: worldwideX }}
             className="max-w-2xl space-y-6 text-left bg-slate-900/60 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[36px] shadow-2xl shadow-black/50"
@@ -1221,8 +1184,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 🌟 SECTION 5: NEWS SLIDER (หัวข้อที่ 5) */}
-     
+      {/* 🌟 SECTION 6: NEWS SLIDER */}
       <section 
         id="news" 
         className="min-h-screen py-24 flex flex-col justify-center items-center relative z-10 bg-slate-50 text-slate-900 overflow-hidden border-t border-slate-200/80"
@@ -1231,7 +1193,6 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto px-6 w-full space-y-12 my-auto">
           
-          {/* Header Row: Title & Navigation Control Buttons */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
             <div className="space-y-3 text-left">
               <span className="text-xs font-mono text-orange-600 font-bold uppercase tracking-widest bg-orange-100 border border-orange-200 px-4 py-1.5 rounded-full inline-block shadow-sm">
@@ -1247,7 +1208,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* 🎛️ Navigation Arrow Control Buttons (ปุ่มเลื่อนการ์ดซ้าย-ขวา) */}
             <div className="flex items-center space-x-3 self-start md:self-auto">
               <button
                 onClick={handlePrevNews}
@@ -1266,7 +1226,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 🖼️ Catalog Video Gallery Grid Container (การ์ดสไตล์สว่าง คมชัด) */}
           <div className="relative min-h-[440px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
@@ -1282,7 +1241,6 @@ export default function HomePage() {
                     key={idx}
                     className="group relative bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xl shadow-slate-200/50 flex flex-col justify-between transition-all duration-500 hover:border-orange-500 hover:shadow-2xl hover:shadow-orange-500/15 hover:-translate-y-1.5 cursor-pointer"
                   >
-                    {/* YouTube Video Container */}
                     <div className="relative w-full aspect-video bg-black overflow-hidden border-b border-slate-100">
                       <iframe
                         src={`https://www.youtube.com/embed/${slide.youtubeId}?rel=0`}
@@ -1296,7 +1254,6 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    {/* Details Content */}
                     <div className="p-5 flex flex-col justify-between flex-1 space-y-3 text-left bg-white">
                       <div className="space-y-1.5">
                         <div className="flex justify-between items-center text-xs font-mono text-orange-600 font-bold">
@@ -1327,7 +1284,6 @@ export default function HomePage() {
             </AnimatePresence>
           </div>
 
-          {/* 🎛️ Navigation Pagination Dots */}
           <div className="flex items-center justify-center space-x-3 pt-4">
             {newsPages.map((_, dotIdx) => (
               <button
@@ -1349,4 +1305,3 @@ export default function HomePage() {
     </div>
   );
 }
-

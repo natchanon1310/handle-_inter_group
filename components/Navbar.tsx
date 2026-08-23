@@ -21,9 +21,10 @@ export default function Navbar() {
     "/H-I-T-INTERCON",
     "/handle-inter-consolidation",
     "/handle-inter-logistics",
-    "/handle-inter-express",
+    "#",
     "/console-link",
-    "/siam-liners"
+    "/siam-liners",
+    "#"
   ];
 
   useEffect(() => {
