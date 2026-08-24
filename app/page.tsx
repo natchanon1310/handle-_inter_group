@@ -636,11 +636,48 @@ export default function HomePage() {
   ];
 
   const partnerLogos = [
-    { name: "H.I.T. INTERCON", src: "/images/1725e41.png", desc: "Total Ocean & Air Freight Solutions with international network connectivity.", link: "/H-I-T-INTERCON" },
-    { name: "HANDLE INTER CONSOLIDATION", src: "/images/handle inter con.png", desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", link: "/handle-inter-consolidation" },
-    { name: "HANDLE INTER LOGISTICS", src: "/images/handle inter logistic.png", desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", link: "/handle-inter-logistics" },
-    { name: "CONSOLE LINK", src: "/images/consol-link.png", desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", link: "/console-link" },
-    { name: "SIAM LINERS", src: "/images/siam liner.png", desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", link: "/siam-liners" },
+    { 
+      name: "H.I.T. INTERCON", 
+      src: "/images/1725e41.png", 
+      desc: "Total Ocean & Air Freight Solutions with international network connectivity.", 
+      link: "/H-I-T-INTERCON" 
+    },
+    { 
+      name: "HANDLE INTER CONSOLIDATION", 
+      src: "/images/handle inter con.png", 
+      desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", 
+      link: "/handle-inter-consolidation" 
+    },
+    { 
+      name: "HANDLE INTER LOGISTICS", 
+      src: "/images/handle inter logistic.png", 
+      desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", 
+      link: "/handle-inter-logistics" 
+    },
+    { 
+      name: "CONSOLE LINK", 
+      src: "/images/consol-link.png", 
+      desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", 
+      link: "/console-link" 
+    },
+    { 
+      name: "SIAM LINERS", 
+      src: "/images/siam liner.png", 
+      desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", 
+      link: "/siam-liners" 
+    },
+    { 
+      name: "PKT", 
+      src: "/images/pkt.png", 
+      desc: "Specialized freight forwarding and tailored logistics operations.", 
+      link: "/pkt" 
+    },
+    { 
+      name: "HANDLE INTER EXPRESS", 
+      src: "/images/handleinter express.png", 
+      desc: "Express delivery, parcel distribution, and fast-track shipping services.", 
+      link: "/handle-inter-express" 
+    },
   ];
 
   const youtubeNewsSlides = [
