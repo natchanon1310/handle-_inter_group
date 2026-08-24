@@ -297,7 +297,7 @@ export const dictionary = {
     consoleLink: {
       heroSub: "Subsidiary Console Profile",
       heroTitle: "Console Link Co., Ltd.",
-      heroDesc: "Commitment to the goal",
+      heroDesc: "WORLD WILD NETWORK",
       coreTitle: "Our Core Strategic Capabilities",
       s1_title: "Ocean Freight Solutions",
       s1_desc: "Committed to comprehensive freight logistics for customer shipments, covering inbound and outbound routes across Mediterranean, European, and Asian sectors.",
@@ -330,7 +330,7 @@ export const dictionary = {
     siamLiners: {
       heroSub: "NVOCC Shipping Line Profile",
       heroTitle: "Siam Liners Co., Ltd.",
-      heroDesc: "Import and export shipping schedules.",
+      heroDesc: "In All Shipping Routes",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       vesselBtn: "View Vessel Schedule ↗",
       backAboutBtn: "Back to About Us",

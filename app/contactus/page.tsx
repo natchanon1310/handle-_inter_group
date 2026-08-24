@@ -51,14 +51,18 @@ export default function ContactPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
     return () => window.removeEventListener("langChange", checkLang);
   }, []);
 
-  const t = dictionary[lang];
+  const t = dictionary[lang] || dictionary.en;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +96,7 @@ export default function ContactPage() {
               {lang === "en" ? "Global Connectivity" : "เครือข่ายโลจิสติกส์ระดับโลก"}
             </span>
             <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white leading-none drop-shadow-lg">
-              {isMounted && t.contact.title}
+              {isMounted && (t.contact?.title || dictionary.en.contact.title)}
             </h1>
             {/* เส้นคั่นสีแดงตามโลโก้ */}
             <div className="w-16 h-[3.5px] bg-red-600 mx-auto mt-4 rounded-full shadow-md" />
@@ -150,7 +154,7 @@ export default function ContactPage() {
                       <div className="space-y-1">
                         <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">{lang === "en" ? "Corporate Address" : "ที่อยู่สำนักงาน"}</h4>
                         <p className="text-slate-700 font-bold leading-relaxed">
-                          {isMounted && t.footer.locDetail}
+                          {isMounted && (t.footer?.locDetail || dictionary.en.footer.locDetail)}
                         </p>
                       </div>
                     </div>
@@ -228,7 +232,7 @@ export default function ContactPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && t.contact.name} *</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && (t.contact?.name || dictionary.en.contact.name)} *</label>
                     <input 
                       type="text" 
                       required
@@ -237,7 +241,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && t.contact.email} *</label>
+                    <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && (t.contact?.email || dictionary.en.contact.email)} *</label>
                     <input 
                       type="email" 
                       required
@@ -258,7 +262,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-2 text-left">
-                  <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && t.contact.msg} *</label>
+                  <label className="text-xs font-bold text-slate-600 uppercase tracking-wider">{isMounted && (t.contact?.msg || dictionary.en.contact.msg)} *</label>
                   <textarea 
                     rows={4}
                     required
@@ -272,7 +276,7 @@ export default function ContactPage() {
                   type="submit" 
                   className="w-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg shadow-red-600/20 transition-colors duration-300 cursor-pointer"
                 >
-                  {isMounted && t.contact.send} <i className="fa-solid fa-paper-plane ml-2 text-[10px]"></i>
+                  {isMounted && (t.contact?.send || dictionary.en.contact.send)} <i className="fa-solid fa-paper-plane ml-2 text-[10px]"></i>
                 </button>
               </form>
             </MagnificSection>

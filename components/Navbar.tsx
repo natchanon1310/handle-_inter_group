@@ -30,7 +30,11 @@ export default function Navbar() {
   useEffect(() => {
     setIsMounted(true);
     const savedLang = localStorage.getItem("lang") as "en" | "th";
-    if (savedLang) setLang(savedLang);
+    if (savedLang) {
+      setLang(savedLang);
+    } else {
+      setLang("en");
+    }
 
     return () => {
       if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
@@ -52,7 +56,11 @@ export default function Navbar() {
   useEffect(() => {
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     window.addEventListener("langChange", checkLang);
     return () => window.removeEventListener("langChange", checkLang);
@@ -79,8 +87,9 @@ export default function Navbar() {
     }, 200);
   };
 
-  const t = dictionary[lang].nav;
-  const subsidiaries = dictionary[lang].subsidiaries;
+  const activeDict = dictionary[lang] || dictionary.en;
+  const t = activeDict.nav || dictionary.en.nav;
+  const subsidiaries = activeDict.subsidiaries || dictionary.en.subsidiaries;
   const isSubsidiaryActive = isMounted && (subsidiaryPaths.includes(pathname) || pathname.startsWith("/partners"));
 
   return (
@@ -94,7 +103,7 @@ export default function Navbar() {
       }`}>
         <div className="flex justify-between items-center relative overflow-visible">
           
-          {/* 🎯 OVERHANGING BIG LOGO (โลโก้ขยายใหญ่ล้นขอบ Navbar) */}
+          {/* 🎯 OVERHANGING BIG LOGO */}
           <Link href="/" className="relative z-10 flex items-center group py-1 overflow-visible">
             <img
               src="/images/j6592 (1).gif"
@@ -107,7 +116,6 @@ export default function Navbar() {
                 !isScrolled ? "brightness-0 invert" : ""
               }`}
             />
-            {/* กล่องเว้นพื้นที่ว่างทางซ้ายคงที่ไว้ไม่ให้เมนูอื่นๆ ทับโลโก้ */}
             <div className={`transition-all duration-500 ${
               isScrolled ? "w-28 md:w-36 lg:w-40 h-8" : "w-36 md:w-48 lg:w-56 h-10"
             }`} />
@@ -170,7 +178,7 @@ export default function Navbar() {
                     <div className="px-3 py-2 text-[9px] font-extrabold text-slate-400 uppercase tracking-widest border-b border-slate-100 mb-1">
                       {lang === "en" ? "Our Subsidiaries" : "บริษัทในเครือของเรา"}
                     </div>
-                    {subsidiaries.map((sub, idx) => {
+                    {subsidiaries.map((sub: any, idx: number) => {
                       const subPath = subsidiaryPaths[idx] || "/partners";
                       const isSubActive = isMounted && pathname === subPath;
                       return (
@@ -192,22 +200,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* 🌟 Link: News (แก้ไขปุ่มข่าวสารให้ยิงไปที่ /news) */}
-            {/* <Link 
-              href="/news" 
-              className={`transition-all duration-300 relative py-1 group/link ${
-                isMounted && pathname === "/news" 
-                  ? "text-orange-500" 
-                  : isScrolled ? "text-slate-700 hover:text-orange-600" : "text-white/90 hover:text-white"
-              }`}
-            >
-              {t.services}
-              <span className={`absolute bottom-0 left-0 h-[2px] bg-orange-500 rounded-full transition-all duration-300 ${
-                isMounted && pathname === "/news" ? "w-full" : "w-0 group-hover/link:w-full"
-              }`} />
-            </Link> */}
-
-            {/* 🌟 Link: Contact Us (แก้ไขปุ่มติดต่อเราให้ยิงไปที่ /contactus) */}
+            {/* Link: Contact Us */}
             <Link 
               href="/contactus" 
               className={`transition-all duration-300 relative py-1 group/link ${
@@ -223,7 +216,7 @@ export default function Navbar() {
             </Link>
             
             {/* Language Switcher */}
-            <button 
+            {/* <button 
               onClick={toggleLanguage}
               className={`border text-[11px] font-mono font-bold px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-sm hover:scale-105 active:scale-95 ${
                 isScrolled 
@@ -232,15 +225,7 @@ export default function Navbar() {
               }`}
             >
               <i className="fa-solid fa-globe mr-1.5 text-orange-500"></i> {lang === "en" ? "TH" : "EN"}
-            </button>
-
-            {/* CTA Button
-            <Link
-              href="/contactus"
-              className="bg-orange-600 hover:bg-orange-500 text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-600/30 active:scale-95"
-            >
-              {t.quote}
-            </Link> */}
+            </button> */}
           </nav>
 
           {/* Mobile Hamburger Button */}
@@ -287,7 +272,7 @@ export default function Navbar() {
             
             {isMobileSubOpen && (
               <div className="pl-4 mt-2 space-y-2 border-l-2 border-orange-500/40 py-1 animate-in fade-in duration-200">
-                {subsidiaries.map((sub, idx) => {
+                {subsidiaries.map((sub: any, idx: number) => {
                   const subPath = subsidiaryPaths[idx] || "/partners";
                   const isSubActive = isMounted && pathname === subPath;
                   return (
@@ -305,9 +290,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/news" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/news" ? "text-orange-600" : "text-slate-700"}`}>
-            {t.services}
-          </Link>
           <Link href="/contactus" onClick={() => setIsOpen(false)} className={`text-sm font-bold py-1 transition ${isMounted && pathname === "/contactus" ? "text-orange-600" : "text-slate-700"}`}>
             {t.news}
           </Link>

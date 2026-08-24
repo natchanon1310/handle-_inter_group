@@ -89,7 +89,11 @@ export default function HandleInterConsolidationPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
@@ -97,7 +101,7 @@ export default function HandleInterConsolidationPage() {
   }, []);
 
   const t = dictionary[lang] || dictionary.en;
-  const detailText = t.consolidation || {};
+  const detailText = t.consolidation || dictionary.en.consolidation || {};
 
   const sections = useMemo(
     () => [
@@ -289,7 +293,6 @@ export default function HandleInterConsolidationPage() {
           </p>
         </div>
 
-        {/* 📖 Responsive Heyzine Flipbook Embed Container */}
         <div className="w-full max-w-5xl mx-auto bg-black/40 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.85)] border border-white/10 p-2 sm:p-4 backdrop-blur-md">
           <div className="relative w-full h-[520px] sm:h-[620px] md:h-[700px] rounded-xl overflow-hidden">
             <iframe
@@ -302,7 +305,7 @@ export default function HandleInterConsolidationPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL (ค่อยๆ แยกออกจากกันอย่างนุ่มนวล) */}
+      {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL */}
       <section
         id="Our service"
         ref={lockContainerRef}
@@ -310,7 +313,6 @@ export default function HandleInterConsolidationPage() {
       >
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
           
-          {/* Background Atmosphere */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <img
               src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
@@ -322,13 +324,10 @@ export default function HandleInterConsolidationPage() {
             <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100/60 rounded-full blur-[160px]" />
           </div>
 
-          {/* 📍 SCENE 1: INITIAL CENTER TITLE */}
           <motion.div
             style={{ opacity: titleOpacity, scale: titleScale }}
             className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
           >
-           
-
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
               {lang === "en" ? "HANDLE INTER CONSOLIDATION CO., LTD." : "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด"} 
               <br />
@@ -350,10 +349,8 @@ export default function HandleInterConsolidationPage() {
             </div>
           </motion.div>
 
-          {/* 📍 SCENE 2: REVEAL CONTENT + SMOOTH SPLIT */}
           <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-20 h-[84vh]">
             
-            {/* 👈 ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ */}
             <motion.div
               style={{ opacity: contentOpacity, x: contentX }}
               className="lg:col-span-7 text-left flex flex-col justify-between h-full py-2 pr-2 overflow-y-auto"
@@ -414,7 +411,6 @@ export default function HandleInterConsolidationPage() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* 🎛️ Interactive Service Switcher Tabs */}
               <div className="pt-3 border-t border-stone-200 space-y-1.5 mt-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
                   {detailText.selectServiceTitle || (lang === "en" ? "Select Core Logistics Service :" : "เลือกบริการหลัก :")}
@@ -437,7 +433,6 @@ export default function HandleInterConsolidationPage() {
               </div>
             </motion.div>
 
-            {/* 👉 ฝั่งขวา: รูปภาพประกอบ */}
             <div className="lg:col-span-5 flex items-center justify-center relative h-full">
               <motion.div
                 style={{
@@ -580,7 +575,6 @@ export default function HandleInterConsolidationPage() {
             </ScrollCardReveal>
           </div>
 
-          {/* ปุ่ม Back to About Us */}
           <ScrollCardReveal direction="up" delay={200}>
             <div className="pt-6 text-center">
               <Link

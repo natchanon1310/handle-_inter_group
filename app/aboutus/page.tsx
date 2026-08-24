@@ -40,7 +40,7 @@ function InteractiveCard({ children, className = "" }: { children: React.ReactNo
 }
 
 export default function AboutPage() {
-  const [lang, setLang] = useState<"en" | "th">("th");
+  const [lang, setLang] = useState<"en" | "th">("en");
   const [isMounted, setIsMounted] = useState(false);
   const [activeSubIndex, setActiveSubIndex] = useState(0);
 
@@ -48,14 +48,18 @@ export default function AboutPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
     return () => window.removeEventListener("langChange", checkLang);
   }, []);
 
-  const t = dictionary[lang].about;
+  const t = dictionary[lang]?.about || dictionary.en.about;
   const isTh = lang === "th";
 
   // รายชื่อทั้ง 7 บริษัทในเครือ
@@ -96,8 +100,6 @@ export default function AboutPage() {
         { icon: "🔒", title: isTh ? "ความปลอดภัยสูง" : "High Security", desc: isTh ? "ดูแลสินค้าอย่างรัดกุมตลอดการจัดเก็บ" : "Strict cargo tracking & protection" }
       ]
     },
-  
-    
     {
       id: "express",
       name: isTh ? "บริษัท แฮนเดิล อินเตอร์ เอ็กเพลส จำกัด" : "Handle Inter Express Co., Ltd.",
@@ -272,62 +274,62 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-6 flex flex-col justify-between">
-  <InteractiveCard className="h-full">
-    <div className="bg-white/95 backdrop-blur-xl text-slate-800 rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 flex flex-col justify-between p-6 sm:p-8 md:p-10 h-full relative group">
-      <div className="absolute top-0 left-0 w-full h-[3.5px] bg-gradient-to-r from-red-600 via-sky-500 to-red-600 z-10" />
-      
-      <div className="space-y-6 text-left">
-        {/* 🟢 พื้นที่ใส่รูปภาพ (Image Container) */}
-        <div className="w-full h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 relative border border-slate-200/80 shadow-inner">
-          <img
-            src="/images/IMG_9031-Medium.jpg" 
-            alt="คุณสมชาย รุ่งบวรวงศ์ - Managing Director"
-            className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
-          
-          <span className="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider">
-            EXECUTIVE PROFILE
-          </span>
-        </div>
+              <InteractiveCard className="h-full">
+                <div className="bg-white/95 backdrop-blur-xl text-slate-800 rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 flex flex-col justify-between p-6 sm:p-8 md:p-10 h-full relative group">
+                  <div className="absolute top-0 left-0 w-full h-[3.5px] bg-gradient-to-r from-red-600 via-sky-500 to-red-600 z-10" />
+                  
+                  <div className="space-y-6 text-left">
+                    {/* 🟢 Image Container */}
+                    <div className="w-full h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 relative border border-slate-200/80 shadow-inner">
+                      <img
+                        src="/images/IMG_9031-Medium.jpg" 
+                        alt="Managing Director"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+                      
+                      <span className="absolute bottom-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono px-3 py-1 rounded-full uppercase tracking-wider">
+                        EXECUTIVE PROFILE
+                      </span>
+                    </div>
 
-        {/* ส่วนเนื้อหาและหัวข้อ */}
-        <div className="space-y-4">
-          <span className="bg-red-50 text-red-600 text-xs font-mono font-bold px-3.5 py-1 rounded-full uppercase tracking-widest border border-red-100 inline-block">
-            EXECUTIVE VISION & STRATEGY
-          </span>
+                    {/* Content Section */}
+                    <div className="space-y-4">
+                      <span className="bg-red-50 text-red-600 text-xs font-mono font-bold px-3.5 py-1 rounded-full uppercase tracking-widest border border-red-100 inline-block">
+                        EXECUTIVE VISION & STRATEGY
+                      </span>
 
-          <h3 className="text-base md:text-lg font-bold text-slate-800 leading-relaxed italic border-l-4 border-red-600 pl-4 py-1">
-            {isTh
-              ? "“กลยุทธ์หลักที่สร้างความได้เปรียบทางการแข่งขัน คือการมีบริการที่ครบวงจร ลูกค้าสามารถติดต่อมาที่เดียวแต่ได้รับบริการที่ครบถ้วน ตั้งแต่หน้าประตูโรงงานไปจนถึงผู้รับปลายทาง ซึ่งหัวใจสำคัญที่ Handle Inter Group มุ่งเน้นมาโดยตลอด คือการพัฒนาบุคลากรมืออาชีพ สร้างทีมงานและระบบการทำงานที่ดีและมีคุณภาพ และมุ่งมั่นพัฒนาประสิทธิภาพบริการ”"
-              : '"The key competitive strategy is total integrated one-stop service, focusing on human resources and professional teamwork."'}
-          </h3>
+                      <h3 className="text-base md:text-lg font-bold text-slate-800 leading-relaxed italic border-l-4 border-red-600 pl-4 py-1">
+                        {isTh
+                          ? "“กลยุทธ์หลักที่สร้างความได้เปรียบทางการแข่งขัน คือการมีบริการที่ครบวงจร ลูกค้าสามารถติดต่อมาที่เดียวแต่ได้รับบริการที่ครบถ้วน ตั้งแต่หน้าประตูโรงงานไปจนถึงผู้รับปลายทาง ซึ่งหัวใจสำคัญที่ Handle Inter Group มุ่งเน้นมาโดยตลอด คือการพัฒนาบุคลากรมืออาชีพ สร้างทีมงานและระบบการทำงานที่ดีและมีคุณภาพ และมุ่งมั่นพัฒนาประสิทธิภาพบริการ”"
+                          : '"The key competitive strategy is total integrated one-stop service, focusing on human resources and professional teamwork."'}
+                      </h3>
 
-          <p className="text-xs md:text-sm text-slate-600 leading-relaxed pt-2">
-            {isTh
-              ? "“ด้วยเป้าหมายคือการเป็นผู้ให้บริการแบบครบวงจร One Stop service ในทุกด้านที่เกี่ยวข้องกับการขนส่งระหว่างประเทศ เป็น Total logistics ที่มีทุกสิ่งที่ลูกค้าต้องการ เพราะเป้าหมายคือให้ลูกค้านึกถึง Handle Inter Group ในภาพของ การขนส่งและบริการที่ดีที่สุด”"
-              : "Our goal is to be the total logistics provider of choice delivering the best service quality."}
-          </p>
-        </div>
-      </div>
+                      <p className="text-xs md:text-sm text-slate-600 leading-relaxed pt-2">
+                        {isTh
+                          ? "“ด้วยเป้าหมายคือการเป็นผู้ให้บริการแบบครบวงจร One Stop service ในทุกด้านที่เกี่ยวข้องกับการขนส่งระหว่างประเทศ เป็น Total logistics ที่มีทุกสิ่งที่ลูกค้าต้องการ เพราะเป้าหมายคือให้ลูกค้านึกถึง Handle Inter Group ในภาพของ การขนส่งและบริการที่ดีที่สุด”"
+                          : "Our goal is to be the total logistics provider of choice delivering the best service quality."}
+                      </p>
+                    </div>
+                  </div>
 
-      {/* ส่วนท้ายแสดงชื่อผู้บริหาร */}
-      <div className="pt-6 mt-6 border-t border-slate-100 text-left flex items-center justify-between">
-        <div>
-          <p className="font-black text-sm md:text-base text-slate-900">{isMounted && t.m1_tag2}</p>
-          <p className="text-xs font-bold text-sky-600 tracking-wider pt-0.5">{isMounted && t.m1_tag3}</p>
-        </div>
-        <span className="text-2xl">🏆</span>
-      </div>
-    </div>
-  </InteractiveCard>
-</div>
+                  {/* Executive Name Footer */}
+                  <div className="pt-6 mt-6 border-t border-slate-100 text-left flex items-center justify-between">
+                    <div>
+                      <p className="font-black text-sm md:text-base text-slate-900">{isMounted && t.m1_tag2}</p>
+                      <p className="text-xs font-bold text-sky-600 tracking-wider pt-0.5">{isMounted && t.m1_tag3}</p>
+                    </div>
+                    <span className="text-2xl">🏆</span>
+                  </div>
+                </div>
+              </InteractiveCard>
+            </div>
 
           </div>
         </div>
       </section>
       
-     {/* 🎯 SECTION 3: INTEGRATED EDITORIAL & FULL CONTENT SUBSIDIARIES */}
+      {/* 🎯 SECTION 3: INTEGRATED EDITORIAL & FULL CONTENT SUBSIDIARIES */}
       <section className="w-full min-h-screen bg-[#0d0d0d] text-white py-16 lg:py-24 px-6 sm:px-10 lg:px-16 relative z-10 flex items-center justify-center overflow-hidden border-b border-neutral-800">
         
         {/* 🌟 Background Dynamic Glows */}
@@ -363,7 +365,6 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-center relative z-10 space-y-10">
           
-          {/* 📍 1. ท่อนบน: หัวข้อและเนื้อหาเต็ม (ครบถ้วน 100% ไม่ตัดแต่ง) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -381,19 +382,16 @@ export default function AboutPage() {
               </span>
             </div>
 
-            {/* หัวข้อเต็ม */}
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-[1.2] tracking-tight text-white">
               {isTh ? "Handle Inter Group คือการขนส่งและบริการที่ดีที่สุด" : "Handle Inter Group: The Best Transport and Service"}
             </h2>
 
-            {/* เนื้อหาย่อหน้าที่ 1 เต็ม */}
             <p className="text-neutral-300 text-sm sm:text-base leading-relaxed font-light">
               {isTh
                 ? "ตลอดระยะเวลาของการเดินทางอันยาวนานของ Handle Inter Group บริษัทฯ ดำเนินงานบนเส้นทางอย่างมั่นคง เป็นอีกหนึ่งบริษัทฯ ที่มีศักยภาพสูงสุดในธุรกิจโลจิสติกส์แบบครบวงจร สิ่งที่บริษัทให้ความสำคัญและเน้นมาตลอดคือเรื่องบุคลากร โดยมีจุดยืนคือการมีบุคลากรที่มีคุณภาพ-มีมาตรฐานการทำงานเดียวกัน ที่เป็นหัวใจหลักให้บริษัทฯ เติบโตอย่างต่อเนื่อง เป็นไปในทิศทางเดียวกัน ด้วยจุดยืนเดียวกัน พร้อมทั้งมีวัตถุประสงค์ที่สำคัญคือให้บุคลากรเติบโตไปพร้อมกับบริษัท พร้อมก้าวสู่การค้าเสรี ที่จะมีการแข่งขันทางการค้ากันมากขึ้น"
                 : "Throughout the long journey of Handle Inter Group, the company has operated stably, standing as one of the highest-potential leaders in total integrated logistics. What we continuously emphasize is our human resources—having high-quality personnel with unified working standards to drive sustainable corporate growth in the same direction, aiming for people to grow alongside the company towards competitive free trade."}
             </p>
 
-            {/* เนื้อหาย่อหน้าที่ 2 เต็ม */}
             <p className="text-neutral-400 text-xs sm:text-sm md:text-base leading-relaxed font-light border-l-2 border-orange-500/80 pl-4 py-1">
               {isTh
                 ? "คุณสมชาย กล่าวว่า ที่ผ่านมาบริษัทฯ มีอัตราการเติบโตอย่างก้าวกระโดด โดยมีอัตราการเติบโตปีละไม่น้อยกว่า 20% จากการที่บริษัทได้ขยายศักยภาพการให้บริการอย่างไม่หยุดยั้ง มีการพัฒนาในทุกด้านที่เกี่ยวข้องกับการให้บริการ เพื่อให้ลูกค้าได้รับความพึงพอใจอย่างสูงสุด ซึ่งจุดแข็งของบริษัทฯ เกิดจากการมีรากฐานที่แข็งแกร่งของ 7 บริษัทฯ ในเครือ ทำให้มีบริษัทฯ มีความพร้อมในทุกช่องทางการขนส่ง ทั้งทางน้ำ ทางบก และทางอากาศ ส่งผลให้ Handle Inter Group ได้เปรียบคู่แข่งในเรื่องการให้บริการที่หลากหลาย ทำให้บริษัทยืนหยัดและติดอันดับต้นๆ ของผู้ให้บริการ Freight Forwarder ที่ดีที่สุดในประเทศไทย"
@@ -401,10 +399,8 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          {/* 📍 2. ท่อนล่าง: รายชื่อ 7 บริษัทในเครือเต็มรูปแบบ + กล่อง Showcase */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2">
             
-            {/* ฝั่งซ้าย: เนื้อหารายชื่อทั้ง 7 บริษัทแบบเต็มร้อยข้อความ */}
             <div className="lg:col-span-7 text-left space-y-4">
               
               <p className="text-xs font-mono uppercase tracking-wider text-orange-400 font-bold">
@@ -413,7 +409,6 @@ export default function AboutPage() {
                   : "Currently, there are 5 subsidiary companies providing complete coverage across land, air, and ocean transport, including:"}
               </p>
               
-              {/* รายการทั้ง 7 บริษัทตามข้อความต้นฉบับเต็ม */}
               <div className="divide-y divide-neutral-800 border-t border-b border-neutral-800 font-sans">
                 {detailedSubsidiaries.map((sub, idx) => {
                   const isActive = activeSubIndex === idx;
@@ -440,7 +435,6 @@ export default function AboutPage() {
                 })}
               </div>
 
-              {/* แท็บปุ่มย่อสำหรับเลือกสลับ */}
               <div className="flex flex-wrap gap-2 pt-2">
                 {detailedSubsidiaries.map((sub, idx) => (
                   <button
@@ -459,7 +453,6 @@ export default function AboutPage() {
 
             </div>
 
-            {/* ฝั่งขวา: กล่องแสดงผลรูปภาพและลิงก์รายละเอียดของบริษัทที่เลือก */}
             <div className="lg:col-span-5 w-full sticky top-24">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -470,27 +463,25 @@ export default function AboutPage() {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="bg-neutral-900/90 rounded-[28px] border border-neutral-800 p-6 space-y-5 text-left shadow-2xl backdrop-blur-xl"
                 >
-                  {/* กรอบรูปภาพ */}
                   <div className="w-full h-52 sm:h-60 rounded-2xl overflow-hidden bg-neutral-950 relative group">
-  <motion.img
-    initial={{ scale: 1.08 }}
-    animate={{ scale: 1 }}
-    transition={{ duration: 0.7 }}
-    src={currentSub.img}
-    alt={currentSub.name}
-    className="w-full h-full object-cover contrast-125 group-hover:scale-105 transition-all duration-700 ease-out"
-  />
-  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-  
-  <div className="absolute bottom-3 left-3">
-    <span className="bg-black/80 backdrop-blur-md text-white font-mono text-[11px] font-bold px-3 py-1 rounded-md border border-neutral-700 flex items-center space-x-1.5">
-      <span>{currentSub.icon}</span>
-      <span>{currentSub.tag}</span>
-    </span>
-  </div>
-</div>
+                    <motion.img
+                      initial={{ scale: 1.08 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.7 }}
+                      src={currentSub.img}
+                      alt={currentSub.name}
+                      className="w-full h-full object-cover contrast-125 group-hover:scale-105 transition-all duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    
+                    <div className="absolute bottom-3 left-3">
+                      <span className="bg-black/80 backdrop-blur-md text-white font-mono text-[11px] font-bold px-3 py-1 rounded-md border border-neutral-700 flex items-center space-x-1.5">
+                        <span>{currentSub.icon}</span>
+                        <span>{currentSub.tag}</span>
+                      </span>
+                    </div>
+                  </div>
 
-                  {/* ข้อมูลบริษัทและปุ่มเชื่อมต่อ */}
                   <div className="space-y-3">
                     <div>
                       <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
@@ -524,15 +515,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 4: AEC STRATEGY & CUSTOMER VALUE (เนื้อหาครบ 100% เต็มทุกย่อหน้า) */}
+      {/* 🎯 SECTION 4: AEC STRATEGY & CUSTOMER VALUE */}
       <section className="w-full relative z-10 overflow-hidden bg-white border-y border-slate-200/80">
         
-        {/* 📍 บล็อกที่ 1: พัฒนาศักยภาพรับมือเปิดเสรี AEC (ความสูงเต็มหน้าจอ min-h-screen) */}
+        {/* บล็อกที่ 1: AEC Strategy */}
         <div className="min-h-screen w-full flex items-center justify-center py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
-              {/* ฝั่งซ้าย: รูปภาพและป๊อปอัพโควตคำพูดผู้บริหาร */}
               <motion.div 
                 initial={{ opacity: 0, x: -60 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -548,7 +538,6 @@ export default function AboutPage() {
                   />
                   <div className="absolute inset-0 bg-slate-950/25" />
                   
-                  {/* Floating Card สไตล์แชตโควตคำพูด */}
                   <motion.div 
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -577,7 +566,6 @@ export default function AboutPage() {
                 </div>
               </motion.div>
 
-              {/* ฝั่งขวา: ข้อความเต็ม 100% ครบทุกคำ */}
               <motion.div 
                 initial={{ opacity: 0, x: 60 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -590,17 +578,15 @@ export default function AboutPage() {
                 </span>
 
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
-  {isMounted && t.devsuvt}
-</h2>
+                  {isMounted && t.devsuvt}
+                </h2>
 
-                {/* เนื้อหาเต็มย่อหน้าที่ 1 */}
                 <p className="text-slate-700 text-sm md:text-base leading-relaxed font-normal">
                   {isTh
                     ? "จากการที่กลุ่มประเทศอาเซียนได้ประกาศอย่างชัดเจนให้ปี 2015 เป็นปีเป้าหมายในการจัดตั้งประชาคมเศรษฐกิจอาเซียน (ASEAN Economic Community) หรือ AEC และได้กำหนดให้เร่งเปิดเสรีภาคบริการใน 5 สาขาเร่งรัด ได้แก่ สาขาสุขภาพ สาขาคอมพิวเตอร์และโทรคมนาคม สาขาท่องเที่ยว สาขาขนส่งทางอากาศภายในปี 2010 และสาขาโลจิสติกส์ภายในปี 2013 ส่วนสาขาบริการอื่นๆ ให้เปิดตลาดเสรีภายในปี 2015 ตามลำดับ ในเรื่องนี้ คุณสมชาย มองว่า นับเป็นโอกาสของผู้ให้บริการขนส่งและโลจิสติกส์ไทย ที่จะเตรียมตัววางกลยุทธ์รับมือผู้ให้บริการจากต่างชาติที่จะขยายฐานเข้ามาในประเทศไทย และเป็นจังหวะที่ดีที่ผู้ให้บริการไทยจะขยายฐานเปิดให้บริการยังประเทศอาเซียนได้"
                     : "As the ASEAN nations announced 2015 as the target year for establishing the ASEAN Economic Community (AEC) and expedited service liberalization in 5 priority sectors—including air transport by 2010 and logistics by 2013—Khun Somchai views this as a vital strategic opportunity for Thai logistics providers to prepare for incoming international competition and expand outwards into ASEAN markets."}
                 </p>
 
-                {/* เนื้อหาเต็มย่อหน้าที่ 2 (คำกล่าวสปีชเต็ม) */}
                 <div className="bg-slate-50 border-l-4 border-red-600 p-4 sm:p-5 rounded-r-2xl space-y-2">
                   <p className="text-slate-800 text-xs sm:text-sm md:text-base leading-relaxed italic font-medium">
                     {isTh
@@ -609,7 +595,6 @@ export default function AboutPage() {
                   </p>
                 </div>
 
-                {/* เนื้อหาเต็มย่อหน้าที่ 3 */}
                 <p className="text-slate-700 text-sm md:text-base leading-relaxed font-normal">
                   {isTh
                     ? "Handle Inter Group เป็นกลุ่มบริษัทที่ให้บริการครบวงจร โดยมีแผนการดำเนินงานเชิงรุก คือเร่งเสริมความแข็งแกร่งด้านการตลาด เพื่อรองรับการแข่งขันที่สูงขึ้น นอกจากนี้ยังให้ความสำคัญกับการขยายไลน์ธุรกิจให้ครอบคลุมทุกบริการด้านโลจิสติกส์ เพื่อให้สามารถตอบสนองความต้องการที่หลากหลายของลูกค้าได้เป็นอย่างดี จากการบริการที่เป็นเลิศ ผนวกกับการมีบริษัทในเครือที่มีความเข้มแข็ง ที่สามารถให้บริการที่ครอบคลุมทุกเส้นทางการขนส่ง ทำให้บริษัทมีความได้เปรียบคู่แข่งรายอื่น ส่งผลให้ลูกค้าเลือกใช้บริการอย่างต่อเนื่อง มั่นใจว่าบริษัทฯ มีความพร้อมเต็มที่ในการรับมือการเปิดเสรีทางการค้า AEC"
@@ -633,7 +618,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* 📍 บล็อกที่ 2: ลูกค้าคือพันธมิตรทางธุรกิจสำคัญที่สุด (เนื้อหาเต็ม 100% สไตล์ Minimalist Slate / Off-White) */}
+        {/* บล็อกที่ 2: Customer Centric Value */}
         <div id="highlight-block" className="min-h-screen w-full bg-slate-50/90 text-slate-900 py-20 md:py-28 flex items-center justify-center transition-all relative overflow-hidden border-t border-slate-200/80">
           
           <div className="absolute top-1/4 -right-32 w-96 h-96 bg-orange-100/50 rounded-full blur-3xl pointer-events-none" />
@@ -642,7 +627,6 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
-              {/* ฝั่งซ้าย: ข้อความเต็มย่อหน้าสุดท้าย */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -658,7 +642,6 @@ export default function AboutPage() {
                  {isMounted && t.m1_h1} <br />{isMounted && t.m1_h2}
                 </h2>
 
-                {/* ข้อความเต็มย่อหน้าของลูกค้าคือพันธมิตรสำคัญที่สุด */}
                 <p className="text-slate-700 text-sm sm:text-base md:text-lg leading-relaxed font-normal">
                   {isTh
                     ? "คุณสมชาย กล่าวว่า Handle Inter Group มองว่าลูกค้าคือพันธมิตรทางธุรกิจที่สำคัญที่สุด จึงเร่งสร้างมาตรฐานชั้นเลิศในด้านการบริการแบบ One Stop service และพร้อมทุ่มเทเพื่อบริการที่เหนือความคาดหวังของลูกค้า พร้อมสานต่อแนวคิดลดต้นทุน เพิ่มประสิทธิภาพ ประหยัดเวลา และอำนวยความสะดวก ให้ลูกค้าได้รับประโยชน์และสะดวกสบายมากที่สุด วันนี้ Handle Inter Group พร้อมก้าวสู่ปีที่ 10 อย่างมั่นคง จากฐานรากที่แข็งแกร่งของบริษัท รวมทั้งความมั่นคง ความมีเครดิตทางการเงิน ที่จะสร้างความมั่นใจในการเลือกใช้บริการของลูกค้า ซึ่งลูกค้าสามารถมั่นใจได้ว่าสินค้าของลูกค้าจะถึงมือผู้รับอย่างแน่นอน"
@@ -675,7 +658,6 @@ export default function AboutPage() {
                 </div>
               </motion.div>
 
-              {/* ฝั่งขวา: รูปภาพขอบมนพร้อมอนิเมชัน */}
               <motion.div 
                 initial={{ opacity: 0, scale: 0.88 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -699,13 +681,10 @@ export default function AboutPage() {
 
       </section>
 
-      
-      
-     {/* 🎯 SECTION 5: PURE LOGO TIMELINE (ไม่มีข้อความ + ขยายขนาดโลโก้ใหญ่พิเศษ) */}
+      {/* 🎯 SECTION 5: PURE LOGO TIMELINE */}
       <section className="w-full bg-slate-50 py-32 md:py-48 px-6 sm:px-12 lg:px-20 relative z-10 border-t border-slate-200/80">
         <div className="max-w-4xl mx-auto w-full space-y-24 md:space-y-32">
           
-          {/* 📍 หัวข้อด้านบนสุดของ Timeline */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -724,16 +703,13 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          {/* 📍 พื้นที่แกนกลางไทม์ไลน์ */}
           <div className="relative pt-12 pb-20">
             
-            {/* เส้นแกนกลางแนวตั้งสีเขียว */}
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-emerald-500 via-emerald-500 to-emerald-400 rounded-full z-0 shadow-[0_0_12px_rgba(16,185,129,0.35)]" />
 
-            {/* รายการโหนดปีและโลโก้สลับซ้าย-ขวา */}
             <div className="space-y-36 sm:space-y-48 lg:space-y-56 relative z-10">
               
-              {/* 🟢 โหนดที่ 1: 2003 (Handle Inter Group) -> [ซ้าย: โลโก้ใหญ่] */}
+              {/* โหนด 1: 2003 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -741,7 +717,6 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -752,16 +727,14 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2003 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-pulse">
                   2003
                 </div>
 
-                {/* ฝั่งขวา: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
               </motion.div>
 
-              {/* 🟢 โหนดที่ 2: 2003 (H.I.T. Intercon) -> [ขวา: โลโก้ใหญ่] */}
+              {/* โหนด 2: 2003 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -769,15 +742,12 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2003 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2003
                 </div>
 
-                {/* ฝั่งขวา: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -789,7 +759,7 @@ export default function AboutPage() {
                 </div>
               </motion.div>
 
-              {/* 🟢 โหนดที่ 3: 2005 (Handle Inter Consolidation) -> [ซ้าย: โลโก้ใหญ่] */}
+              {/* โหนด 3: 2005 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -797,7 +767,6 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -808,16 +777,14 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2005 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2005
                 </div>
 
-                {/* ฝั่งขวา: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
               </motion.div>
 
-              {/* 🟢 โหนดที่ 4: 2006 (Consol Link) -> [ขวา: โลโก้ใหญ่] */}
+              {/* โหนด 4: 2006 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -825,15 +792,12 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2006 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2006
                 </div>
 
-                {/* ฝั่งขวา: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -845,7 +809,7 @@ export default function AboutPage() {
                 </div>
               </motion.div>
 
-              {/* 🟢 โหนดที่ 5: 2007 (PKT Logistics) -> [ซ้าย: โลโก้ใหญ่] */}
+              {/* โหนด 5: 2007 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -853,7 +817,6 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -864,16 +827,14 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2007 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2007
                 </div>
 
-                {/* ฝั่งขวา: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
               </motion.div>
 
-              {/* 🟢 โหนดที่ 6: 2008 (Siam Liner) -> [ขวา: โลโก้ใหญ่] */}
+              {/* โหนด 6: 2008 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -881,15 +842,12 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between"
               >
-                {/* ฝั่งซ้าย: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2008 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2008
                 </div>
 
-                {/* ฝั่งขวา: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -901,7 +859,7 @@ export default function AboutPage() {
                 </div>
               </motion.div>
 
-              {/* 🟢 โหนดที่ 7: 2013 (Siam Warehousing) -> [ซ้าย: โลโก้ใหญ่] */}
+              {/* โหนด 7: 2013 */}
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -909,7 +867,6 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="relative flex items-center justify-between pb-8"
               >
-                {/* ฝั่งซ้าย: โลโก้ขนาดใหญ่ */}
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
                   <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
@@ -920,19 +877,16 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* จุดกึ่งกลาง: วงกลมปี 2013 */}
                 <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-bounce">
                   2013
                 </div>
 
-                {/* ฝั่งขวา: เว้นว่างรักษาสมดุล */}
                 <div className="w-[44%]" />
               </motion.div>
 
             </div>
           </div>
 
-          {/* 📍 ส่วนท้ายไทม์ไลน์ */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

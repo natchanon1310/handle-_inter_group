@@ -100,7 +100,7 @@ function CleanStoryCoreCard({
         }`}>
           
           <div className="space-y-6">
-            {/* 1. รูปภาพตรงกลางสไตล์ Clean Illustration/Photo */}
+            {/* 1. รูปภาพตรงกลาง */}
             <div className="w-full flex justify-center items-center py-2 relative">
               <div className={`overflow-hidden transition-transform duration-500 group-hover:scale-110 ${
                 isBig ? "h-48 md:h-56" : "h-36 md:h-40"
@@ -171,7 +171,7 @@ function MagazineSubsidiaryCard({
           setIsVisible(true);
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
 
     if (cardRef.current) observer.observe(cardRef.current);
@@ -261,15 +261,20 @@ export default function AboutPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
     return () => window.removeEventListener("langChange", checkLang);
   }, []);
 
-  const t = dictionary[lang].about;
-  const subsidiaries = dictionary[lang].subsidiaries;
+  const activeDict = dictionary[lang] || dictionary.en;
+  const t = activeDict.about || dictionary.en.about;
+  const subsidiaries = activeDict.subsidiaries || dictionary.en.subsidiaries;
 
   const subsidiaryPaths = [
     "/H-I-T-INTERCON",
@@ -431,8 +436,8 @@ export default function AboutPage() {
               <CleanStoryCoreCard
                 index={0}
                 tag="HUMAN RESOURCES"
-                title={isMounted ? t.hr_t : "มุ่งเน้นพัฒนาทรัพยากรบุคคล"}
-                desc={isMounted ? t.hr_d : "ทรัพยากรบุคคลคือหัวใจหลักที่เราโฟกัสและพัฒนาอย่างต่อเนื่อง"}
+                title={isMounted ? t.hr_t : "Human Resource Focus"}
+                desc={isMounted ? t.hr_d : "Human resources are the core heart we continuously cultivate and expand."}
                 date="July 18, 2026"
                 imgSrc="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
                 isBig={true}
@@ -441,8 +446,8 @@ export default function AboutPage() {
               <CleanStoryCoreCard
                 index={1}
                 tag="EXCELLENCE & QUALITY"
-                title={isMounted ? t.ef_t : "ประสิทธิภาพและคุณภาพ"}
-                desc={isMounted ? t.ef_d : "ยกระดับประสิทธิภาพและคุณภาพอย่างต่อเนื่อง การให้บริการแบบ One Stop Service"}
+                title={isMounted ? t.ef_t : "Excellence & Efficiency"}
+                desc={isMounted ? t.ef_d : "Elevating efficiency and total quality continuously with One-Stop Service."}
                 date="July 20, 2026"
                 imgSrc="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 isBig={true}
@@ -454,8 +459,8 @@ export default function AboutPage() {
               <CleanStoryCoreCard
                 index={2}
                 tag="PARTNERSHIP"
-                title={isMounted ? t.bp_t : "แนวคิดพันธมิตรทางธุรกิจ"}
-                desc={isMounted ? t.bp_d : "ลูกค้าคือพันธมิตรทางธุรกิจที่สำคัญ เรามอบมาตรฐานที่ยอดเยี่ยม"}
+                title={isMounted ? t.bp_t : "Business Partnership"}
+                desc={isMounted ? t.bp_d : "Customers are our most valued partners for whom we deliver first-class standards."}
                 date="July 22, 2026"
                 imgSrc="https://cdn-icons-png.flaticon.com/512/3062/3062322.png"
               />
@@ -497,7 +502,7 @@ export default function AboutPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left items-stretch">
-          {isMounted && subsidiaries.map((sub, index) => {
+          {isMounted && subsidiaries.map((sub: any, index: number) => {
             const meta = magazineCardMeta[index % magazineCardMeta.length];
             const targetLink = subsidiaryPaths[index] || "/aboutus";
 

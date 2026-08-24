@@ -88,7 +88,11 @@ export default function HitInterconPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
@@ -96,7 +100,7 @@ export default function HitInterconPage() {
   }, []);
 
   const t = dictionary[lang] || dictionary.en;
-  const detailText = t.hitIntercon || {};
+  const detailText = t.hitIntercon || dictionary.en.hitIntercon || {};
 
   const sections = useMemo(
     () => [
@@ -337,8 +341,6 @@ export default function HitInterconPage() {
             style={{ opacity: titleOpacity, scale: titleScale }}
             className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
           >
-            
-
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
               {lang === "en" ? "The Experienced," : "มากมายประสบการณ์,"} <br />
               <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">

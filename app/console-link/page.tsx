@@ -89,7 +89,11 @@ export default function ConsoleLinkPage() {
     setIsMounted(true);
     const checkLang = () => {
       const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
+      if (savedLang) {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
     };
     checkLang();
     window.addEventListener("langChange", checkLang);
@@ -97,8 +101,8 @@ export default function ConsoleLinkPage() {
   }, []);
 
   const t = dictionary[lang] || dictionary.en;
-  const subsidiaries = t.subsidiaries || [];
-  const detailText = t.consoleLink || {};
+  const subsidiaries = t.subsidiaries || dictionary.en.subsidiaries || [];
+  const detailText = t.consoleLink || dictionary.en.consoleLink || {};
 
   const sections = useMemo(
     () => [
@@ -333,7 +337,7 @@ export default function ConsoleLinkPage() {
         </div>
       </section>
 
-      {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL (ค่อยๆ แยกออกจากกันอย่างนุ่มนวล) */}
+      {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL */}
       <section
         id="Our service"
         ref={lockContainerRef}
@@ -341,7 +345,6 @@ export default function ConsoleLinkPage() {
       >
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
           
-          {/* Background Atmosphere */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
             <img
               src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
@@ -353,17 +356,14 @@ export default function ConsoleLinkPage() {
             <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100/60 rounded-full blur-[160px]" />
           </div>
 
-          {/* 📍 SCENE 1: INITIAL CENTER TITLE */}
           <motion.div
             style={{ opacity: titleOpacity, scale: titleScale }}
             className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
           >
-            
-
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
               {lang === "en" ? "Console Link," : "บริษัท คอนโซล ลิงค์ จำกัด,"} <br />
               <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                {lang === "en" ? "Determination...to fight for the goal." : "ความมุ่งมั่น....สู้เป้าหมาย"}
+                {lang === "en" ? "WORLD WILD NETWORK" : "ความมุ่งมั่น....สู้เป้าหมาย"}
               </span>
             </h2>
 
@@ -380,10 +380,8 @@ export default function ConsoleLinkPage() {
             </div>
           </motion.div>
 
-          {/* 📍 SCENE 2: REVEAL CONTENT + SMOOTH SPLIT */}
           <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-20 h-[84vh]">
             
-            {/* 👈 ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ */}
             <motion.div
               style={{ opacity: contentOpacity, x: contentX }}
               className="lg:col-span-7 text-left flex flex-col justify-between h-full py-2 pr-2 overflow-y-auto"
@@ -444,7 +442,6 @@ export default function ConsoleLinkPage() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* 🎛️ Interactive Service Switcher Tabs */}
               <div className="pt-3 border-t border-stone-200 space-y-1.5 mt-2">
                 <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
                   {lang === "en" ? "Select Core Logistics Service :" : "เลือกบริการหลัก :"}
@@ -467,7 +464,6 @@ export default function ConsoleLinkPage() {
               </div>
             </motion.div>
 
-            {/* 👉 ฝั่งขวา: รูปภาพประกอบ */}
             <div className="lg:col-span-5 flex items-center justify-center relative h-full">
               <motion.div
                 style={{
@@ -539,7 +535,6 @@ export default function ConsoleLinkPage() {
               <div className="h-full bg-[#FAF6EE]/90 hover:bg-[#FAF6EE] border border-amber-200/70 hover:border-amber-400/80 rounded-tr-[70px] sm:rounded-tr-[110px] rounded-bl-[70px] sm:rounded-bl-[110px] rounded-tl-3xl rounded-br-3xl p-8 sm:p-12 shadow-[0_20px_50px_rgba(217,119,6,0.08)] backdrop-blur-xl relative overflow-hidden transition-all duration-500 group hover:-translate-y-1.5 flex flex-col justify-between">
                 <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-8 sm:gap-10">
                   
-                  {/* ฝั่งซ้าย: Logo & Company Name */}
                   <div className="w-full sm:w-5/12 flex flex-col items-center justify-center text-center space-y-3 bg-white/80 border border-amber-100 rounded-tr-[40px] rounded-bl-[40px] rounded-tl-xl rounded-br-xl p-6 shadow-sm">
                     <img
                       src="/images/consol-link.png"
@@ -556,11 +551,9 @@ export default function ConsoleLinkPage() {
                     </div>
                   </div>
 
-                  {/* เส้นแบ่งแนวตั้งโทนอุ่น */}
                   <div className="hidden sm:block w-[1.5px] bg-gradient-to-b from-amber-300 via-amber-400/50 to-transparent rounded-full my-1" />
                   <div className="block sm:hidden w-full h-[1.5px] bg-gradient-to-r from-amber-300 via-amber-400/50 to-transparent rounded-full" />
 
-                  {/* ฝั่งขวา: Executive Info & Contacts */}
                   <div className="w-full sm:w-7/12 space-y-4 text-left flex flex-col justify-center">
                     <div>
                       <h3 className="font-black text-stone-900 text-xl sm:text-2xl tracking-tight leading-snug">
@@ -610,7 +603,6 @@ export default function ConsoleLinkPage() {
             </ScrollCardReveal>
           </div>
 
-          {/* ปุ่ม Back to About Us */}
           <ScrollCardReveal direction="up" delay={200}>
             <div className="pt-6 text-center">
               <Link
