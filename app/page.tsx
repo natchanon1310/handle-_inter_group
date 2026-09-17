@@ -1505,7 +1505,7 @@ export default function HomePage() {
     {
       title: t.businessGroups.tradingTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.tradingSub,
-      videoSrc: "/images/total trading.mp4",
+      videoSrc: "/images/trading2.mp4",
       tag: "TRADING GROUP",
       logos: [
         { name: "/2 SUPPLLY", src: "/images/2usubply.png", link: "#" },

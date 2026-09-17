@@ -105,21 +105,19 @@ export default function Navbar() {
           
           {/* 🎯 OVERHANGING BIG LOGO */}
           <Link href="/" className="relative z-10 flex items-center group py-1 overflow-visible">
-            <img
-              src="/images/j6592 (1).gif"
-              alt="Handle Inter Group Logo"
-              className={`w-auto max-w-none object-contain transition-all duration-500 group-hover:scale-105 absolute top-1/2 -translate-y-1/2 left-0 ${
-                isScrolled 
-                  ? "h-14 md:h-16 lg:h-18 drop-shadow-md" 
-                  : "h-20 md:h-28 lg:h-32 drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)]"
-              } ${
-                !isScrolled ? "brightness-0 invert" : ""
-              }`}
-            />
-            <div className={`transition-all duration-500 ${
-              isScrolled ? "w-28 md:w-36 lg:w-40 h-8" : "w-36 md:w-48 lg:w-56 h-10"
-            }`} />
-          </Link>
+  <img
+    src="/images/j6592 (1).gif"
+    alt="Handle Inter Group Logo"
+    className={`w-auto max-w-none object-contain transition-all duration-500 group-hover:scale-105 absolute top-1/2 -translate-y-1/2 left-0 ${
+      isScrolled 
+        ? "h-14 md:h-16 lg:h-18 drop-shadow-md" 
+        : "h-20 md:h-28 lg:h-32 drop-shadow-[0_8px_20px_rgba(0,0,0,0.7)]"
+    }`}
+  />
+  <div className={`transition-all duration-500 ${
+    isScrolled ? "w-28 md:w-36 lg:w-40 h-8" : "w-36 md:w-48 lg:w-56 h-10"
+  }`} />
+</Link>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-wider items-center">
