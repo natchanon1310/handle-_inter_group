@@ -3,7 +3,16 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import * as THREE from "three";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useTexture } from "@react-three/drei";
 import { dictionary } from "./utils/dictionaries";
+
+interface LogoItem {
+  name: string;
+  src: string;
+  link: string;
+}
 
 // 🎬 Component ตัวอักษรโผล่มาทีละตัว
 function TextReveal({ 
@@ -132,7 +141,939 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   );
 }
 
-// 🎯 Component การ์ดบริการวิดีโอเต็มใบ (หัวข้อที่ 3: ขนาด 300/360/400px x 480/520px)
+// =========================================================================
+// 🎨 PROCEDURAL TEXTURES GENERATORS
+// =========================================================================
+
+function createSteelPlateHullTexture(isPortSide = true): { colorMap: THREE.CanvasTexture; bumpMap: THREE.CanvasTexture } {
+  const width = 2048;
+  const height = 512;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d")!;
+
+  ctx.fillStyle = "#141920";
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.strokeStyle = "rgba(40, 50, 60, 0.4)";
+  ctx.lineWidth = 3;
+  for (let x = 0; x < width; x += 128) {
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, height);
+    ctx.stroke();
+
+    for (let y = 8; y < height; y += 24) {
+      ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.fillRect(x - 1, y, 2, 2);
+    }
+  }
+
+  for (let y = 0; y < height; y += 64) {
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(width, y);
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < 70; i++) {
+    const rx = Math.random() * width;
+    const ry = Math.random() * 80 + 40;
+    const rLen = Math.random() * 260 + 80;
+    const rW = Math.random() * 8 + 3;
+
+    const rGrad = ctx.createLinearGradient(rx, ry, rx, ry + rLen);
+    rGrad.addColorStop(0, "rgba(140, 55, 22, 0.65)");
+    rGrad.addColorStop(0.4, "rgba(100, 40, 18, 0.35)");
+    rGrad.addColorStop(1, "rgba(20, 25, 32, 0)");
+    ctx.fillStyle = rGrad;
+    ctx.fillRect(rx, ry, rW, rLen);
+  }
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "italic 900 78px 'Arial Black', Impact, sans-serif";
+  ctx.textAlign = isPortSide ? "left" : "right";
+  ctx.textBaseline = "middle";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+  ctx.shadowBlur = 6;
+  ctx.fillText("SANTA RAFAELA", isPortSide ? 180 : width - 180, 230);
+  ctx.shadowBlur = 0;
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 26px monospace";
+  for (let d = 0; d < 8; d++) {
+    ctx.fillText(`${14 - d}M`, isPortSide ? 50 : width - 90, 480 - d * 36);
+  }
+
+  const bumpCanvas = document.createElement("canvas");
+  bumpCanvas.width = width;
+  bumpCanvas.height = height;
+  const bctx = bumpCanvas.getContext("2d")!;
+
+  bctx.fillStyle = "#808080";
+  bctx.fillRect(0, 0, width, height);
+
+  bctx.strokeStyle = "#404040";
+  bctx.lineWidth = 4;
+  for (let x = 0; x < width; x += 128) {
+    bctx.beginPath();
+    bctx.moveTo(x, 0);
+    bctx.lineTo(x, height);
+    bctx.stroke();
+  }
+  for (let y = 0; y < height; y += 64) {
+    bctx.beginPath();
+    bctx.moveTo(0, y);
+    bctx.lineTo(width, y);
+    bctx.stroke();
+  }
+
+  bctx.fillStyle = "#ffffff";
+  bctx.font = "italic 900 78px 'Arial Black', Impact, sans-serif";
+  bctx.textAlign = isPortSide ? "left" : "right";
+  bctx.textBaseline = "middle";
+  bctx.fillText("SANTA RAFAELA", isPortSide ? 180 : width - 180, 230);
+
+  const colorMap = new THREE.CanvasTexture(canvas);
+  colorMap.colorSpace = THREE.SRGBColorSpace;
+  const bumpMap = new THREE.CanvasTexture(bumpCanvas);
+
+  return { colorMap, bumpMap };
+}
+
+function createOceanWaveNormalTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext("2d")!;
+
+  ctx.fillStyle = "#8080ff";
+  ctx.fillRect(0, 0, 512, 512);
+
+  for (let i = 0; i < 600; i++) {
+    const x = Math.random() * 512;
+    const y = Math.random() * 512;
+    const rx = Math.random() * 30 + 10;
+    const ry = Math.random() * 8 + 3;
+    const rot = Math.random() * Math.PI;
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    const grad = ctx.createRadialGradient(0, 0, 1, 0, 0, rx);
+    grad.addColorStop(0, "rgba(180, 120, 255, 0.45)");
+    grad.addColorStop(0.5, "rgba(100, 140, 255, 0.2)");
+    grad.addColorStop(1, "rgba(128, 128, 255, 0)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(16, 16);
+  return texture;
+}
+
+function createBrandContainerTexture(brand: "MAERSK" | "UASC" | "SAMSKIP" | "PLAIN_RED" | "PLAIN_BLUE") {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 256;
+  const ctx = canvas.getContext("2d")!;
+
+  let bgColor = "#8a3a1b";
+  let textColor = "#ffffff";
+
+  if (brand === "MAERSK") {
+    bgColor = "#edf2f7";
+    textColor = "#0284c7";
+  } else if (brand === "UASC") {
+    bgColor = "#3d7a46";
+    textColor = "#ffffff";
+  } else if (brand === "SAMSKIP") {
+    bgColor = "#1e3a8a";
+    textColor = "#ffffff";
+  } else if (brand === "PLAIN_BLUE") {
+    bgColor = "#1d4ed8";
+  }
+
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, 512, 256);
+
+  for (let x = 0; x < 512; x += 16) {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+    ctx.fillRect(x, 0, 8, 256);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+    ctx.fillRect(x + 8, 0, 8, 256);
+  }
+
+  if (brand === "MAERSK" || brand === "UASC" || brand === "SAMSKIP") {
+    ctx.fillStyle = textColor;
+    ctx.font = "900 64px 'Arial Black', sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(brand, 256, 128);
+
+    if (brand === "MAERSK") {
+      ctx.font = "40px sans-serif";
+      ctx.fillText("★", 80, 128);
+    }
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+// =========================================================================
+// 🚢 R3F 3D SUB-COMPONENTS (Section 2)
+// =========================================================================
+
+function R3FSkyDome() {
+  const skyMeshRef = useRef<THREE.Mesh>(null);
+
+  const texture = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = 1024;
+    canvas.height = 512;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 512);
+    gradient.addColorStop(0.0, "#1c6096");
+    gradient.addColorStop(0.35, "#4088bc");
+    gradient.addColorStop(0.65, "#7eb4d8");
+    gradient.addColorStop(0.85, "#bbdcf0");
+    gradient.addColorStop(1.0, "#e3f2fd");
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 1024, 512);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }, []);
+
+  useFrame((_, delta) => {
+    if (skyMeshRef.current) {
+      skyMeshRef.current.rotation.y += delta * 0.004;
+    }
+  });
+
+  if (!texture) return null;
+
+  return (
+    <mesh ref={skyMeshRef}>
+      <sphereGeometry args={[650, 32, 32]} />
+      <meshBasicMaterial map={texture} side={THREE.BackSide} />
+    </mesh>
+  );
+}
+
+function R3FClouds() {
+  const cloudGroupRef = useRef<THREE.Group>(null);
+
+  const clusters = useMemo(() => {
+    return Array.from({ length: 24 }).map((_, c) => {
+      const angle = (c / 24) * Math.PI * 2 + (Math.random() * 0.2);
+      const dist = Math.random() * 110 + 190;
+      const x = Math.cos(angle) * dist;
+      const y = Math.random() * 45 + 70;
+      const z = Math.sin(angle) * dist;
+
+      const puffs = Array.from({ length: Math.floor(Math.random() * 6) + 6 }).map(() => ({
+        radius: Math.random() * 16 + 12,
+        px: (Math.random() - 0.5) * 45,
+        py: (Math.random() - 0.5) * 10,
+        pz: (Math.random() - 0.5) * 30,
+      }));
+
+      return { x, y, z, puffs };
+    });
+  }, []);
+
+  useFrame((_, delta) => {
+    if (cloudGroupRef.current) {
+      cloudGroupRef.current.rotation.y += delta * 0.006;
+    }
+  });
+
+  return (
+    <group ref={cloudGroupRef}>
+      {clusters.map((cluster, ci) => (
+        <group key={ci} position={[cluster.x, cluster.y, cluster.z]}>
+          {cluster.puffs.map((puff, pi) => (
+            <mesh key={pi} position={[puff.px, puff.py, puff.pz]} scale={[1.45, 0.75, 1.05]}>
+              <sphereGeometry args={[puff.radius, 14, 14]} />
+              <meshStandardMaterial
+                color="#ffffff"
+                roughness={0.9}
+                metalness={0.05}
+                transparent
+                opacity={0.88}
+              />
+            </mesh>
+          ))}
+        </group>
+      ))}
+    </group>
+  );
+}
+
+function R3FOcean() {
+  const geoRef = useRef<THREE.PlaneGeometry>(null);
+  const waveNormal = useMemo(() => (typeof window !== "undefined" ? createOceanWaveNormalTexture() : null), []);
+
+  const initialPositions = useMemo(() => {
+    const tempGeo = new THREE.PlaneGeometry(800, 800, 140, 140);
+    const arr = (tempGeo.attributes.position.array as Float32Array).slice();
+    tempGeo.dispose();
+    return arr;
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!geoRef.current) return;
+    const t = clock.getElapsedTime();
+    const posAttr = geoRef.current.attributes.position;
+    const posArr = posAttr.array as Float32Array;
+
+    for (let i = 0; i < posArr.length; i += 3) {
+      const u = initialPositions[i];
+      const v = initialPositions[i + 1];
+      posArr[i + 2] =
+        Math.sin(u * 0.04 + t * 1.7) * 0.48 +
+        Math.cos(v * 0.035 + t * 1.4) * 0.42;
+    }
+    posAttr.needsUpdate = true;
+    geoRef.current.computeVertexNormals();
+
+    if (waveNormal) {
+      waveNormal.offset.x = (t * 0.015) % 1;
+      waveNormal.offset.y = (t * 0.02) % 1;
+    }
+  });
+
+  return (
+    <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 1.6, 70]}>
+      <planeGeometry ref={geoRef} args={[800, 800, 140, 140]} />
+      <meshPhysicalMaterial
+        color="#0284c7"
+        normalMap={waveNormal || undefined}
+        normalScale={new THREE.Vector2(0.45, 0.45)}
+        roughness={0.12}
+        metalness={0.85}
+        clearcoat={1.0}
+        clearcoatRoughness={0.1}
+        reflectivity={0.9}
+        flatShading={false}
+      />
+    </mesh>
+  );
+}
+
+// 🚢 เรือ "SANTA RAFAELA" ปรับปรุงโครงสร้างหัวเรือให้แนบสนิทกับตัวเรือ 100%
+function R3FShipModel({ radarRef }: { radarRef: React.RefObject<THREE.Mesh | null> }) {
+  const portTextures = useMemo(() => (typeof window !== "undefined" ? createSteelPlateHullTexture(true) : { colorMap: null, bumpMap: null }), []);
+  const stbdTextures = useMemo(() => (typeof window !== "undefined" ? createSteelPlateHullTexture(false) : { colorMap: null, bumpMap: null }), []);
+
+  const maerskTex = useMemo(() => (typeof window !== "undefined" ? createBrandContainerTexture("MAERSK") : null), []);
+  const uascTex = useMemo(() => (typeof window !== "undefined" ? createBrandContainerTexture("UASC") : null), []);
+  const samskipTex = useMemo(() => (typeof window !== "undefined" ? createBrandContainerTexture("SAMSKIP") : null), []);
+  const plainRedTex = useMemo(() => (typeof window !== "undefined" ? createBrandContainerTexture("PLAIN_RED") : null), []);
+  const plainBlueTex = useMemo(() => (typeof window !== "undefined" ? createBrandContainerTexture("PLAIN_BLUE") : null), []);
+
+  const foamTexture = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 128;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+
+    const grad = ctx.createLinearGradient(0, 0, 512, 0);
+    grad.addColorStop(0, "rgba(255, 255, 255, 0.95)");
+    grad.addColorStop(0.25, "rgba(255, 255, 255, 0.75)");
+    grad.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 512, 128);
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }, []);
+
+  // 📐 1. หัวเรือส่วนบนสีดำ แนบสนิทกับขอบลำเรือหลักพอดีเป๊ะ
+  const seamlessBowUpperGeometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const length = 9.5;
+    const height = 3.2;
+    const halfWidth = 4.3;
+
+    const vertices = new Float32Array([
+      // กราบซ้าย
+      -halfWidth, height / 2, 0,
+      0, height / 2, length,
+      0, -height / 2, length * 0.85,
+
+      -halfWidth, height / 2, 0,
+      0, -height / 2, length * 0.85,
+      -halfWidth, -height / 2, 0,
+
+      // กราบขวา
+      halfWidth, height / 2, 0,
+      0, -height / 2, length * 0.85,
+      0, height / 2, length,
+
+      halfWidth, height / 2, 0,
+      halfWidth, -height / 2, 0,
+      0, -height / 2, length * 0.85,
+
+      // ฝาดาดฟ้าบน
+      -halfWidth, height / 2, 0,
+      halfWidth, height / 2, 0,
+      0, height / 2, length,
+
+      // ท้องเชื่อมด้านล่าง
+      -halfWidth, -height / 2, 0,
+      0, -height / 2, length * 0.85,
+      halfWidth, -height / 2, 0,
+    ]);
+
+    geo.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+    geo.computeVertexNormals();
+    return geo;
+  }, []);
+
+  // 📐 2. หัวเรือส่วนล่างสีแดงใต้แนวน้ำ แนบสนิทกับท้องเรือ
+  const seamlessBowLowerGeometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    const length = 8.0;
+    const height = 2.2;
+    const halfWidth = 4.2;
+
+    const vertices = new Float32Array([
+      // ซ้ายล่าง
+      -halfWidth, height / 2, 0,
+      0, height / 2, length,
+      0, -height / 2, length * 0.7,
+
+      -halfWidth, height / 2, 0,
+      0, -height / 2, length * 0.7,
+      -halfWidth * 0.4, -height / 2, 0,
+
+      // ขวาล่าง
+      halfWidth, height / 2, 0,
+      0, -height / 2, length * 0.7,
+      0, height / 2, length,
+
+      halfWidth, height / 2, 0,
+      halfWidth * 0.4, -height / 2, 0,
+      0, -height / 2, length * 0.7,
+    ]);
+
+    geo.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+    geo.computeVertexNormals();
+    return geo;
+  }, []);
+
+  const containerStacks = useMemo(() => {
+    const cWidth = 1.40;
+    const cHeight = 1.15;
+    const cLength = 4.3;
+    const items: Array<{
+      pos: [number, number, number];
+      texture: THREE.CanvasTexture | null;
+    }> = [];
+
+    for (let bay = -3; bay <= 3; bay++) {
+      const zBase = bay * (cLength + 0.35) + 2.0;
+
+      for (let r = -2; r <= 2; r++) {
+        const maxHeight = bay === 3 ? (Math.abs(r) === 2 ? 1 : 2) : 3;
+
+        for (let h = 0; h < maxHeight; h++) {
+          let chosenTex = plainRedTex;
+
+          if (bay === 2 && h === 1 && r === 0) chosenTex = uascTex;
+          else if (bay === 1 && h === 2 && r === -1) chosenTex = uascTex;
+          else if (bay === 0 && h === 0 && r === 1) chosenTex = samskipTex;
+          else if (bay === -1 && h === 1 && r === 0) chosenTex = maerskTex;
+          else if (bay === -2 && h === 0 && r === -1) chosenTex = maerskTex;
+          else if (bay === 3 && h === 0) chosenTex = uascTex;
+          else if (h === 0) chosenTex = plainBlueTex;
+
+          items.push({
+            pos: [r * cWidth, 6.25 + h * cHeight, zBase],
+            texture: chosenTex,
+          });
+        }
+      }
+    }
+
+    return items;
+  }, [maerskTex, uascTex, samskipTex, plainRedTex, plainBlueTex]);
+
+  return (
+    <group>
+      {/* 1. ท้องเรือใต้แนวน้ำสีแดง */}
+      <mesh castShadow receiveShadow position={[0, 1.1, 0]}>
+        <boxGeometry args={[8.4, 2.2, 50.0]} />
+        <meshStandardMaterial color="#7d2417" roughness={0.65} metalness={0.15} />
+      </mesh>
+
+      {/* เส้น Waterline ขาว */}
+      <mesh position={[0, 2.25, 0]}>
+        <boxGeometry args={[8.55, 0.22, 50.2]} />
+        <meshBasicMaterial color="#ffffff" />
+      </mesh>
+
+      {/* 2. ตัวเรือเหล็กกล้าสีดำ */}
+      <mesh castShadow receiveShadow position={[0, 3.95, 0]}>
+        <boxGeometry args={[8.6, 3.2, 50.0]} />
+        <meshStandardMaterial attach="material-0" color="#12161b" roughness={0.4} metalness={0.3} />
+        <meshStandardMaterial attach="material-1" color="#12161b" roughness={0.4} metalness={0.3} />
+        <meshStandardMaterial attach="material-2" color="#12161b" roughness={0.4} metalness={0.3} />
+        <meshStandardMaterial attach="material-3" color="#12161b" roughness={0.4} metalness={0.3} />
+        <meshStandardMaterial
+          attach="material-4"
+          map={portTextures.colorMap || undefined}
+          bumpMap={portTextures.bumpMap || undefined}
+          bumpScale={0.08}
+          roughness={0.45}
+          metalness={0.25}
+        />
+        <meshStandardMaterial
+          attach="material-5"
+          map={stbdTextures.colorMap || undefined}
+          bumpMap={stbdTextures.bumpMap || undefined}
+          bumpScale={0.08}
+          roughness={0.45}
+          metalness={0.25}
+        />
+      </mesh>
+
+      {/* 3. ดาดฟ้าเรือ */}
+      <mesh receiveShadow position={[0, 5.65, 0]}>
+        <boxGeometry args={[8.3, 0.22, 49.6]} />
+        <meshStandardMaterial color="#8a3f2b" roughness={0.75} />
+      </mesh>
+
+      {/* 4. โครงสร้างหัวเรือ Bow Structure แนบสนิทกับตัวเรือ */}
+      <group position={[0, 0, 25.0]}>
+        {/* Bulbous Bow ใต้น้ำ */}
+        <mesh castShadow position={[0, 0.85, 7.0]} scale={[0.85, 1.25, 3.4]}>
+          <sphereGeometry args={[1.35, 28, 24]} />
+          <meshStandardMaterial color="#7d2417" roughness={0.55} metalness={0.15} />
+        </mesh>
+
+        {/* ฐานหัวเรือแดงใต้แนวน้ำ */}
+        <mesh castShadow receiveShadow geometry={seamlessBowLowerGeometry} position={[0, 1.1, 0]}>
+          <meshStandardMaterial color="#7d2417" roughness={0.65} metalness={0.15} side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* กาบหัวเรือสีดำผายออก */}
+        <mesh castShadow receiveShadow geometry={seamlessBowUpperGeometry} position={[0, 3.95, 0]}>
+          <meshStandardMaterial
+            color="#12161b"
+            bumpMap={portTextures.bumpMap || undefined}
+            bumpScale={0.06}
+            roughness={0.45}
+            metalness={0.25}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+
+        {/* กราบเรือยกขอบกันตก (Bulwark) */}
+        <mesh castShadow position={[-2.2, 5.95, 4.5]} rotation={[0, 0.42, 0]}>
+          <boxGeometry args={[0.15, 0.7, 9.6]} />
+          <meshStandardMaterial color="#12161b" roughness={0.45} metalness={0.25} />
+        </mesh>
+        <mesh castShadow position={[2.2, 5.95, 4.5]} rotation={[0, -0.42, 0]}>
+          <boxGeometry args={[0.15, 0.7, 9.6]} />
+          <meshStandardMaterial color="#12161b" roughness={0.45} metalness={0.25} />
+        </mesh>
+
+        {/* ราวกั้นสีขาวรอบหัวเรือ */}
+        <mesh position={[0, 6.4, 4.8]} rotation={[-Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[3.8, 0.05, 6, 24, Math.PI]} />
+          <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+        </mesh>
+
+        {/* เสากระโดงหน้าและแท่น Crow's Nest */}
+        <group position={[0, 5.65, 8.2]}>
+          <mesh castShadow position={[0, 3.2, 0]}>
+            <cylinderGeometry args={[0.16, 0.22, 6.4, 12]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+          </mesh>
+          <mesh castShadow position={[0, 4.6, 0]}>
+            <cylinderGeometry args={[0.75, 0.75, 0.1, 8]} />
+            <meshStandardMaterial color="#1e293b" roughness={0.6} />
+          </mesh>
+          <mesh position={[0, 5.0, 0]}>
+            <cylinderGeometry args={[0.75, 0.75, 0.8, 8, 1, true]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} wireframe />
+          </mesh>
+          <mesh castShadow position={[0, 6.8, 0]}>
+            <cylinderGeometry args={[0.04, 0.08, 2.8, 8]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+          </mesh>
+        </group>
+      </group>
+
+      {/* 5. เก๋งสะพานเดินเรือ */}
+      <group position={[0, 5.65, -17.5]}>
+        <mesh castShadow position={[0, 2.4, 0]}>
+          <boxGeometry args={[7.6, 4.8, 5.4]} />
+          <meshStandardMaterial color="#f8fafc" roughness={0.35} />
+        </mesh>
+
+        <mesh castShadow position={[0, 5.2, 0.2]}>
+          <boxGeometry args={[10.6, 1.2, 2.8]} />
+          <meshStandardMaterial color="#f8fafc" roughness={0.35} />
+        </mesh>
+
+        <mesh position={[0, 5.3, 0.25]}>
+          <boxGeometry args={[10.65, 0.45, 2.85]} />
+          <meshBasicMaterial color="#0f172a" />
+        </mesh>
+
+        <group position={[0, 6.2, 0]}>
+          <mesh castShadow position={[0, 2.6, 0]}>
+            <cylinderGeometry args={[0.12, 0.22, 5.2, 8]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+          </mesh>
+          <mesh castShadow position={[0, 3.8, 0]}>
+            <boxGeometry args={[3.2, 0.12, 0.15]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+          </mesh>
+          <mesh castShadow position={[0, 4.8, 0]}>
+            <boxGeometry args={[2.0, 0.12, 0.15]} />
+            <meshStandardMaterial color="#f8fafc" roughness={0.4} />
+          </mesh>
+          <mesh ref={radarRef} position={[0, 5.4, 0]}>
+            <boxGeometry args={[2.6, 0.18, 0.3]} />
+            <meshStandardMaterial color="#1e293b" roughness={0.5} />
+          </mesh>
+        </group>
+      </group>
+
+      {/* 6. กองตู้คอนเทนเนอร์ */}
+      {containerStacks.map((item, idx) => (
+        <mesh castShadow receiveShadow key={idx} position={item.pos}>
+          <boxGeometry args={[1.40 * 0.94, 1.15 * 0.94, 4.3 * 0.94]} />
+          <meshStandardMaterial
+            map={item.texture || undefined}
+            roughness={0.5}
+            metalness={0.15}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+// 📦 กล่อง 3D โลโก้ สีขาวคลีน พร้อมระบบแสงเงาและขอบมน
+function R3FSingleLogoBox({
+  logo,
+  position,
+  index,
+}: {
+  logo: LogoItem;
+  position: [number, number, number];
+  index: number;
+}) {
+  const boxGroupRef = useRef<THREE.Group>(null);
+  const texture = useTexture(logo.src);
+
+  useMemo(() => {
+    if (texture) {
+      texture.colorSpace = THREE.SRGBColorSpace;
+    }
+  }, [texture]);
+
+  const roundedBoxGeometry = useMemo(() => {
+    const size = 3.8;
+    const shape = new THREE.Shape();
+    const half = size / 2;
+    const radius = 0.5;
+
+    shape.moveTo(-half + radius, -half);
+    shape.lineTo(half - radius, -half);
+    shape.quadraticCurveTo(half, -half, half, -half + radius);
+    shape.lineTo(half, half - radius);
+    shape.quadraticCurveTo(half, half, half - radius, half);
+    shape.lineTo(-half + radius, half);
+    shape.quadraticCurveTo(-half, half, -half, half - radius);
+    shape.lineTo(-half, -half + radius);
+    shape.quadraticCurveTo(-half, -half, -half + radius, -half);
+
+    const extrudeSettings: THREE.ExtrudeGeometryOptions = {
+      depth: size - 0.7,
+      bevelEnabled: true,
+      bevelSegments: 8,
+      steps: 1,
+      bevelSize: 0.35,
+      bevelThickness: 0.35,
+    };
+
+    const geo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+    geo.center();
+    geo.computeVertexNormals();
+    return geo;
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!boxGroupRef.current) return;
+    const t = clock.getElapsedTime();
+    boxGroupRef.current.position.y = position[1] + Math.sin(t * 2.0 + index) * 0.18;
+    boxGroupRef.current.rotation.y = Math.sin(t * 0.8 + index) * 0.22;
+  });
+
+  const glowColor = index % 2 === 0 ? "#f97316" : "#0284c7";
+
+  return (
+    <group ref={boxGroupRef} position={position}>
+      <mesh castShadow receiveShadow geometry={roundedBoxGeometry}>
+        <meshPhysicalMaterial
+          color="#f8fafc"
+          roughness={0.12}
+          metalness={0.05}
+          clearcoat={1.0}
+          clearcoatRoughness={0.08}
+          reflectivity={0.9}
+        />
+      </mesh>
+
+      <mesh position={[0, 0, 1.95]}>
+        <planeGeometry args={[2.7, 2.7]} />
+        <meshStandardMaterial
+          map={texture}
+          transparent
+          roughness={0.2}
+          metalness={0.1}
+          polygonOffset
+          polygonOffsetFactor={-1}
+        />
+      </mesh>
+
+      <mesh position={[0, 0, -1.95]} rotation={[0, Math.PI, 0]}>
+        <planeGeometry args={[2.7, 2.7]} />
+        <meshStandardMaterial
+          map={texture}
+          transparent
+          roughness={0.2}
+          metalness={0.1}
+          polygonOffset
+          polygonOffsetFactor={-1}
+        />
+      </mesh>
+
+      <spotLight
+        color="#ffffff"
+        intensity={2.8}
+        distance={20}
+        angle={Math.PI / 3.8}
+        position={[2.8, 4.5, 3.5]}
+      />
+
+      <pointLight color={glowColor} intensity={3.8} distance={14} position={[0, -2.0, 0]} />
+    </group>
+  );
+}
+
+// 📦 Floating 3D Logo Waypoints (ย้ายตำแหน่งออกซ้าย-ขวา ไม่ขวางทางเดินเรือ)
+function R3FLogoBoxes({ logos }: { logos: Array<LogoItem> }) {
+  const coords: Array<[number, number, number]> = useMemo(
+    () => [
+      [-18, 3.8, 15],
+      [18, 4.2, 34],
+      [-19, 3.5, 54],
+      [20, 4.0, 72],
+      [-17, 3.6, 90],
+      [19, 3.8, 106],
+    ],
+    []
+  );
+
+  return (
+    <group>
+      {logos.map((logo, i) => (
+        <R3FSingleLogoBox
+          key={i}
+          logo={logo}
+          position={coords[i % coords.length]}
+          index={i}
+        />
+      ))}
+    </group>
+  );
+}
+
+// ✨ Sea Foam Particles
+function R3FParticles() {
+  const particles = useMemo(() => {
+    const count = 350;
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i += 3) {
+      pos[i] = (Math.random() - 0.5) * 220;
+      pos[i + 1] = Math.random() * 25 + 2;
+      pos[i + 2] = Math.random() * 280 - 40;
+    }
+    return pos;
+  }, []);
+
+  return (
+    <points>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[particles, 3]} />
+      </bufferGeometry>
+      <pointsMaterial color="#ffffff" size={0.22} transparent opacity={0.65} />
+    </points>
+  );
+}
+
+// 🎮 R3F World Controller (แล่นตรง + หลบเล็กน้อย + ระบบเมาส์ลากมุมกล้อง)
+function R3FSceneContent({
+  logos,
+  scrollProgressRef,
+  dragOffsetRef,
+}: {
+  logos: Array<LogoItem>;
+  scrollProgressRef: React.MutableRefObject<number>;
+  dragOffsetRef: React.MutableRefObject<{ x: number; y: number }>;
+}) {
+  const shipGroupRef = useRef<THREE.Group>(null);
+  const radarRef = useRef<THREE.Mesh>(null);
+  const warpSpotlightRef = useRef<THREE.SpotLight>(null);
+
+  useFrame(({ camera, clock }) => {
+    const t = clock.getElapsedTime();
+    const p = scrollProgressRef.current;
+
+    if (radarRef.current) {
+      radarRef.current.rotation.y = t * 3.5;
+    }
+
+    const roll = Math.sin(t * 1.6) * 0.022;
+    const pitch = Math.cos(t * 1.3) * 0.015;
+    const bobbing = Math.sin(t * 2.0) * 0.16;
+
+    if (!shipGroupRef.current) return;
+
+    // คำนวณออฟเซ็ตจากแรงลากเมาส์ (Smooth Mouse Drag Offset)
+    const dragX = dragOffsetRef.current.x;
+    const dragY = dragOffsetRef.current.y;
+
+    if (p < 0.70) {
+      const t1 = p / 0.70;
+      const travelZ = -10.0 + t1 * 118.0;
+
+      // ⚓ เรือแล่นตรงเป็นหลัก และเอี้ยวตัวเบาๆ หลบกล่องโลโก้เพียงเล็กน้อย
+      const steerX = Math.sin(t1 * Math.PI * 2.0) * 1.6;
+      const steerAngle = Math.cos(t1 * Math.PI * 2.0) * 0.08;
+
+      shipGroupRef.current.position.set(steerX, bobbing, travelZ);
+      shipGroupRef.current.rotation.set(pitch, steerAngle, roll - steerAngle * 0.08);
+
+      // กล้องตามถ่ายด้านหลังเรือ พร้อมบวกมุมลากเมาส์ของผู้ใช้
+      const defaultCamX = steerX * 0.5;
+      const defaultCamY = 12.0 + Math.sin(t1 * Math.PI) * 2.5;
+      const defaultCamZ = travelZ - 34.0;
+
+      camera.position.set(defaultCamX + dragX, defaultCamY - dragY, defaultCamZ);
+      camera.lookAt(steerX, 4.0, travelZ + 20.0);
+
+      if (warpSpotlightRef.current) warpSpotlightRef.current.intensity = 0;
+    } else if (p >= 0.70 && p < 0.84) {
+      const t2 = (p - 0.70) / 0.14;
+      const currentZ = 108.0;
+      const currentX = (1 - t2) * 1.6;
+      const turnAngle = t2 * Math.PI;
+
+      shipGroupRef.current.position.set(currentX, bobbing, currentZ);
+      shipGroupRef.current.rotation.set(pitch, turnAngle, roll + Math.sin(t2 * Math.PI) * 0.08);
+
+      const defaultCamY = 16.0 - t2 * 11.0;
+      const defaultCamZ = currentZ + 32.0;
+
+      camera.position.set(dragX, defaultCamY - dragY, defaultCamZ);
+      camera.lookAt(0, 3.5, currentZ);
+
+      if (warpSpotlightRef.current) {
+        warpSpotlightRef.current.intensity = t2 * 2.5;
+        warpSpotlightRef.current.position.set(0, 8.0, currentZ + 26.0);
+        warpSpotlightRef.current.target = shipGroupRef.current;
+      }
+    } else {
+      const t3 = (p - 0.84) / 0.16;
+      const warpZ = 108.0 + Math.pow(t3, 2.3) * 155.0;
+
+      shipGroupRef.current.position.set(0, bobbing, warpZ);
+      shipGroupRef.current.rotation.set(pitch - t3 * 0.06, Math.PI, roll);
+
+      const shakeX = (Math.random() - 0.5) * t3 * 0.45;
+      const shakeY = (Math.random() - 0.5) * t3 * 0.45;
+      camera.position.set(shakeX + dragX, 5.0 + shakeY - dragY, 140.0);
+      camera.lookAt(0, 3.5, warpZ);
+
+      if (warpSpotlightRef.current) {
+        warpSpotlightRef.current.intensity = 5.0 + t3 * 15.0;
+      }
+    }
+  });
+
+  return (
+    <>
+      <R3FSkyDome />
+      <R3FClouds />
+      <R3FOcean />
+      <R3FParticles />
+
+      <ambientLight color="#e2f1fc" intensity={1.25} />
+      <hemisphereLight color="#ffffff" groundColor="#0284c7" intensity={0.9} />
+      
+      <directionalLight
+        castShadow
+        color="#fffaf0"
+        intensity={3.2}
+        position={[65, 110, 80]}
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-near={0.5}
+        shadow-camera-far={400}
+        shadow-camera-left={-80}
+        shadow-camera-right={80}
+        shadow-camera-top={80}
+        shadow-camera-bottom={-80}
+        shadow-bias={-0.0004}
+      />
+      
+      <directionalLight color="#0284c7" intensity={1.4} position={[-50, 30, -40]} />
+
+      <spotLight
+        ref={warpSpotlightRef}
+        color="#ffffff"
+        intensity={0}
+        distance={200}
+        angle={Math.PI / 3.5}
+        penumbra={0.3}
+        position={[0, 14, 160]}
+      />
+
+      <group ref={shipGroupRef}>
+        <R3FShipModel radarRef={radarRef} />
+      </group>
+      <R3FLogoBoxes logos={logos} />
+    </>
+  );
+}
+
+// 🎬 Component การ์ดบริการวิดีโอเต็มใบ
 function FullVideoServiceCard({
   idx,
   service,
@@ -291,7 +1232,7 @@ function BusinessGroupVideoBannerCard({
                 initial={{ opacity: 0, scale: 0.3 }}
                 animate={{ 
                   opacity: 1, 
-                  scale: 1,
+                  scale: 1, 
                   y: idx % 2 === 0 ? [0, -5, 0] : [0, 5, 0],
                   x: idx % 3 === 0 ? [0, 3, 0] : [0, -3, 0]
                 }}
@@ -357,7 +1298,7 @@ function BusinessGroupVideoBannerCard({
   );
 }
 
-// 🎬 Component การ์ดบริษัทในเครือ (ปรับขนาดให้ตรงกับการ์ดในหัวข้อที่ 3: w-[300px] sm:w-[360px] md:w-[400px] และ h-[480px] md:h-[520px])
+// 🎬 Component การ์ดบริษัทในเครือ
 function CurvedTimelinePartnerCardLocked({
   idx,
   name,
@@ -411,8 +1352,6 @@ function CurvedTimelinePartnerCardLocked({
     >
       <Link href={link}>
         <div className="bg-slate-900/80 backdrop-blur-xl rounded-[32px] border border-white/20 p-8 h-[480px] md:h-[520px] w-full shadow-2xl shadow-black/60 flex flex-col justify-between transition-all duration-500 hover:shadow-orange-500/30 hover:border-orange-500 hover:scale-105 cursor-pointer select-none group">
-          
-          {/* Header */}
           <div className="flex justify-between items-center w-full">
             <span className="text-3xl md:text-4xl font-black font-mono text-orange-400 tracking-tighter">
               '{String(idx + 1).padStart(2, "0")}
@@ -422,7 +1361,6 @@ function CurvedTimelinePartnerCardLocked({
             </span>
           </div>
 
-          {/* Logo Box */}
           <div className="my-auto py-4 flex items-center justify-center min-h-[140px] md:min-h-[160px] bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:border-orange-500/40 transition-colors">
             <img
               src={logoSrc}
@@ -431,7 +1369,6 @@ function CurvedTimelinePartnerCardLocked({
             />
           </div>
 
-          {/* Details */}
           <div className="space-y-2 text-left w-full">
             <h3 className="text-xl md:text-2xl font-black text-white tracking-tight leading-snug group-hover:text-orange-400 transition-colors line-clamp-1">
               {name}
@@ -441,7 +1378,6 @@ function CurvedTimelinePartnerCardLocked({
             </p>
           </div>
 
-          {/* Footer Action */}
           <div className="pt-4 border-t border-white/10 flex items-center justify-between w-full">
             <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
               EXPLORE HUB
@@ -451,7 +1387,6 @@ function CurvedTimelinePartnerCardLocked({
               <span className="text-xs group-hover:translate-x-1 transition-transform">↗</span>
             </span>
           </div>
-
         </div>
       </Link>
     </motion.div>
@@ -470,20 +1405,24 @@ export default function HomePage() {
   const [currentNewsPageIndex, setCurrentNewsIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // Ref & State สำหรับ Pinned Service Slider (หัวข้อที่ 3)
+  // Ref & State สำหรับ Pinned Service Slider (หัวข้อที่ 4)
   const serviceWrapperRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [translateX, setTranslateX] = useState(0);
   const [wrapperHeight, setWrapperHeight] = useState("2500px");
   const [progressRatio, setProgressRatio] = useState(0);
 
-  // Ref & Scroll Engine สำหรับ Worldwide Section (หัวข้อที่ 5)
+  // Ref & Scroll Engine สำหรับ Worldwide Section (หัวข้อที่ 6)
   const worldwideWrapperRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: worldwideScrollProgress } = useScroll({
     target: worldwideWrapperRef,
     offset: ["start end", "end start"],
   });
+  
+  // ✅ เอา useTransform ออกมาไว้นอก useScroll แบบนี้
   const worldwideX = useTransform(worldwideScrollProgress, [0, 1], ["-40%", "40%"]);
+  const worldwideCardOpacity = useTransform(worldwideScrollProgress, [0.4, 0.6], [1, 0]);
+  const worldwideCardY = useTransform(worldwideScrollProgress, [0.4, 0.6], [0, -50]);
 
   // State & Ref สำหรับ Hero Section
   const [heroBlur, setHeroBlur] = useState(0);
@@ -493,13 +1432,6 @@ export default function HomePage() {
   const [isIdle, setIsIdle] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement>(null);
   const idleTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // 🔒 Ref & Scroll Engine สำหรับ Subsidiaries Section (ตรึงล็อกหน้าจอ)
-  const subsidiariesContainerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: subsidiariesScrollProgress } = useScroll({
-    target: subsidiariesContainerRef,
-    offset: ["start start", "end end"],
-  });
 
   // ระบบ Idle Detector
   useEffect(() => {
@@ -535,33 +1467,21 @@ export default function HomePage() {
     };
   }, []);
 
-  useEffect(() => {
-    const checkLang = () => {
-      const savedLang = localStorage.getItem("lang") as "en" | "th";
-      if (savedLang) setLang(savedLang);
-    };
-    checkLang();
-    window.addEventListener("langChange", checkLang);
-    return () => window.removeEventListener("langChange", checkLang);
-  }, []);
-
   const t = dictionary[lang] || dictionary.en;
 
   const sections = useMemo(() => [
     { id: "who-we-are", label: lang === "en" ? "Overview" : "ภาพรวม" },
     { id: "business-groups", label: lang === "en" ? "Business Groups" : "กลุ่มธุรกิจ" },
     { id: "what-we-offer", label: lang === "en" ? "Services" : "บริการ" },
-    { id: "subsidiaries", label: lang === "en" ? "Subsidiaries" : "บริษัทในเครือ" },
     { id: "worldwide", label: lang === "en" ? "Network" : "เครือข่าย" },
     { id: "news", label: lang === "en" ? "Update" : "ข่าวสาร" },
   ], [lang]);
 
-  // 📹 ข้อมูลแบนเนอร์วิดีโอ 3 กลุ่มธุรกิจ
-  const businessGroupBanners = [
+  const businessGroupBanners = useMemo(() => [
     {
       title: t.businessGroups.freightTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.freightSub,
-      videoSrc: "/images/handle fright.mp4",
+      videoSrc: "/images/Untitled design.mp4",
       tag: "FREIGHT GROUP",
       logos: [
         { name: "H.I.T. INTERCON", src: "/images/1725e41.png", link: "/H-I-T-INTERCON" },
@@ -575,7 +1495,7 @@ export default function HomePage() {
     {
       title: t.businessGroups.shippingTitle.replace(/^[0-9.]+\s*/, ""),
       subtitle: t.businessGroups.shippingSub,
-      videoSrc: "/images/ship.mp4",
+      videoSrc: "/images/shipgroup.mp4",
       tag: "SHIPPING GROUP",
       logos: [
         { name: "APS SHIPPING", src: "/images/aps.png", link: "siam-liners" },
@@ -594,7 +1514,7 @@ export default function HomePage() {
         { name: "ALL SUPLY", src: "/images/all suply.png", link: "#" },
       ]
     }
-  ];
+  ], [t]);
 
   const serviceCardsData = [
     {
@@ -633,51 +1553,6 @@ export default function HomePage() {
       bg: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
       video: "images/projectcard.mp4"
     }
-  ];
-
-  const partnerLogos = [
-    { 
-      name: "H.I.T. INTERCON", 
-      src: "/images/1725e41.png", 
-      desc: "Total Ocean & Air Freight Solutions with international network connectivity.", 
-      link: "/H-I-T-INTERCON" 
-    },
-    { 
-      name: "HANDLE INTER CONSOLIDATION", 
-      src: "/images/handle inter con.png", 
-      desc: "Expert LCL Consolidation Hub & Container Warehouse Facility.", 
-      link: "/handle-inter-consolidation" 
-    },
-    { 
-      name: "HANDLE INTER LOGISTICS", 
-      src: "/images/handle inter logistic.png", 
-      desc: "Comprehensive Logistics Management & Domestic Trucking Fleet.", 
-      link: "/handle-inter-logistics" 
-    },
-    { 
-      name: "CONSOLE LINK", 
-      src: "/images/consol-link.png", 
-      desc: "Digital Freight & Trade Connectivity Solutions for Modern Logistics.", 
-      link: "/console-link" 
-    },
-    { 
-      name: "SIAM LINERS", 
-      src: "/images/siam liner.png", 
-      desc: "NVOCC Liner & Vessel Schedules across Southeast Asia paths.", 
-      link: "/siam-liners" 
-    },
-    { 
-      name: "PKT", 
-      src: "/images/pkt.png", 
-      desc: "Specialized freight forwarding and tailored logistics operations.", 
-      link: "/pkt" 
-    },
-    { 
-      name: "HANDLE INTER EXPRESS", 
-      src: "/images/handleinter express.png", 
-      desc: "Express delivery, parcel distribution, and fast-track shipping services.", 
-      link: "/handle-inter-express" 
-    },
   ];
 
   const youtubeNewsSlides = [
@@ -814,7 +1689,7 @@ export default function HomePage() {
             setHeroTranslateY(translateYVal);
           }
 
-          // 2. Pinned Horizontal Scroll การ์ดบริการ (หัวข้อที่ 3)
+          // 2. Pinned Horizontal Scroll การ์ดบริการ (หัวข้อที่ 4)
           if (serviceWrapperRef.current && trackRef.current) {
             const wrapperTop = serviceWrapperRef.current.offsetTop;
             const trackWidth = trackRef.current.scrollWidth;
@@ -834,7 +1709,7 @@ export default function HomePage() {
             }
           }
 
-          // 3. Side Dots Active State
+          // 3. Side Navigation Active State
           const scrollPosition = scrollY + 300;
           for (const section of sections) {
             const el = document.getElementById(section.id);
@@ -874,7 +1749,6 @@ export default function HomePage() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // 🔄 ระบบ Auto Play สำหรับ YouTube News Slider
   useEffect(() => {
     if (!isAutoPlaying) return;
 
@@ -892,7 +1766,6 @@ export default function HomePage() {
 
   return (
     <div className="relative bg-slate-50 text-slate-800 cursor-default selection:bg-orange-500 selection:text-white">
-      
       {/* Custom Cursor Circle */}
       <div 
         style={{ left: `${mousePos.x}px`, top: `${mousePos.y}px` }}
@@ -938,16 +1811,25 @@ export default function HomePage() {
       </div>
 
       {/* SECTION 1: HERO */}
-      <section id="who-we-are" className="min-h-screen flex items-center relative border-b border-slate-200/80 overflow-hidden bg-slate-950">
+      <section
+        id="who-we-are"
+        className="min-h-screen flex items-center relative border-b border-slate-200/80 overflow-hidden"
+      >
+        {/* Background Image / Video */}
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80" 
-            alt="Hero Background" 
+
+          {/* Background Image */}
+          <img
+            src="/images/shiphere2.jpeg"
+            alt="Hero Background"
             className={`w-full h-full object-cover transition-all duration-1000 ease-in-out ${
-              isIdle ? "opacity-0 scale-105" : "opacity-40 scale-100"
+              isIdle
+                ? "opacity-0 scale-105"
+                : "opacity-100 scale-100"
             }`}
           />
 
+          {/* Background Video */}
           <video
             ref={heroVideoRef}
             src="/images/toppage.mp4"
@@ -955,67 +1837,101 @@ export default function HomePage() {
             loop
             playsInline
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${
-              isIdle ? "opacity-80 scale-105" : "opacity-0 scale-100"
+              isIdle
+                ? "opacity-100 scale-105"
+                : "opacity-0 scale-100"
             }`}
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30 z-10" />
         </div>
 
-        <div 
+        {/* Hero Content */}
+        <div
           style={{
             filter: `blur(${heroBlur + (isIdle ? 12 : 0)}px)`,
             opacity: isIdle ? 0 : heroOpacity,
-            transform: `translateY(${heroTranslateY + (isIdle ? -30 : 0)}px)`,
-            willChange: "filter, opacity, transform"
+            transform: `translateY(${
+              heroTranslateY + (isIdle ? -30 : 0)
+            }px)`,
+            willChange: "filter, opacity, transform",
           }}
           className="max-w-7xl mx-auto px-6 py-28 relative z-20 w-full transition-all duration-1000 ease-in-out"
         >
           <div className="max-w-2xl space-y-8">
+
+            {/* Label */}
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-              <span className="text-xs font-mono tracking-wider text-orange-400 uppercase font-bold">{t.hero.sub}</span>
+
+              <span className="text-xs font-mono tracking-wider text-orange-400 uppercase font-bold">
+                {t.hero.sub}
+              </span>
             </div>
-            
+
+            {/* Heading */}
             <h1 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-[1.1] flex flex-col items-start">
-              <TextReveal text={t.hero.title1} lang={lang} />
-              <TextReveal text={t.hero.title2} lang={lang} className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500" delayStep={0.03} />
-              <TextReveal text={t.hero.title3} lang={lang} delayStep={0.02} />
+              <TextReveal
+                text={t.hero.title1}
+                lang={lang}
+              />
+
+              <TextReveal
+                text={t.hero.title2}
+                lang={lang}
+                className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500"
+                delayStep={0.03}
+              />
+
+              <TextReveal
+                text={t.hero.title3}
+                lang={lang}
+                delayStep={0.02}
+              />
             </h1>
-            
-            <p className="text-slate-300 max-w-lg text-base leading-relaxed font-light">{t.hero.desc}</p>
-            
+
+            {/* Description */}
+            <p className="text-slate-300 max-w-lg text-base leading-relaxed font-light">
+              {t.hero.desc}
+            </p>
+
+            {/* CTA */}
             <div className="pt-4">
-              <button 
-                onClick={() => scrollToSection("business-groups")} 
+              <button
+                onClick={() => scrollToSection("vision-journey")}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 className="bg-orange-600 hover:bg-orange-500 text-white px-9 py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 hover:scale-105 shadow-2xl shadow-orange-600/40 inline-flex items-center space-x-3 cursor-pointer"
               >
-                <span>{t.hero.cta}</span> 
+                <span>{t.hero.cta}</span>
                 <span className="text-xs animate-bounce">↓</span>
               </button>
             </div>
+
           </div>
         </div>
 
-        <div className={`absolute bottom-8 left-8 bg-black/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-700 z-30 ${
-          isIdle ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-        }`}>
+        {/* Cinematic Preview Indicator */}
+        <div
+          className={`absolute bottom-8 left-8 bg-black/60 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full flex items-center space-x-2 transition-all duration-700 z-30 ${
+            isIdle
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
+        >
           <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping" />
-          <span className="text-[10px] font-mono tracking-widest uppercase">CINEMATIC PREVIEW MODE</span>
+
+          <span className="text-[10px] font-mono tracking-widest uppercase">
+            CINEMATIC PREVIEW MODE
+          </span>
         </div>
       </section>
 
-      {/* 🌟 NEW SECTION: BUSINESS GROUPS (หัวข้อที่ 2) */}
+      {/* 🌟 หัวข้อที่ 3: BUSINESS GROUPS */}
       <section 
         id="business-groups" 
         className="py-24 bg-gradient-to-b from-sky-100/60 via-blue-50/50 to-slate-100/80 text-slate-900 border-b border-sky-200/60 relative z-10"
       >
         <div className="max-w-7xl mx-auto px-6 space-y-10">
-          
-          {/* Header */}
           <div className="space-y-3">
             <div className="inline-flex items-center space-x-2 bg-orange-500 text-white px-3.5 py-1.5 rounded-full shadow-sm">
               <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
@@ -1031,25 +1947,34 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* 🎴 3 Business Video Banner Cards Stack */}
           <div className="flex flex-col gap-8">
             {businessGroupBanners.map((banner, idx) => (
-              <BusinessGroupVideoBannerCard
+              <motion.div
                 key={idx}
-                title={banner.title}
-                subtitle={banner.subtitle}
-                videoSrc={banner.videoSrc}
-                tag={banner.tag}
-                lang={lang}
-                surroundingLogos={banner.logos}
-              />
+                initial={{ opacity: 0, scale: 0.88, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.16, 1, 0.3, 1], // ease-out curve แบบนุ่มนวล
+                  delay: idx * 0.1, // ค่อยๆ โผล่ตามลำดับ (stagger effect)
+                }}
+              >
+                <BusinessGroupVideoBannerCard
+                  title={banner.title}
+                  subtitle={banner.subtitle}
+                  videoSrc={banner.videoSrc}
+                  tag={banner.tag}
+                  lang={lang}
+                  surroundingLogos={banner.logos}
+                />
+              </motion.div>
             ))}
           </div>
-
         </div>
       </section>
 
-      {/* SECTION 3: SERVICES (PINNED HORIZONTAL SCROLL) */}
+      {/* หัวข้อที่ 4: SERVICES (PINNED HORIZONTAL SCROLL) */}
       <div 
         id="what-we-offer" 
         ref={serviceWrapperRef} 
@@ -1099,129 +2024,10 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 🔒 SECTION: SUBSIDIARIES (หัวข้อที่ 4: ปรับขนาดการ์ดและ container ให้เท่ากับหัวข้อที่ 3) */}
-      <section 
-        id="subsidiaries" 
-        ref={subsidiariesContainerRef}
-        className="relative h-[450vh] w-full bg-slate-950 text-white border-y border-slate-200/80"
-      >
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-between items-center overflow-hidden z-20 py-10">
-          
-          <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden w-full h-full">
-            <img 
-              src="/images/shiip.png" 
-              alt="Subsidiaries Sailing Ship Background" 
-              className="w-full h-full object-cover opacity-100 brightness-120 contrast-105 scale-150"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-slate-950/70 z-10" />
-          </div>
+     
+  
 
-          {/* Header Block */}
-          <div className="max-w-4xl mx-auto px-6 text-center space-y-3 z-30 shrink-0 pt-2">
-            <span className="text-xs font-mono text-orange-400 font-bold uppercase tracking-widest bg-slate-900/80 border border-orange-500/40 px-4 py-1.5 rounded-full inline-block backdrop-blur-md shadow-md">
-              OUR GROUP MEMBERS
-            </span>
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-lg">
-              {lang === "en" ? "Handle Inter Group Companies" : "บริษัทในเครือ แฮนเดิล อินเตอร์ กรุ๊ป"}
-            </h2>
-            <p className="text-slate-200 text-xs md:text-sm max-w-xl mx-auto font-normal drop-shadow">
-              {lang === "en" 
-                ? "Scroll to explore our specialized logistics subsidiaries floating along our timeline path." 
-                : "เลื่อนหน้าจอเพื่อสำรวจเครือข่ายความเชี่ยวชาญของบริษัทในเครือของเรา"}
-            </p>
-          </div>
-
-          {/* 🎨 Background Curved Line */}
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 opacity-40">
-            <svg className="w-full h-full" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none">
-              <path
-                d="M-100,300 C300,100 600,500 1000,200 C1200,80 1500,400 1600,300"
-                stroke="#f97316"
-                strokeWidth="2.5"
-                strokeDasharray="6 6"
-              />
-              <path
-                d="M-100,300 C300,100 600,500 1000,200 C1200,80 1500,400 1600,300"
-                stroke="#fdba74"
-                strokeWidth="1.5"
-              />
-            </svg>
-          </div>
-
-          {/* 🎴 Moving Cards Container (ปรับความสูงเป็น h-[520px] md:h-[560px] เพื่อรองรับการ์ดขนาดเดียวกับหัวข้อที่ 3) */}
-          <div className="relative w-full h-[520px] md:h-[560px] max-w-7xl mx-auto flex items-center justify-center z-20 overflow-hidden my-auto">
-            {partnerLogos.map((item, index) => (
-              <CurvedTimelinePartnerCardLocked
-                key={index}
-                idx={index}
-                name={item.name}
-                logoSrc={item.src}
-                desc={item.desc}
-                link={item.link}
-                totalItems={partnerLogos.length}
-                scrollYProgress={subsidiariesScrollProgress}
-              />
-            ))}
-          </div>
-
-          {/* Progress Indicator Guide */}
-          <div className="z-30 flex flex-col items-center space-y-3 shrink-0 pb-2">
-            <div className="flex items-center space-x-2 text-[10px] font-mono font-bold text-slate-300 uppercase tracking-widest bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/10 shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
-              <span>SCROLL DOWN TO EXPLORE MEMBERS</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* SECTION 5: WORLDWIDE */}
-      <section 
-        id="worldwide" 
-        ref={worldwideWrapperRef}
-        className="min-h-screen flex items-center border-b border-slate-200/80 relative z-10 overflow-hidden bg-slate-950 text-white group cursor-pointer py-24"
-      >
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <img 
-            src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1920&q=80" 
-            alt="International Connectivity Background" 
-            className="w-full h-full object-cover opacity-60 brightness-90 contrast-110 scale-105 transition-transform duration-1000 ease-out group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/80 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/70 z-10" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-20 w-full">
-          <motion.div 
-            style={{ x: worldwideX }}
-            className="max-w-2xl space-y-6 text-left bg-slate-900/60 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[36px] shadow-2xl shadow-black/50"
-          >
-            <div className="inline-flex items-center space-x-2 bg-orange-500/25 border border-orange-500/40 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-lg shadow-orange-500/10">
-              <span className="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
-              <span className="text-xs font-mono text-orange-200 uppercase tracking-widest font-bold">{t.network.sub}</span>
-            </div>
-
-            <div className="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight drop-shadow-lg">
-              <TextReveal text={t.network.title} lang={lang} delayStep={0.02} />
-            </div>
-            
-            <p className="text-slate-300 text-sm md:text-base leading-relaxed font-normal drop-shadow">
-              {t.network.desc}
-            </p>
-
-            <div className="pt-2">
-              <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-full shadow-2xl transition-transform duration-300 group-hover:scale-105">
-                <span className="text-orange-400 text-lg">🌐</span>
-                <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                  International Connectivity Map Active
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 🌟 SECTION 6: NEWS SLIDER */}
+      {/* 🌟 หัวข้อที่ 7: NEWS SLIDER */}
       <section 
         id="news" 
         className="min-h-screen py-24 flex flex-col justify-center items-center relative z-10 bg-slate-50 text-slate-900 overflow-hidden border-t border-slate-200/80"
@@ -1229,7 +2035,6 @@ export default function HomePage() {
         onMouseLeave={() => setIsAutoPlaying(true)}
       >
         <div className="max-w-7xl mx-auto px-6 w-full space-y-12 my-auto">
-          
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
             <div className="space-y-3 text-left">
               <span className="text-xs font-mono text-orange-600 font-bold uppercase tracking-widest bg-orange-100 border border-orange-200 px-4 py-1.5 rounded-full inline-block shadow-sm">
@@ -1335,10 +2140,8 @@ export default function HomePage() {
               />
             ))}
           </div>
-
         </div>
       </section>
-
     </div>
   );
 }
