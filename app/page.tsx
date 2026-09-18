@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import * as THREE from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
@@ -1298,101 +1298,6 @@ function BusinessGroupVideoBannerCard({
   );
 }
 
-// 🎬 Component การ์ดบริษัทในเครือ
-function CurvedTimelinePartnerCardLocked({
-  idx,
-  name,
-  logoSrc,
-  desc,
-  link,
-  totalItems,
-  scrollYProgress,
-}: {
-  idx: number;
-  name: string;
-  logoSrc: string;
-  desc: string;
-  link: string;
-  totalItems: number;
-  scrollYProgress: any;
-}) {
-  const step = 1 / totalItems;
-  const startProgress = idx * (step * 0.7);
-  const endProgress = Math.min(1, startProgress + 0.5);
-
-  const x = useTransform(
-    scrollYProgress,
-    [startProgress, endProgress],
-    ["250%", "-270%"]
-  );
-
-  const yVal = idx % 2 === 0 ? [40, -60, 30] : [-40, 60, -20];
-  const y = useTransform(
-    scrollYProgress,
-    [startProgress, (startProgress + endProgress) / 2, endProgress],
-    yVal
-  );
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [startProgress, startProgress + 0.08, endProgress - 0.08, endProgress],
-    [0, 1, 1, 0]
-  );
-
-  const scale = useTransform(
-    scrollYProgress,
-    [startProgress, (startProgress + endProgress) / 2, endProgress],
-    [0.85, 1, 0.88]
-  );
-
-  return (
-    <motion.div
-      style={{ x, y, opacity, scale }}
-      className="absolute top-1/2 -translate-y-1/2 will-change-transform z-20 pointer-events-auto shrink-0 w-[300px] sm:w-[360px] md:w-[400px]"
-    >
-      <Link href={link}>
-        <div className="bg-slate-900/80 backdrop-blur-xl rounded-[32px] border border-white/20 p-8 h-[480px] md:h-[520px] w-full shadow-2xl shadow-black/60 flex flex-col justify-between transition-all duration-500 hover:shadow-orange-500/30 hover:border-orange-500 hover:scale-105 cursor-pointer select-none group">
-          <div className="flex justify-between items-center w-full">
-            <span className="text-3xl md:text-4xl font-black font-mono text-orange-400 tracking-tighter">
-              '{String(idx + 1).padStart(2, "0")}
-            </span>
-            <span className="bg-orange-500/20 border border-orange-500/30 text-[10px] font-mono text-orange-300 px-3.5 py-1 rounded-full uppercase tracking-wider font-bold">
-              SUBSIDIARY
-            </span>
-          </div>
-
-          <div className="my-auto py-4 flex items-center justify-center min-h-[140px] md:min-h-[160px] bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 group-hover:border-orange-500/40 transition-colors">
-            <img
-              src={logoSrc}
-              alt={name}
-              className="h-16 md:h-20 w-auto max-w-[85%] object-contain drop-shadow-md transition-all duration-500 group-hover:scale-110"
-            />
-          </div>
-
-          <div className="space-y-2 text-left w-full">
-            <h3 className="text-xl md:text-2xl font-black text-white tracking-tight leading-snug group-hover:text-orange-400 transition-colors line-clamp-1">
-              {name}
-            </h3>
-            <p className="text-slate-300 text-xs md:text-sm leading-relaxed font-normal line-clamp-2">
-              {desc}
-            </p>
-          </div>
-
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between w-full">
-            <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest">
-              EXPLORE HUB
-            </span>
-            <span className="bg-orange-600 group-hover:bg-orange-500 text-white text-xs font-bold px-4 py-2 rounded-full transition-all duration-300 flex items-center space-x-1.5 shadow-lg shadow-orange-600/30">
-              <span>Read more</span>
-              <span className="text-xs group-hover:translate-x-1 transition-transform">↗</span>
-            </span>
-          </div>
-        </div>
-      </Link>
-    </motion.div>
-  );
-}
-
 export default function HomePage() {
   const [activeSection, setActiveSection] = useState("who-we-are");
   const [lang, setLang] = useState<"en" | "th">("en");
@@ -1411,18 +1316,6 @@ export default function HomePage() {
   const [translateX, setTranslateX] = useState(0);
   const [wrapperHeight, setWrapperHeight] = useState("2500px");
   const [progressRatio, setProgressRatio] = useState(0);
-
-  // Ref & Scroll Engine สำหรับ Worldwide Section (หัวข้อที่ 6)
-  const worldwideWrapperRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: worldwideScrollProgress } = useScroll({
-    target: worldwideWrapperRef,
-    offset: ["start end", "end start"],
-  });
-  
-  // ✅ เอา useTransform ออกมาไว้นอก useScroll แบบนี้
-  const worldwideX = useTransform(worldwideScrollProgress, [0, 1], ["-40%", "40%"]);
-  const worldwideCardOpacity = useTransform(worldwideScrollProgress, [0.4, 0.6], [1, 0]);
-  const worldwideCardY = useTransform(worldwideScrollProgress, [0.4, 0.6], [0, -50]);
 
   // State & Ref สำหรับ Hero Section
   const [heroBlur, setHeroBlur] = useState(0);
@@ -1473,7 +1366,6 @@ export default function HomePage() {
     { id: "who-we-are", label: lang === "en" ? "Overview" : "ภาพรวม" },
     { id: "business-groups", label: lang === "en" ? "Business Groups" : "กลุ่มธุรกิจ" },
     { id: "what-we-offer", label: lang === "en" ? "Services" : "บริการ" },
-    { id: "worldwide", label: lang === "en" ? "Network" : "เครือข่าย" },
     { id: "news", label: lang === "en" ? "Update" : "ข่าวสาร" },
   ], [lang]);
 
@@ -1832,7 +1724,7 @@ export default function HomePage() {
           {/* Background Video */}
           <video
             ref={heroVideoRef}
-            src="/images/toppage.mp4"
+            src="/images/herovide3.mp4"
             muted
             loop
             playsInline
@@ -2023,9 +1915,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
-     
-  
 
       {/* 🌟 หัวข้อที่ 7: NEWS SLIDER */}
       <section 
