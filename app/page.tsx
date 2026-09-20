@@ -1442,7 +1442,7 @@ export default function HomePage() {
     {
       title: lang === "en" ? "Project Cargo" : "สินค้าโครงการ",
       desc: lang === "en" ? "Specialized heavy-lift and oversized cargo handling." : "การดูแลขนส่งเครื่องจักรขนาดใหญ่และสินค้าโครงการพิเศษครบวงจร",
-      bg: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
+      bg: "images/projectimage.png",
       video: "images/procargojectcard.mp4"
     }
   ];
