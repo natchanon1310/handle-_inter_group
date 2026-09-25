@@ -290,9 +290,9 @@ export default function ConsoleLinkPage() {
               {isMounted && (subsidiaries[4]?.name || detailText.heroTitle || "CONSOLE LINK CO., LTD.")}
             </h1>
             <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full my-4" />
-            <p className="text-slate-200 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-normal">
-              {isMounted && detailText.heroDesc}
-            </p>
+            <p className="text-slate-200 max-w-2xl mx-auto text-sm md:text-base leading-relaxed font-normal whitespace-nowrap overflow-hidden text-ellipsis">
+  {isMounted && detailText.heroDesc}
+</p>
 
             <div className="pt-6 flex flex-wrap gap-4 justify-center">
               <button
