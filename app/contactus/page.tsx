@@ -102,7 +102,7 @@ export default function ContactPage() {
             <div className="w-16 h-[3.5px] bg-red-600 mx-auto mt-4 rounded-full shadow-md" />
             <p className="text-slate-200 max-w-2xl mx-auto text-sm md:text-base font-medium pt-2 leading-relaxed drop-shadow">
               {lang === "en" 
-                ? "Have a shipment query or need strategic logistics planning? Connect with our corporate matrix offices instantly." 
+                ? "Have a shipment query or need strategic logistics planning? Connect with our corporate offices instantly." 
                 : "ต้องการติดต่อสอบถามข้อมูลการขนส่ง วางแผนระบบโลจิสติกส์ หรือขอรับคำปรึกษาจากทีมผู้เชี่ยวชาญ"}
             </p>
           </MagnificSection>
@@ -141,7 +141,7 @@ export default function ContactPage() {
                   <div className="flex items-center space-x-3">
                     <div className="w-2.5 h-3 bg-red-600 rounded-sm" />
                     <h2 className="text-xl font-black text-slate-900 tracking-wide uppercase">
-                      {lang === "en" ? "Headquarters Matrix" : "สำนักงานใหญ่"}
+                      {lang === "en" ? "Headquarters" : "สำนักงานใหญ่"}
                     </h2>
                   </div>
 
@@ -178,7 +178,7 @@ export default function ContactPage() {
                         <i className="fa-solid fa-print"></i>
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">{lang === "en" ? "Facsimile (Fax)" : "โทรสาร"}</h4>
+                        <h4 className="font-bold text-slate-400 text-xs uppercase tracking-wider">{lang === "en" ? "Fax" : "โทรสาร"}</h4>
                         <p className="text-slate-700 font-bold tracking-wide">
                           0-2393-7307-10
                         </p>

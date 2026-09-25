@@ -332,7 +332,7 @@ export default function HandleInterConsolidationPage() {
               {lang === "en" ? "HANDLE INTER CONSOLIDATION CO., LTD." : "บริษัท แฮนเดิล อินเตอร์ คอนโซลิเดชั่น จำกัด"} 
               <br />
               <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                {lang === "en" ? "professional," : "มืออาชีพ"}
+                {lang === "en" ? "PROFESSIONAL" : "มืออาชีพ"}
               </span>
             </h2>
 
@@ -507,7 +507,7 @@ export default function HandleInterConsolidationPage() {
                   
                   <div className="w-full sm:w-5/12 flex flex-col items-center justify-center text-center space-y-3 bg-white/80 border border-amber-100 rounded-tr-[40px] rounded-bl-[40px] rounded-tl-xl rounded-br-xl p-6 shadow-sm">
                     <img
-                      src="/images/handle inter logistic.png"
+                      src="/images/handle inter con.png"
                       alt="Handle Inter Consolidation Logo"
                       className="h-16 sm:h-20 w-auto object-contain transition-transform group-hover:scale-105"
                     />

@@ -482,72 +482,7 @@ export default function SiamLinersPage() {
       </section>
 
       {/* 🎯 SECTION 4: IMPORT VESSEL SCHEDULE TABLE */}
-      <section id="schedule" className="py-24 px-6 max-w-7xl mx-auto relative w-full bg-[#111827] text-slate-100 rounded-[36px] shadow-2xl my-12">
-        <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
-          <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest block font-mono">
-            LIVE IMPORT SCHEDULE
-          </span>
-          <h2 className="text-2xl md:text-4xl font-black text-white tracking-tight">
-            {isMounted && (detailText.scheduleTitle || "ตารางเรือนำเข้า (Import Vessel Schedule)")}
-          </h2>
-          <p className="text-xs md:text-sm text-slate-400">
-            {isMounted && (detailText.scheduleSubtitle || "ตารางการออกเดินเรือประจำสัปดาห์สำหรับสินค้าขาเข้า")}
-          </p>
-        </div>
-
-        <ScrollCardReveal direction="up">
-          <div className="bg-slate-950/90 border border-slate-800 rounded-3xl p-4 md:p-6 shadow-2xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300 border-collapse min-w-[800px]">
-                <thead>
-                  <tr className="bg-cyan-950/80 text-cyan-300 font-mono text-[11px] uppercase border-b border-cyan-800/50">
-                    <th className="p-3.5 font-bold">VESSEL NAME</th>
-                    <th className="p-3.5 font-bold">VOY</th>
-                    <th className="p-3.5 font-bold">CLOSING DATE</th>
-                    <th className="p-3.5 font-bold text-center">TIME</th>
-                    <th className="p-3.5 font-bold">ETD 1STL</th>
-                    <th className="p-3.5 font-bold">DATE</th>
-                    <th className="p-3.5 font-bold">CLOSING DATE</th>
-                    <th className="p-3.5 font-bold text-center">TIME</th>
-                    <th className="p-3.5 font-bold">ETD LCH</th>
-                    <th className="p-3.5 font-bold">DATE</th>
-                    <th className="p-3.5 font-bold text-cyan-400 bg-cyan-900/30">ETA HPH</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-800/80 font-mono">
-                  {scheduleData.map((row, idx) => (
-                    <tr
-                      key={idx}
-                      className="hover:bg-slate-800/50 transition-colors duration-150 group"
-                    >
-                      <td className="p-3.5 font-bold text-red-400 whitespace-nowrap group-hover:text-cyan-300">
-                        {row.vessel}
-                      </td>
-                      <td className="p-3.5 font-bold text-white">{row.voy}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.closing} <span className="text-slate-500">({row.closeDay})</span></td>
-                      <td className="p-3.5 text-center text-slate-400">{row.closeTime}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.etd1stL}</td>
-                      <td className="p-3.5 text-slate-400">{row.etd1stDay}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.closingLch} <span className="text-slate-500">({row.closeLchDay})</span></td>
-                      <td className="p-3.5 text-center text-slate-400">{row.closeLchTime}</td>
-                      <td className="p-3.5 whitespace-nowrap">{row.etdLch}</td>
-                      <td className="p-3.5 text-slate-400">{row.etdLchDay}</td>
-                      <td className="p-3.5 font-bold text-cyan-300 bg-cyan-950/30 whitespace-nowrap">
-                        {row.etaHph}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className="pt-4 px-2 flex flex-wrap justify-between items-center text-[10px] font-mono text-slate-500 border-t border-slate-900 mt-2">
-              <span>{isMounted && (detailText.scheduleNote || "* Schedules are subject to change based on weather and port congestion.")}</span>
-              <span className="text-cyan-400 font-bold">{isMounted && (detailText.scheduleMatrixLabel || "Siam Liners Vessel Matrix")}</span>
-            </div>
-          </div>
-        </ScrollCardReveal>
-      </section>
+      
 
       {/* 🎯 SECTION 5: EXCLUSIVE CONTACT CARDS */}
       <section

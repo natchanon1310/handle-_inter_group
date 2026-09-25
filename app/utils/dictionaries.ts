@@ -149,7 +149,7 @@ export const dictionary = {
     consolidation: {
       heroSub: "HANDLE INTER CONSOLIDATION",
       heroTitle: "HANDLE INTER CONSOLIDATION CO., LTD.",
-      heroDesc: "professional",
+      heroDesc: "PROFESSSIONNAL",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       inquireBtn: "Inquire Service Now ↗",
       backAboutBtn: "Back to About Us",
@@ -216,10 +216,11 @@ export const dictionary = {
       ],
 
       // 🎴 Contacts
-      contact_name: "Ms. Supattra", 
-      contact_position: "Marketing Manager", 
-      contact_email: "supattra@handleinterlogistics.com", 
-      contact_phone: "08-9683-5897"
+      contact_name: "Mr. Atthakit",
+      contact_position: "Marketing Manager",
+      contact_email: "atthakit@handleinterconsol.com",
+      contact_phone: "08-2790-2863"
+     
     },
     interLogistics: {
       heroSub: "HANDLE INTER LOGISTICS",
@@ -289,10 +290,11 @@ export const dictionary = {
         "Certificate of Origin (C/O) Issuance",
         "Blue Corner Tax Refund / Article 19 Bis / BOI"
       ],
-      contact_name: "Mr. Atthakit",
-      contact_position: "Marketing Manager",
-      contact_email: "atthakit@handleinterconsol.com",
-      contact_phone: "08-2790-2863"
+      
+       contact_name: "Ms. Supattra", 
+      contact_position: "Marketing Manager", 
+      contact_email: "supattra@handleinterlogistics.com", 
+      contact_phone: "08-9683-5897"
     },
     consoleLink: {
       heroSub: "Subsidiary Console Profile",
