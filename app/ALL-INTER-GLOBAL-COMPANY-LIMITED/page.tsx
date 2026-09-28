@@ -723,7 +723,7 @@ export default function ConsoleLinkPage() {
               <div className="relative w-full h-[520px] sm:h-[620px] md:h-[700px] rounded-xl overflow-hidden">
 
                 <iframe
-                  src="https://heyzine.com/flip-book/d55fb7b2e8.html"
+                  src="https://heyzine.com/flip-book/975d37c84c.html"
                   title="ALL INTER GLOBAL Company Profile"
                   className="w-full h-full border-0 rounded-xl"
                   allowFullScreen
