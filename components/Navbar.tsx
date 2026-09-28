@@ -24,7 +24,8 @@ export default function Navbar() {
     "#",
     "/console-link",
     "/siam-liners",
-    "#"
+    "#",
+    "/ALL-INTER-GLOBAL-COMPANY-LIMITED",
   ];
 
   useEffect(() => {

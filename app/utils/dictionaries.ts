@@ -59,7 +59,8 @@ export const dictionary = {
       { name: "Handle Inter Express", desc: "Takes care of custom clearance and express delivery service." },
       { name: "Console Link", desc: "Provides strategic console services in Asia and Europe." },
       { name: "Siam Liners", desc: "Acts as a total logistics provider supporting the group's network." },
-      { name: "Pkt Logistic", desc: "" }
+      { name: "Pkt Logistic", desc: "" },
+      { name: "ALL INTER GLOBAL COMPANY LIMITED", desc: "" }
 
     ],
     footer: {

@@ -1100,6 +1100,787 @@ function StandardSubBrandNavbar({
 }
 
 // =============================================================
+// 7️⃣ NAVBAR DESIGN: ALL INTER GLOBAL
+// Luxury Logistics / Corporate
+// =============================================================
+function AllInterGlobalNavbar({
+  brand,
+  isTh,
+  toggleLanguage,
+}: {
+  brand: SubsidiaryBrand;
+  isTh: boolean;
+  toggleLanguage: () => void;
+}) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 45);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node)
+      ) {
+        setIsMobileOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  const closeMobile = () => {
+    setIsMobileOpen(false);
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-[100] pointer-events-none">
+      <div
+        ref={menuRef}
+        className={`
+          pointer-events-auto
+          mx-auto
+          transition-all duration-500
+          ${
+            isScrolled
+              ? "max-w-6xl px-3 pt-3"
+              : "max-w-7xl px-4 md:px-8 pt-4 md:pt-6"
+          }
+        `}
+      >
+        <div
+          className={`
+            relative overflow-hidden
+            transition-all duration-500
+            ${
+              isScrolled
+                ? `
+                  bg-white/95
+                  backdrop-blur-2xl
+                  border border-slate-200
+                  shadow-[0_12px_45px_rgba(15,23,42,0.12)]
+                  rounded-2xl
+                `
+                : `
+                  bg-[#07111f]/85
+                  backdrop-blur-2xl
+                  border border-[#C9A86A]/25
+                  shadow-[0_18px_60px_rgba(0,0,0,0.28)]
+                  rounded-2xl
+                `
+            }
+          `}
+        >
+          {/* Top gold line */}
+          <div
+            className={`
+              absolute top-0 left-0 right-0 h-[1px]
+              transition-opacity duration-500
+              ${
+                isScrolled
+                  ? "bg-gradient-to-r from-transparent via-[#B8955A] to-transparent opacity-70"
+                  : "bg-gradient-to-r from-transparent via-[#D5B36A] to-transparent opacity-100"
+              }
+            `}
+          />
+
+          <div
+            className={`
+              flex items-center justify-between
+              transition-all duration-500
+              ${
+                isScrolled
+                  ? "px-5 md:px-7 py-3"
+                  : "px-5 md:px-8 py-4"
+              }
+            `}
+          >
+            {/* =====================================================
+                BRAND
+            ===================================================== */}
+            <div className="flex items-center min-w-0">
+              <Link
+                href={brand.path}
+                onClick={closeMobile}
+                className="group flex items-center gap-3 min-w-0"
+              >
+                {/* =================================================
+                    LOGO
+                    Before scroll = WHITE
+                    After scroll = ORIGINAL COLOR
+                ================================================= */}
+                <div
+                  className={`
+                    shrink-0
+                    flex items-center justify-center
+                    overflow-hidden
+                    transition-all duration-500
+                    ${
+                      isScrolled
+                        ? "h-10 w-10"
+                        : "h-11 w-11"
+                    }
+                  `}
+                >
+                  {brand.logo ? (
+                    <img
+                      src={brand.logo}
+                      alt="ALL INTER GLOBAL COMPANY LIMITED"
+                      className={`
+                        h-full
+                        w-full
+                        object-contain
+                        transition-all
+                        duration-500
+                        group-hover:scale-110
+                        ${
+                          isScrolled
+                            ? `
+                              p-0
+                              brightness-100
+                              grayscale-0
+                            `
+                            : `
+                              p-0
+                              brightness-0
+                              invert
+                            `
+                        }
+                      `}
+                    />
+                  ) : (
+                    <span
+                      className={`
+                        font-serif
+                        font-bold
+                        text-xl
+                        transition-colors
+                        duration-500
+                        ${
+                          isScrolled
+                            ? "text-[#D5B36A]"
+                            : "text-white"
+                        }
+                      `}
+                    >
+                      A
+                    </span>
+                  )}
+                </div>
+
+                {/* Company name */}
+                <div className="min-w-0 leading-none">
+                  <div
+                    className={`
+                      font-black
+                      tracking-[0.08em]
+                      uppercase
+                      truncate
+                      transition-colors
+                      duration-500
+                      text-[11px] sm:text-xs md:text-sm
+                      ${
+                        isScrolled
+                          ? "text-[#07111f]"
+                          : "text-white"
+                      }
+                    `}
+                  >
+                    ALL INTER GLOBAL
+                  </div>
+
+                  <div
+                    className={`
+                      mt-1
+                      text-[7px] sm:text-[8px]
+                      tracking-[0.22em]
+                      uppercase
+                      truncate
+                      transition-colors
+                      duration-500
+                      ${
+                        isScrolled
+                          ? "text-slate-500"
+                          : "text-[#C9A86A]"
+                      }
+                    `}
+                  >
+                    COMPANY LIMITED
+                  </div>
+                </div>
+              </Link>
+
+              {/* Divider */}
+              <div
+                className={`
+                  hidden lg:block
+                  mx-5
+                  h-7
+                  w-px
+                  transition-colors
+                  duration-500
+                  ${
+                    isScrolled
+                      ? "bg-slate-200"
+                      : "bg-white/15"
+                  }
+                `}
+              />
+
+              {/* Member of */}
+              <div className="hidden lg:block">
+                <p
+                  className="
+                    text-[8px]
+                    tracking-[0.18em]
+                    uppercase
+                    text-slate-400
+                  "
+                >
+                  MEMBER OF
+                </p>
+
+                <p
+                  className={`
+                    mt-1
+                    text-[9px]
+                    font-bold
+                    tracking-[0.12em]
+                    transition-colors
+                    duration-500
+                    ${
+                      isScrolled
+                        ? "text-slate-700"
+                        : "text-slate-200"
+                    }
+                  `}
+                >
+                  HANDLE INTER GROUP
+                </p>
+              </div>
+            </div>
+
+            {/* =====================================================
+                DESKTOP NAV
+            ===================================================== */}
+            <nav className="hidden md:flex items-center gap-7 lg:gap-9">
+              {/* Overview */}
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("overview")
+                }
+                className={`
+                  group relative
+                  text-[11px]
+                  font-semibold
+                  tracking-[0.08em]
+                  uppercase
+                  transition-colors
+                  duration-300
+                  ${
+                    isScrolled
+                      ? "text-slate-600 hover:text-[#07111f]"
+                      : "text-slate-200 hover:text-white"
+                  }
+                `}
+              >
+                {isTh ? "ภาพรวม" : "Overview"}
+
+                <span
+                  className="
+                    absolute
+                    -bottom-2
+                    left-0
+                    h-[1px]
+                    w-0
+                    bg-[#C9A86A]
+                    transition-all
+                    duration-300
+                    group-hover:w-full
+                  "
+                />
+              </button>
+
+              {/* Company Profile */}
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("companyprofile")
+                }
+                className={`
+                  group relative
+                  text-[11px]
+                  font-semibold
+                  tracking-[0.08em]
+                  uppercase
+                  transition-colors
+                  duration-300
+                  ${
+                    isScrolled
+                      ? "text-slate-600 hover:text-[#07111f]"
+                      : "text-slate-200 hover:text-white"
+                  }
+                `}
+              >
+                {isTh ? "ข้อมูลบริษัท" : "Company Profile"}
+
+                <span
+                  className="
+                    absolute
+                    -bottom-2
+                    left-0
+                    h-[1px]
+                    w-0
+                    bg-[#C9A86A]
+                    transition-all
+                    duration-300
+                    group-hover:w-full
+                  "
+                />
+              </button>
+
+              {/* Services */}
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("Our service")
+                }
+                className={`
+                  group relative
+                  text-[11px]
+                  font-semibold
+                  tracking-[0.08em]
+                  uppercase
+                  transition-colors
+                  duration-300
+                  ${
+                    isScrolled
+                      ? "text-slate-600 hover:text-[#07111f]"
+                      : "text-slate-200 hover:text-white"
+                  }
+                `}
+              >
+                {isTh ? "บริการ" : "Services"}
+
+                <span
+                  className="
+                    absolute
+                    -bottom-2
+                    left-0
+                    h-[1px]
+                    w-0
+                    bg-[#C9A86A]
+                    transition-all
+                    duration-300
+                    group-hover:w-full
+                  "
+                />
+              </button>
+
+              {/* Contact */}
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("Contact Us")
+                }
+                className={`
+                  group relative
+                  text-[11px]
+                  font-semibold
+                  tracking-[0.08em]
+                  uppercase
+                  transition-colors
+                  duration-300
+                  ${
+                    isScrolled
+                      ? "text-slate-600 hover:text-[#07111f]"
+                      : "text-slate-200 hover:text-white"
+                  }
+                `}
+              >
+                {isTh ? "ติดต่อเรา" : "Contact Us"}
+
+                <span
+                  className="
+                    absolute
+                    -bottom-2
+                    left-0
+                    h-[1px]
+                    w-0
+                    bg-[#C9A86A]
+                    transition-all
+                    duration-300
+                    group-hover:w-full
+                  "
+                />
+              </button>
+
+              {/* CTA */}
+              <Link
+  href="/"
+  onClick={closeMobile}
+  className={`
+    mt-2
+    flex
+    w-full
+    items-center
+    justify-between
+    rounded-xl
+    px-4
+    py-3
+    text-xs
+    font-bold
+    tracking-wide
+    transition-all
+    ${
+      isScrolled
+        ? `
+          bg-[#07111f]
+          text-white
+          hover:bg-[#C9A86A]
+          hover:text-[#07111f]
+        `
+        : `
+          bg-white
+          text-[#07111f]
+          hover:bg-[#C9A86A]
+        `
+    }
+  `}
+>
+  <span>
+    {isTh
+      ? "ติดต่อเรา"
+      : "Go to mainpage"}
+  </span>
+
+  <span
+    className="
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+    "
+  >
+    →
+  </span>
+</Link>
+            </nav>
+
+            {/* =====================================================
+                MOBILE MENU BUTTON
+            ===================================================== */}
+            <button
+              type="button"
+              onClick={() =>
+                setIsMobileOpen((prev) => !prev)
+              }
+              className={`
+                md:hidden
+                relative
+                flex
+                h-10
+                w-10
+                items-center
+                justify-center
+                rounded-full
+                transition-all
+                duration-300
+                ${
+                  isScrolled
+                    ? "bg-slate-100 text-[#07111f]"
+                    : "bg-white/10 text-white"
+                }
+              `}
+              aria-label="Toggle navigation menu"
+              aria-expanded={isMobileOpen}
+            >
+              <div className="flex w-5 flex-col gap-1.5">
+                <span
+                  className={`
+                    block
+                    h-[1.5px]
+                    w-full
+                    transition-all
+                    duration-300
+                    ${
+                      isScrolled
+                        ? "bg-[#07111f]"
+                        : "bg-white"
+                    }
+                    ${
+                      isMobileOpen
+                        ? "translate-y-[4px] rotate-45"
+                        : ""
+                    }
+                  `}
+                />
+
+                <span
+                  className={`
+                    block
+                    h-[1.5px]
+                    w-full
+                    transition-all
+                    duration-300
+                    ${
+                      isScrolled
+                        ? "bg-[#07111f]"
+                        : "bg-white"
+                    }
+                    ${
+                      isMobileOpen
+                        ? "opacity-0"
+                        : "opacity-100"
+                    }
+                  `}
+                />
+
+                <span
+                  className={`
+                    block
+                    h-[1.5px]
+                    w-full
+                    transition-all
+                    duration-300
+                    ${
+                      isScrolled
+                        ? "bg-[#07111f]"
+                        : "bg-white"
+                    }
+                    ${
+                      isMobileOpen
+                        ? "-translate-y-[4px] -rotate-45"
+                        : ""
+                    }
+                  `}
+                />
+              </div>
+            </button>
+          </div>
+
+          {/* =====================================================
+              MOBILE MENU
+          ===================================================== */}
+          <AnimatePresence>
+            {isMobileOpen && (
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeInOut",
+                }}
+                className={`
+                  md:hidden
+                  overflow-hidden
+                  border-t
+                  ${
+                    isScrolled
+                      ? "border-slate-200"
+                      : "border-white/10"
+                  }
+                `}
+              >
+                <nav className="p-4 space-y-1">
+                  {/* Overview */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobile();
+                      handleScrollToSection("overview");
+                    }}
+                    className={`
+                      w-full
+                      rounded-xl
+                      px-4
+                      py-3
+                      text-left
+                      text-xs
+                      font-semibold
+                      tracking-wide
+                      transition-colors
+                      ${
+                        isScrolled
+                          ? "text-slate-700 hover:bg-slate-100"
+                          : "text-white hover:bg-white/10"
+                      }
+                    `}
+                  >
+                    {isTh ? "ภาพรวม" : "Overview"}
+                  </button>
+
+                  {/* Company Profile */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobile();
+                      handleScrollToSection(
+                        "companyprofile"
+                      );
+                    }}
+                    className={`
+                      w-full
+                      rounded-xl
+                      px-4
+                      py-3
+                      text-left
+                      text-xs
+                      font-semibold
+                      tracking-wide
+                      transition-colors
+                      ${
+                        isScrolled
+                          ? "text-slate-700 hover:bg-slate-100"
+                          : "text-white hover:bg-white/10"
+                      }
+                    `}
+                  >
+                    {isTh
+                      ? "ข้อมูลบริษัท"
+                      : "Company Profile"}
+                  </button>
+
+                  {/* Services */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobile();
+                      handleScrollToSection("Our service");
+                    }}
+                    className={`
+                      w-full
+                      rounded-xl
+                      px-4
+                      py-3
+                      text-left
+                      text-xs
+                      font-semibold
+                      tracking-wide
+                      transition-colors
+                      ${
+                        isScrolled
+                          ? "text-slate-700 hover:bg-slate-100"
+                          : "text-white hover:bg-white/10"
+                      }
+                    `}
+                  >
+                    {isTh ? "บริการ" : "Services"}
+                  </button>
+
+                  {/* Contact */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMobile();
+                      handleScrollToSection("Contact Us");
+                    }}
+                    className={`
+                      w-full
+                      rounded-xl
+                      px-4
+                      py-3
+                      text-left
+                      text-xs
+                      font-semibold
+                      tracking-wide
+                      transition-colors
+                      ${
+                        isScrolled
+                          ? "text-slate-700 hover:bg-slate-100"
+                          : "text-white hover:bg-white/10"
+                      }
+                    `}
+                  >
+                    {isTh ? "ติดต่อเรา" : "Contact Us"}
+                  </button>
+
+                  {/* CTA */}
+                  <Link
+  href="/"
+  onClick={closeMobile}
+  className={`
+    mt-2
+    flex
+    w-full
+    items-center
+    justify-between
+    rounded-xl
+    px-4
+    py-3
+    text-xs
+    font-bold
+    tracking-wide
+    transition-all
+    ${
+      isScrolled
+        ? `
+          bg-[#07111f]
+          text-white
+          hover:bg-[#C9A86A]
+          hover:text-[#07111f]
+        `
+        : `
+          bg-white
+          text-[#07111f]
+          hover:bg-[#C9A86A]
+        `
+    }
+  `}
+>
+  <span>
+    {isTh
+      ? "ติดต่อเรา"
+      : "Go to mainpage"}
+  </span>
+
+  <span
+    className="
+      transition-transform
+      duration-300
+      group-hover:translate-x-1
+    "
+  >
+    →
+  </span>
+</Link>
+                </nav>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// =============================================================
 // 🎯 MAIN NAVBAR SWITCHER COMPONENT (DEFAULT EXPORT)
 // =============================================================
 export default function SubBrandNavbar({ brand }: { brand: SubsidiaryBrand }) {
@@ -1129,17 +1910,68 @@ export default function SubBrandNavbar({ brand }: { brand: SubsidiaryBrand }) {
   const isTh = lang === "th";
 
   switch (brand.path) {
-    case "/H-I-T-INTERCON":
-      return <HitInterconNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-    case "/console-link":
-      return <ConsoleLinkNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-    case "/handle-inter-consolidation":
-      return <ConsolidationNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-    case "/handle-inter-logistics":
-      return <LogisticsNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-    case "/siam-liners":
-      return <SiamLinersNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-    default:
-      return <StandardSubBrandNavbar brand={brand} isTh={isTh} toggleLanguage={toggleLanguage} />;
-  }
+  case "/H-I-T-INTERCON":
+    return (
+      <HitInterconNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  case "/console-link":
+    return (
+      <ConsoleLinkNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  case "/handle-inter-consolidation":
+    return (
+      <ConsolidationNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  case "/handle-inter-logistics":
+    return (
+      <LogisticsNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  case "/siam-liners":
+    return (
+      <SiamLinersNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  // ⭐ ALL INTER GLOBAL
+  case "/ALL-INTER-GLOBAL-COMPANY-LIMITED":
+    return (
+      <AllInterGlobalNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+
+  default:
+    return (
+      <StandardSubBrandNavbar
+        brand={brand}
+        isTh={isTh}
+        toggleLanguage={toggleLanguage}
+      />
+    );
+}
 }
