@@ -266,9 +266,9 @@ export default function HandleInterLogisticsPage() {
                 {isMounted && (detailText.heroSub || "HANDLE INTER LOGISTICS")}
               </span>
             </div>
-            <h1 className="text-4xl md:text-7xl font-black text-white tracking-tight leading-tight drop-shadow-md mt-2">
-              {isMounted && (detailText.heroTitle || "HANDLE INTER LOGISTICS CO., LTD.")}
-            </h1>
+            <h1 className="text-[clamp(1.5rem,5vw,4.5rem)] font-black text-white tracking-tight leading-tight drop-shadow-md mt-2 whitespace-nowrap">
+  {isMounted && (detailText.heroTitle || "HANDLE INTER LOGISTICS CO., LTD.")}
+</h1>
             <div className="w-20 h-1 bg-orange-500 mx-auto rounded-full my-4" />
             <p className="text-slate-200 max-w-4xl mx-auto text-xl md:text-4xl leading-relaxed font-normal">
               {isMounted && detailText.heroDesc}

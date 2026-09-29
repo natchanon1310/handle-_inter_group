@@ -74,7 +74,7 @@ export default function AboutPage() {
       link: "/H-I-T-INTERCON",
       tag: "FREIGHT FORWARDER",
       icon: "🚢",
-      img: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1200&q=80",
+      img: "images/Handle International.jpeg",
       features: [
         { icon: "🌍", title: isTh ? "นำเข้า-ส่งออกทั่วโลก" : "Global Import/Export", desc: isTh ? "ครอบคลุมเส้นทางหลักระหว่างประเทศ" : "International shipping routes coverage" },
         { icon: "📦", title: isTh ? "FCL & LCL Container" : "FCL & LCL Services", desc: isTh ? "รองรับการขนส่งทั้งแบบเต็มตู้และไม่เต็มตู้" : "Full and less container load options" },
@@ -92,7 +92,7 @@ export default function AboutPage() {
       link: "/HANDLE-INTER-CONSOLIDATION",
       tag: "CONSOLIDATION HUB",
       icon: "🏢",
-      img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
+      img: "images/Handle Inter Consolidation.jpg",
       features: [
         { icon: "📅", title: isTh ? "เปิดตู้รับสินค้าทุกวัน" : "Daily Container Unstuffing", desc: isTh ? "บริการรวบรวมและกระจายสินค้าต่อเนื่อง" : "Continuous cargo gathering & unpacking" },
         { icon: "🏭", title: isTh ? "คลังสินค้า LCL Hub" : "LCL Warehouse Hub", desc: isTh ? "พื้นที่คลังสินค้ามาตรฐานระดับสากล" : "World-class standard warehouse facility" },
@@ -110,7 +110,7 @@ export default function AboutPage() {
       link: "/aboutus",
       tag: "CUSTOMS & EXPRESS",
       icon: "⚡",
-      img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1200&q=80",
+      img: "images/Handle Inter Express.jpg",
       features: [
         { icon: "📑", title: isTh ? "ชิปปิ้งและพิธีการ" : "Customs Clearance", desc: isTh ? "ผ่านด่านศุลกากรรวดเร็วและถูกต้อง" : "Smooth customs border clearance" },
         { icon: "⚡", title: isTh ? "จัดส่งด่วน Express" : "Express Delivery", desc: isTh ? "ส่งสินค้าถึงมือผู้รับอย่างว่องไว" : "Fast door-to-door distribution" },
@@ -128,7 +128,7 @@ export default function AboutPage() {
       link: "/CONSOLE-LINK",
       tag: "ASIA & EUROPE CONSOLE",
       icon: "🌐",
-      img: "https://images.unsplash.com/photo-1559297434-fae8a1916a79?auto=format&fit=crop&w=1200&q=80",
+      img: "images/consolelink.jpg",
       features: [
         { icon: "🌏", title: isTh ? "เส้นทางเอเชียและยุโรป" : "Asia & Europe Routes", desc: isTh ? "เชื่อมต่อตู้คอนโซลระหว่างทวีป" : "Direct Asian & European console paths" },
         { icon: "🚢", title: isTh ? "ตารางตู้สินค้าคงที่" : "Fixed Consol Frequency", desc: isTh ? "มีตารางตู้สินค้าออกสม่ำเสมอ" : "Guaranteed weekly shipping schedules" },
@@ -146,7 +146,7 @@ export default function AboutPage() {
       link: "/SIAM-LINERS",
       tag: "NVOCC LINER",
       icon: "⚓",
-      img: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80",
+      img: "images/siamliners.jpg",
       features: [
         { icon: "⚓", title: isTh ? "ตัวกลางการเดินเรือ NVOCC" : "NVOCC Operations", desc: isTh ? "ตัวแทนขนส่งทางเรือมืออาชีพ" : "Licensed ocean freight intermediary" },
         { icon: "📦", title: isTh ? "บริการแพ็คสินค้า" : "Packing & Re-Packing", desc: isTh ? "แพ็คเกจจิ้งได้มาตรฐานความปลอดภัย" : "Cargo packaging & protective wrapping" },
