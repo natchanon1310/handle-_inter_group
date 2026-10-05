@@ -1097,6 +1097,7 @@ function FullVideoServiceCard({
   const handleMouseEnter = () => {
     setIsHovered(true);
     onHoverChange(true);
+
     if (videoRef.current) {
       videoRef.current.play().catch(() => {});
     }
@@ -1105,6 +1106,7 @@ function FullVideoServiceCard({
   const handleMouseLeave = () => {
     setIsHovered(false);
     onHoverChange(false);
+
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -1112,18 +1114,36 @@ function FullVideoServiceCard({
   };
 
   return (
-    <TiltCard className="h-full shrink-0 w-[300px] sm:w-[360px] md:w-[400px]">
+    <TiltCard className="h-full shrink-0 w-[calc(100vw-32px)] max-w-[320px] sm:w-[360px] sm:max-w-none md:w-[400px]">
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="group relative h-[480px] md:h-[520px] w-full rounded-[32px] overflow-hidden bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 flex flex-col justify-between p-8 transition-all duration-500 hover:border-orange-500/80 hover:shadow-2xl cursor-pointer select-none"
+        className="
+          group relative
+          h-[440px] sm:h-[480px] md:h-[520px]
+          w-full
+          rounded-[24px] sm:rounded-[28px] md:rounded-[32px]
+          overflow-hidden
+          bg-white
+          border border-slate-200/80
+          shadow-xl shadow-slate-200/50
+          flex flex-col justify-between
+          p-5 sm:p-6 md:p-8
+          transition-all duration-500
+          hover:border-orange-500/80
+          hover:shadow-2xl
+          cursor-pointer
+          select-none
+        "
       >
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src={bgImg}
             alt={service}
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
-              isHovered ? "opacity-0 scale-110" : "opacity-75 scale-100"
+              isHovered
+                ? "opacity-0 scale-110"
+                : "opacity-75 scale-100"
             }`}
           />
 
@@ -1133,33 +1153,87 @@ function FullVideoServiceCard({
             muted
             loop
             playsInline
+            preload="metadata"
             className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
-              isHovered ? "opacity-95 scale-105" : "opacity-0 scale-100"
+              isHovered
+                ? "opacity-95 scale-105"
+                : "opacity-0 scale-100"
             }`}
           />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/30 to-black/20 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/40 to-black/20 z-10" />
         </div>
 
         <div className="relative z-20 flex justify-between items-center w-full">
-          <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center font-mono text-xs font-bold text-white shadow-sm">
+          <div className="
+            w-9 h-9
+            sm:w-10 sm:h-10
+            rounded-full
+            bg-white/20
+            backdrop-blur-md
+            border border-white/30
+            flex items-center justify-center
+            font-mono
+            text-[10px] sm:text-xs
+            font-bold
+            text-white
+          ">
             0{idx + 1}
           </div>
         </div>
 
-        <div className="relative z-20 flex justify-between items-end gap-4 w-full pt-4">
-          <div className="space-y-2 max-w-[78%]">
-            <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight group-hover:text-orange-400 transition-colors">
-              <TextReveal text={service} lang={lang} delayStep={0.03} />
+        <div className="relative z-20 flex justify-between items-end gap-3 w-full pt-4">
+          <div className="space-y-2 min-w-0 flex-1">
+            <h3 className="
+              text-xl
+              sm:text-2xl
+              md:text-3xl
+              font-black
+              text-white
+              tracking-tight
+              leading-tight
+              group-hover:text-orange-400
+              transition-colors
+            ">
+              <TextReveal
+                text={service}
+                lang={lang}
+                delayStep={0.03}
+              />
             </h3>
-            <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed font-normal">
+
+            <p className="
+              text-[11px]
+              sm:text-xs
+              text-slate-200
+              line-clamp-3
+              sm:line-clamp-2
+              leading-relaxed
+              font-normal
+            ">
               {desc}
             </p>
           </div>
 
-          <div className={`w-12 h-12 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-lg shrink-0 transition-all duration-300 transform ${
-            isHovered ? "scale-110 bg-orange-500 rotate-45 shadow-lg shadow-orange-500/40" : "scale-100"
-          }`}>
+          <div
+            className={`
+              w-10 h-10
+              sm:w-12 sm:h-12
+              rounded-full
+              bg-orange-600
+              text-white
+              flex items-center justify-center
+              font-bold
+              text-base sm:text-lg
+              shrink-0
+              transition-all duration-300
+              ${
+                isHovered
+                  ? "scale-110 bg-orange-500 rotate-45 shadow-lg shadow-orange-500/40"
+                  : "scale-100"
+              }
+            `}
+          >
             ↗
           </div>
         </div>
@@ -1192,110 +1266,346 @@ function BusinessGroupVideoBannerCard({
   const totalLogos = surroundingItems.length;
 
   return (
-    <div 
-      className="relative w-full min-h-[380px] md:min-h-[440px] rounded-[32px] overflow-hidden border border-slate-300/80 bg-black text-slate-900 shadow-2xl group transition-all duration-500 hover:border-orange-500 hover:shadow-orange-500/30 flex flex-col md:flex-row items-center justify-between"
-      onMouseEnter={() => {
-        setIsHovered(true);
-        videoRef.current?.play().catch(() => {});
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-      }}
-    >
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        muted
-        loop
-        playsInline
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${
-          isHovered ? "scale-105 opacity-100" : "scale-100 opacity-90"
-        }`}
-      />
+  <div
+    className="
+      relative
+      w-full
+      min-h-[620px]
+      sm:min-h-[560px]
+      md:min-h-[440px]
+      rounded-[24px]
+      sm:rounded-[28px]
+      md:rounded-[32px]
+      overflow-hidden
+      border border-slate-300/80
+      bg-black
+      text-slate-900
+      shadow-2xl
+      group
+      transition-all duration-500
+      hover:border-orange-500
+      hover:shadow-orange-500/30
+      flex flex-col
+      md:flex-row
+      items-center
+      justify-between
+    "
+    onMouseEnter={() => {
+      setIsHovered(true);
+      videoRef.current?.play().catch(() => {});
+    }}
+    onMouseLeave={() => {
+      setIsHovered(false);
+    }}
+  >
+    <video
+      ref={videoRef}
+      src={videoSrc}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className={`
+        absolute inset-0
+        w-full h-full
+        object-cover
+        transition-all duration-700 ease-out
+        ${
+          isHovered
+            ? "scale-105 opacity-100"
+            : "scale-100 opacity-90"
+        }
+      `}
+    />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/70 z-10 pointer-events-none" />
+    <div className="
+      absolute inset-0
+      bg-gradient-to-b
+      md:bg-gradient-to-r
+      from-black/70
+      via-black/35
+      to-black/75
+      z-10
+      pointer-events-none
+    " />
 
-      <div className="relative z-20 w-full h-full p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 my-auto">
-        <div className="relative w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] shrink-0 flex items-center justify-center">
-          <div className="absolute inset-2 rounded-full border border-white/30 animate-pulse pointer-events-none" />
+    <div className="
+      relative z-20
+      w-full
+      min-h-[620px]
+      sm:min-h-[560px]
+      md:min-h-[440px]
+      p-5
+      sm:p-7
+      md:p-10
+      flex flex-col
+      md:flex-row
+      items-center
+      justify-center
+      md:justify-between
+      gap-8
+      md:gap-10
+    ">
 
-          {surroundingItems.map((logo, idx) => {
-            const radius = 40;
-            const angleDegree = -90 + (idx * (360 / Math.max(1, totalLogos)));
-            const angleRad = (angleDegree * Math.PI) / 180;
+      {/* LOGOS */}
+      <div className="
+        relative
+        w-[260px] h-[260px]
+        sm:w-[300px] sm:h-[300px]
+        md:w-[320px] md:h-[320px]
+        lg:w-[350px] lg:h-[350px]
+        shrink-0
+        flex items-center justify-center
+      ">
+        <div className="
+          absolute inset-2
+          rounded-full
+          border border-white/30
+          animate-pulse
+          pointer-events-none
+        " />
 
-            const topPercent = 50 + radius * Math.sin(angleRad);
-            const leftPercent = 50 + radius * Math.cos(angleRad);
+        {surroundingItems.map((logo, idx) => {
+          const radius =
+            typeof window !== "undefined" && window.innerWidth < 640
+              ? 38
+              : 40;
 
-            const circleContent = (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.3 }}
-                animate={{ 
-                  opacity: 1, 
-                  scale: 1, 
-                  y: idx % 2 === 0 ? [0, -5, 0] : [0, 5, 0],
-                  x: idx % 3 === 0 ? [0, 3, 0] : [0, -3, 0]
-                }}
-                transition={{
-                  opacity: { duration: 0.4, delay: idx * 0.06 },
-                  scale: { duration: 0.4, delay: idx * 0.06 },
-                  y: { duration: 3 + (idx % 3), repeat: Infinity, ease: "easeInOut" },
-                  x: { duration: 3.5 + (idx % 2), repeat: Infinity, ease: "easeInOut" }
-                }}
-                whileHover={{ scale: 1.18, zIndex: 50 }}
-                style={{
-                  top: `${topPercent}%`,
-                  left: `${leftPercent}%`,
-                }}
-                className="absolute w-20 h-20 sm:w-24 sm:h-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/95 backdrop-blur-md border-2 border-white shadow-2xl flex items-center justify-center p-2 transition-colors duration-300 hover:bg-white hover:border-orange-500 cursor-pointer group/circle"
-                title={logo.name}
-              >
-                {logo.src ? (
-                  <img src={logo.src} alt={logo.name} className="w-full h-full object-contain rounded-full transition-transform group-hover/circle:scale-105" />
-                ) : (
-                  <span className="text-[10px] sm:text-xs font-bold text-slate-800 font-mono text-center leading-tight uppercase px-1">
-                    {logo.name}
-                  </span>
-                )}
-              </motion.div>
-            );
+          const angleDegree =
+            -90 +
+            idx *
+              (360 / Math.max(1, totalLogos));
 
-            return logo.link ? (
-              <Link href={logo.link} key={idx}>
-                {circleContent}
-              </Link>
-            ) : (
-              <div key={idx}>{circleContent}</div>
-            );
-          })}
+          const angleRad =
+            (angleDegree * Math.PI) / 180;
+
+          const topPercent =
+            50 + radius * Math.sin(angleRad);
+
+          const leftPercent =
+            50 + radius * Math.cos(angleRad);
+
+          const circleContent = (
+            <motion.div
+              initial={{
+                opacity: 0,
+                scale: 0.3
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y:
+                  idx % 2 === 0
+                    ? [0, -5, 0]
+                    : [0, 5, 0],
+                x:
+                  idx % 3 === 0
+                    ? [0, 3, 0]
+                    : [0, -3, 0]
+              }}
+              transition={{
+                opacity: {
+                  duration: 0.4,
+                  delay: idx * 0.06
+                },
+                scale: {
+                  duration: 0.4,
+                  delay: idx * 0.06
+                },
+                y: {
+                  duration: 3 + (idx % 3),
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                },
+                x: {
+                  duration: 3.5 + (idx % 2),
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
+              whileHover={{
+                scale: 1.15,
+                zIndex: 50
+              }}
+              style={{
+                top: `${topPercent}%`,
+                left: `${leftPercent}%`
+              }}
+              className="
+                absolute
+                w-14 h-14
+                sm:w-18 sm:h-18
+                md:w-20 md:h-20
+                lg:w-24 lg:h-24
+                -translate-x-1/2
+                -translate-y-1/2
+                rounded-full
+                bg-white/95
+                backdrop-blur-md
+                border-2
+                border-white
+                shadow-2xl
+                flex items-center justify-center
+                p-1.5
+                sm:p-2
+                transition-colors
+                duration-300
+                hover:bg-white
+                hover:border-orange-500
+                cursor-pointer
+                group/circle
+              "
+              title={logo.name}
+            >
+              {logo.src ? (
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  className="
+                    w-full h-full
+                    object-contain
+                    rounded-full
+                    transition-transform
+                    group-hover/circle:scale-105
+                  "
+                />
+              ) : (
+                <span className="
+                  text-[8px]
+                  sm:text-[10px]
+                  md:text-xs
+                  font-bold
+                  text-slate-800
+                  font-mono
+                  text-center
+                  leading-tight
+                  uppercase
+                  px-1
+                ">
+                  {logo.name}
+                </span>
+              )}
+            </motion.div>
+          );
+
+          return logo.link ? (
+            <Link href={logo.link} key={idx}>
+              {circleContent}
+            </Link>
+          ) : (
+            <div key={idx}>
+              {circleContent}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* TEXT */}
+      <div className="
+        flex-1
+        w-full
+        max-w-2xl
+        space-y-4
+        text-center
+        md:text-left
+      ">
+        <div className="
+          flex
+          items-center
+          justify-center
+          md:justify-start
+        ">
+          <span className="
+            bg-orange-600
+            text-white
+            font-mono
+            text-[10px]
+            sm:text-xs
+            font-bold
+            px-3
+            sm:px-3.5
+            py-1.5
+            rounded-full
+            uppercase
+            tracking-widest
+            shadow-md
+          ">
+            {tag}
+          </span>
         </div>
 
-        <div className="flex-1 space-y-4 text-left">
-          <div className="flex items-center space-x-3">
-            <span className="bg-orange-600 text-white font-mono text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-md">
-              {tag}
+        <div className="space-y-2">
+          <h3 className="
+            text-2xl
+            sm:text-3xl
+            md:text-4xl
+            lg:text-5xl
+            font-black
+            text-white
+            tracking-tight
+            leading-tight
+            drop-shadow-md
+            group-hover:text-orange-400
+            transition-colors
+          ">
+            {title}
+          </h3>
+
+          <p className="
+            text-xs
+            sm:text-sm
+            md:text-base
+            font-semibold
+            text-slate-100
+            leading-relaxed
+            max-w-xl
+            mx-auto
+            md:mx-0
+            drop-shadow
+          ">
+            {subtitle}
+          </p>
+        </div>
+
+        <div className="pt-2 sm:pt-4 flex justify-center md:justify-start">
+          <button
+            className="
+              bg-white/20
+              hover:bg-orange-600
+              text-white
+              border border-white/40
+              hover:border-orange-600
+              px-5
+              sm:px-6
+              py-2.5
+              rounded-full
+              text-[10px]
+              sm:text-xs
+              font-mono
+              font-bold
+              tracking-wider
+              uppercase
+              transition-all
+              duration-300
+              flex items-center
+              space-x-2
+              shadow-lg
+              backdrop-blur-md
+              cursor-pointer
+            "
+          >
+            <span>
+              {lang === "th"
+                ? "สำรวจกลุ่มธุรกิจ"
+                : "EXPLORE DIVISION"}
             </span>
-          </div>
-
-          <div className="space-y-2">
-            <h3 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-md group-hover:text-orange-400 transition-colors">
-              {title}
-            </h3>
-            <p className="text-sm md:text-base font-semibold text-slate-100 leading-relaxed max-w-xl drop-shadow">
-              {subtitle}
-            </p>
-          </div>
-
-          <div className="pt-4">
-            <button className="bg-white/20 hover:bg-orange-600 text-white border border-white/40 hover:border-orange-600 px-6 py-2.5 rounded-full text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 flex items-center space-x-2 shadow-lg backdrop-blur-md cursor-pointer">
-              <span>{lang === "th" ? "สำรวจกลุ่มธุรกิจ" : "EXPLORE DIVISION"}</span>
-              <span>↗</span>
-            </button>
-          </div>
+            <span>↗</span>
+          </button>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default function HomePage() {
@@ -1747,8 +2057,7 @@ export default function HomePage() {
             }px)`,
             willChange: "filter, opacity, transform",
           }}
-          className="max-w-7xl mx-auto px-6 py-28 relative z-20 w-full transition-all duration-1000 ease-in-out"
-        >
+           className="w-full px-6 py-28 relative z-20 transition-all duration-1000 ease-in-out"        >
           <div className="max-w-2xl space-y-8">
 
             {/* Label */}

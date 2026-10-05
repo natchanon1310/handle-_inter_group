@@ -72,7 +72,7 @@ export const dictionary = {
     },
     hitIntercon: {
       heroSub: "H.I.T. INTERCON",
-      heroTitle: "H.I.T. INTERCON CO., LTD.",
+      heroTitle: "H.I.T. INTERCON CO. LTD.",
       heroDesc: "THE EXPERIENCE",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       inquireBtn: "Inquire Service Now ↗",
@@ -149,7 +149,7 @@ export const dictionary = {
     },
     consolidation: {
       heroSub: "HANDLE INTER CONSOLIDATION",
-      heroTitle: "HANDLE INTER CONSOLIDATION CO., LTD.",
+      heroTitle: "HANDLE INTER CONSOLIDATION CO. LTD.",
       heroDesc: "PROFESSSIONNAL",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       inquireBtn: "Inquire Service Now ↗",
@@ -225,7 +225,7 @@ export const dictionary = {
     },
     interLogistics: {
       heroSub: "HANDLE INTER LOGISTICS",
-      heroTitle: "HANDLE INTER LOGISTICS CO., LTD.",
+      heroTitle: "HANDLE INTER LOGISTICS CO. LTD.",
       heroDesc: "TEAM WORK",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       inquireBtn: "Inquire Service Now ↗",
@@ -299,7 +299,7 @@ export const dictionary = {
     },
     consoleLink: {
       heroSub: "Subsidiary Console Profile",
-      heroTitle: "Console Link Co., Ltd.",
+      heroTitle: "Console Link Co. Ltd.",
       heroDesc: "WORLD WILD NETWORK",
       coreTitle: "Our Core Strategic Capabilities",
       s1_title: "Ocean Freight Solutions",
@@ -332,7 +332,7 @@ export const dictionary = {
     },
     siamLiners: {
       heroSub: "NVOCC Shipping Line Profile",
-      heroTitle: "Siam Liners Co., Ltd.",
+      heroTitle: "Siam Liners Co.Ltd.",
       heroDesc: "In All Shipping Routes",
       exploreBtn: "EXPLORE DIGITAL BROCHURE",
       vesselBtn: "View Vessel Schedule ↗",

@@ -160,6 +160,79 @@ export default function AboutPage() {
 
   return (
     <div className="bg-slate-50 min-h-screen overflow-x-hidden text-slate-800 relative">
+      <style jsx>{`
+        @media (max-width: 639px) {
+          .timeline-line {
+            left: 24px !important;
+            transform: none !important;
+          }
+
+          .timeline-node {
+            display: grid !important;
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 14px;
+            align-items: start;
+          }
+
+          .timeline-node > div {
+            width: auto !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            text-align: left !important;
+            min-width: 0;
+          }
+
+          .timeline-node > div:empty {
+            display: none;
+          }
+
+          .timeline-node:nth-child(odd) > div:nth-child(1) {
+            grid-column: 2;
+            grid-row: 1;
+          }
+
+          .timeline-node:nth-child(odd) > div:nth-child(2) {
+            grid-column: 1;
+            grid-row: 1;
+            width: 48px !important;
+            height: 48px !important;
+          }
+
+          .timeline-node:nth-child(even) > div:nth-child(1) {
+            display: none;
+          }
+
+          .timeline-node:nth-child(even) > div:nth-child(2) {
+            grid-column: 1;
+            grid-row: 1;
+            width: 48px !important;
+            height: 48px !important;
+          }
+
+          .timeline-node:nth-child(even) > div:nth-child(3) {
+            grid-column: 2;
+            grid-row: 1;
+          }
+
+          .timeline-node img {
+            max-width: 100%;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .timeline-node {
+            grid-template-columns: 42px minmax(0, 1fr);
+            gap: 10px;
+          }
+
+          .timeline-node:nth-child(odd) > div:nth-child(2),
+          .timeline-node:nth-child(even) > div:nth-child(2) {
+            width: 42px !important;
+            height: 42px !important;
+            font-size: 10px;
+          }
+        }
+      `}</style>
       
       {/* 🎯 GLOBAL BACKGROUND EFFECTS */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -177,7 +250,7 @@ export default function AboutPage() {
       </div>
 
       {/* 🎯 SECTION 1: HERO BANNER */}
-      <section className="relative w-full min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden border-b border-slate-200 z-10">
+      <section className="relative w-full min-h-[680px] sm:min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden border-b border-slate-200 z-10">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1920&q=80" 
@@ -188,22 +261,22 @@ export default function AboutPage() {
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 via-slate-50/40 to-transparent z-10" />
         </div>
 
-        <div className="max-w-5xl mx-auto px-6 text-center space-y-5 relative z-20 pt-24 pb-16">
+        <div className="max-w-5xl mx-auto w-full px-4 sm:px-6 text-center space-y-5 relative z-20 pt-20 sm:pt-24 pb-12 sm:pb-16">
           <span className="text-xs font-bold text-sky-400 uppercase tracking-[0.3em] block font-mono">
             {isMounted && t.sub}
           </span>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15] break-words">
             {isMounted && t.title}
           </h1>
 
-          <h2 className="text-lg md:text-2xl font-bold text-sky-300 font-mono tracking-wide">
+          <h2 className="text-base sm:text-lg md:text-2xl font-bold text-sky-300 font-mono tracking-wide leading-relaxed">
             {isMounted && (t.history_title || "ประวัติความเป็นมาและการเติบโตขององค์กร")}
           </h2>
 
           <div className="w-20 h-[3.5px] bg-red-600 mx-auto rounded-full my-3" />
           
-          <div className="max-w-3xl mx-auto text-slate-200 text-sm md:text-base leading-relaxed space-y-4 font-normal text-center">
+          <div className="max-w-3xl mx-auto text-slate-200 text-xs sm:text-sm md:text-base leading-relaxed space-y-4 font-normal text-center">
             <p>
               {isTh 
                 ? "ก้าวสู่ปีที่ 10 Handle Inter Group ก้าวสู่ความมั่นคงและยั่งยืน ย้ำจุดยืนเป็นผู้ให้บริการขนส่งและโลจิสติกส์ที่มีคุณภาพระดับแถวหน้าของเมืองไทย ด้วยมาตรฐานการบริการระดับสากล ชูทีมเวิร์คที่แข็งแกร่ง-ให้บริการแบบมืออาชีพ พร้อมพัฒนาคุณภาพบริการอย่างไม่หยุดนิ่ง มุ่งสู่ผู้ให้บริการที่ดีที่สุด ด้วยราคาที่เหมาะสมมากที่สุดของไทย"
@@ -219,7 +292,7 @@ export default function AboutPage() {
       </section>
 
       {/* 🎯 SECTION 2: MILESTONE, HISTORY & MANAGEMENT VISION */}
-      <section className="w-full min-h-screen flex flex-col justify-center relative z-10 overflow-hidden py-16">
+      <section className="w-full min-h-0 lg:min-h-screen flex flex-col justify-center relative z-10 overflow-hidden py-12 sm:py-16 lg:py-20">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/krhblmkrhb.png" 
@@ -229,16 +302,16 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-50/70 via-slate-50/50 to-slate-50/30 backdrop-blur-[0.5px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 w-full relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 items-stretch">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-stretch">
             
-            <div className="lg:col-span-6 space-y-6 text-left flex flex-col justify-between">
+            <div className="lg:col-span-6 space-y-5 sm:space-y-6 text-left flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="inline-flex bg-red-50/90 text-red-600 border border-red-200 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider font-mono shadow-sm">
                   {isMounted && (t.m1_tag || "ก่อตั้งเมื่อวันที่ 8 สิงหาคม 2003")}
                 </div>
                 
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-snug tracking-tight drop-shadow-sm">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 leading-snug tracking-tight drop-shadow-sm break-words">
                   {isTh 
                     ? "ผู้นำด้านโลจิสติกส์ผู้เชี่ยวชาญแบบครบวงจร" 
                     : "Comprehensive Logistics Specialist"}
@@ -257,14 +330,14 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-slate-300 grid grid-cols-2 gap-6">
-                <div className="bg-white/85 backdrop-blur-md p-5 rounded-2xl border border-slate-200/90 shadow-md">
-                  <span className="text-3xl md:text-4xl font-black text-red-600 block">20%+</span>
+              <div className="pt-4 border-t border-slate-300 grid grid-cols-2 gap-3 sm:gap-6">
+                <div className="bg-white/85 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-md">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-black text-red-600 block">20%+</span>
                   <span className="text-xs text-slate-600 font-bold uppercase tracking-wider mt-1 block">
                     {isTh ? "อัตราการเติบโตต่อปี" : "Annual Growth"}
                   </span>
                 </div>
-                <div className="bg-white/85 backdrop-blur-md p-5 rounded-2xl border border-slate-200/90 shadow-md">
+                <div className="bg-white/85 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-md">
                   <span className="text-3xl md:text-4xl font-black text-sky-600 block">5</span>
                   <span className="text-xs text-slate-600 font-bold uppercase tracking-wider mt-1 block">
                     {isTh ? "บริษัทในเครือรองรับทุกช่องทาง" : "Subsidiaries"}
@@ -273,14 +346,14 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-6 flex flex-col justify-between">
+            <div className="lg:col-span-6 flex flex-col justify-between min-w-0">
               <InteractiveCard className="h-full">
-                <div className="bg-white/95 backdrop-blur-xl text-slate-800 rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 flex flex-col justify-between p-6 sm:p-8 md:p-10 h-full relative group">
+                <div className="bg-white/95 backdrop-blur-xl text-slate-800 rounded-[24px] sm:rounded-[32px] shadow-2xl overflow-hidden border border-slate-200/90 flex flex-col justify-between p-4 sm:p-8 md:p-10 h-full relative group">
                   <div className="absolute top-0 left-0 w-full h-[3.5px] bg-gradient-to-r from-red-600 via-sky-500 to-red-600 z-10" />
                   
                   <div className="space-y-6 text-left">
                     {/* 🟢 Image Container */}
-                    <div className="w-full h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 relative border border-slate-200/80 shadow-inner">
+                    <div className="w-full h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden bg-slate-100 relative border border-slate-200/80 shadow-inner">
                       <img
                         src="/images/IMG_9031-Medium.jpg" 
                         alt="Managing Director"
@@ -299,7 +372,7 @@ export default function AboutPage() {
                         EXECUTIVE VISION & STRATEGY
                       </span>
 
-                      <h3 className="text-base md:text-lg font-bold text-slate-800 leading-relaxed italic border-l-4 border-red-600 pl-4 py-1">
+                      <h3 className="text-sm sm:text-base md:text-lg font-bold text-slate-800 leading-relaxed italic border-l-4 border-red-600 pl-4 py-1">
                         {isTh
                           ? "“กลยุทธ์หลักที่สร้างความได้เปรียบทางการแข่งขัน คือการมีบริการที่ครบวงจร ลูกค้าสามารถติดต่อมาที่เดียวแต่ได้รับบริการที่ครบถ้วน ตั้งแต่หน้าประตูโรงงานไปจนถึงผู้รับปลายทาง ซึ่งหัวใจสำคัญที่ Handle Inter Group มุ่งเน้นมาโดยตลอด คือการพัฒนาบุคลากรมืออาชีพ สร้างทีมงานและระบบการทำงานที่ดีและมีคุณภาพ และมุ่งมั่นพัฒนาประสิทธิภาพบริการ”"
                           : '"The key competitive strategy is total integrated one-stop service, focusing on human resources and professional teamwork."'}
@@ -314,7 +387,7 @@ export default function AboutPage() {
                   </div>
 
                   {/* Executive Name Footer */}
-                  <div className="pt-6 mt-6 border-t border-slate-100 text-left flex items-center justify-between">
+                  <div className="pt-5 sm:pt-6 mt-5 sm:mt-6 border-t border-slate-100 text-left flex items-center justify-between gap-3">
                     <div>
                       <p className="font-black text-sm md:text-base text-slate-900">{isMounted && t.m1_tag2}</p>
                       <p className="text-xs font-bold text-sky-600 tracking-wider pt-0.5">{isMounted && t.m1_tag3}</p>
@@ -330,7 +403,7 @@ export default function AboutPage() {
       </section>
       
       {/* 🎯 SECTION 3: INTEGRATED EDITORIAL & FULL CONTENT SUBSIDIARIES */}
-      <section className="w-full min-h-screen bg-[#0d0d0d] text-white py-16 lg:py-24 px-6 sm:px-10 lg:px-16 relative z-10 flex items-center justify-center overflow-hidden border-b border-neutral-800">
+      <section className="w-full min-h-screen bg-[#0d0d0d] text-white py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-16 relative z-10 flex items-center justify-center overflow-hidden border-b border-neutral-800">
         
         {/* 🌟 Background Dynamic Glows */}
         <motion.div 
@@ -341,7 +414,7 @@ export default function AboutPage() {
             y: [0, -30, 0]
           }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-32 left-1/4 w-[500px] h-[500px] bg-orange-600/30 rounded-full blur-[140px] pointer-events-none"
+          className="absolute -top-32 left-1/4 w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-orange-600/30 rounded-full blur-[140px] pointer-events-none"
         />
         <motion.div 
           animate={{
@@ -351,7 +424,7 @@ export default function AboutPage() {
             y: [0, 30, 0]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-32 right-1/4 w-[500px] h-[500px] bg-sky-600/20 rounded-full blur-[150px] pointer-events-none"
+          className="absolute -bottom-32 right-1/4 w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] bg-sky-600/20 rounded-full blur-[150px] pointer-events-none"
         />
 
         {/* Grid Background Pattern */}
@@ -363,7 +436,7 @@ export default function AboutPage() {
           }}
         />
 
-        <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-center relative z-10 space-y-10">
+        <div className="max-w-7xl mx-auto w-full h-full flex flex-col justify-center relative z-10 space-y-8 sm:space-y-10">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -382,7 +455,7 @@ export default function AboutPage() {
               </span>
             </div>
 
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-[1.2] tracking-tight text-white">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black leading-[1.2] tracking-tight text-white break-words">
               {isTh ? "Handle Inter Group คือการขนส่งและบริการที่ดีที่สุด" : "Handle Inter Group: The Best Transport and Service"}
             </h2>
 
@@ -453,7 +526,7 @@ export default function AboutPage() {
 
             </div>
 
-            <div className="lg:col-span-5 w-full sticky top-24">
+            <div className="lg:col-span-5 w-full lg:sticky lg:top-24 min-w-0">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSub.id}
@@ -461,9 +534,9 @@ export default function AboutPage() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -20 }}
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className="bg-neutral-900/90 rounded-[28px] border border-neutral-800 p-6 space-y-5 text-left shadow-2xl backdrop-blur-xl"
+                  className="bg-neutral-900/90 rounded-[24px] sm:rounded-[28px] border border-neutral-800 p-4 sm:p-6 space-y-5 text-left shadow-2xl backdrop-blur-xl"
                 >
-                  <div className="w-full h-52 sm:h-60 rounded-2xl overflow-hidden bg-neutral-950 relative group">
+                  <div className="w-full h-48 sm:h-60 rounded-2xl overflow-hidden bg-neutral-950 relative group">
                     <motion.img
                       initial={{ scale: 1.08 }}
                       animate={{ scale: 1 }}
@@ -484,7 +557,7 @@ export default function AboutPage() {
 
                   <div className="space-y-3">
                     <div>
-                      <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug">
+                      <h3 className="text-base sm:text-xl font-bold text-white tracking-tight leading-snug break-words">
                         {currentSub.name}
                       </h3>
                       <p className="text-xs sm:text-sm text-neutral-300 font-light pt-1.5 leading-relaxed">
@@ -492,7 +565,7 @@ export default function AboutPage() {
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-neutral-800/80 flex justify-between items-center">
+                    <div className="pt-3 border-t border-neutral-800/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                       <span className="text-[11px] font-mono text-neutral-500 font-medium">
                         SUBSIDIARY 0{activeSubIndex + 1} OF 07
                       </span>
@@ -519,9 +592,9 @@ export default function AboutPage() {
       <section className="w-full relative z-10 overflow-hidden bg-white border-y border-slate-200/80">
         
         {/* บล็อกที่ 1: AEC Strategy */}
-        <div className="min-h-screen w-full flex items-center justify-center py-16 md:py-24">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="min-h-0 lg:min-h-screen w-full flex items-center justify-center py-14 sm:py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center">
               
               <motion.div 
                 initial={{ opacity: 0, x: -60 }}
@@ -534,7 +607,7 @@ export default function AboutPage() {
                   <img 
                     src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80" 
                     alt="AEC Logistics Readiness" 
-                    className="w-full h-[460px] sm:h-[540px] md:h-[620px] object-cover transition-transform duration-1000 group-hover:scale-105"
+                    className="w-full h-[360px] sm:h-[540px] md:h-[620px] object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-slate-950/25" />
                   
@@ -543,7 +616,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.3 }}
-                    className="absolute inset-x-5 bottom-5 bg-white/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-2xl border border-white/60 text-left space-y-3"
+                    className="absolute inset-x-3 sm:inset-x-5 bottom-3 sm:bottom-5 bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-2xl border border-white/60 text-left space-y-3"
                   >
                     <div className="flex items-center space-x-3 border-b border-slate-100 pb-3">
                       <div className="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center font-bold text-xs shadow-md">
@@ -577,7 +650,7 @@ export default function AboutPage() {
                   STRATEGIC PREPARATION
                 </span>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15] break-words">
                   {isMounted && t.devsuvt}
                 </h2>
 
@@ -619,13 +692,13 @@ export default function AboutPage() {
         </div>
 
         {/* บล็อกที่ 2: Customer Centric Value */}
-        <div id="highlight-block" className="min-h-screen w-full bg-slate-50/90 text-slate-900 py-20 md:py-28 flex items-center justify-center transition-all relative overflow-hidden border-t border-slate-200/80">
+        <div id="highlight-block" className="min-h-0 lg:min-h-screen w-full bg-slate-50/90 text-slate-900 py-14 sm:py-20 md:py-28 flex items-center justify-center transition-all relative overflow-hidden border-t border-slate-200/80">
           
           <div className="absolute top-1/4 -right-32 w-96 h-96 bg-orange-100/50 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-sky-100/50 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center">
               
               <motion.div 
                 initial={{ opacity: 0, y: 50 }}
@@ -638,7 +711,7 @@ export default function AboutPage() {
                   CUSTOMER-CENTRIC VALUE
                 </span>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight uppercase leading-[1.1]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight uppercase leading-[1.1] break-words">
                  {isMounted && t.m1_h1} <br />{isMounted && t.m1_h2}
                 </h2>
 
@@ -669,7 +742,7 @@ export default function AboutPage() {
                   <img 
                     src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80" 
                     alt="Customer Service Excellence" 
-                    className="w-full h-[420px] sm:h-[480px] md:h-[520px] object-cover transition-transform duration-1000 group-hover:scale-108"
+                    className="w-full h-[320px] sm:h-[480px] md:h-[520px] object-cover transition-transform duration-1000 group-hover:scale-108"
                   />
                   <div className="absolute inset-0 bg-slate-950/10" />
                 </div>
@@ -682,8 +755,8 @@ export default function AboutPage() {
       </section>
 
       {/* 🎯 SECTION 5: PURE LOGO TIMELINE */}
-      <section className="w-full bg-slate-50 py-32 md:py-48 px-6 sm:px-12 lg:px-20 relative z-10 border-t border-slate-200/80">
-        <div className="max-w-4xl mx-auto w-full space-y-24 md:space-y-32">
+      <section className="w-full bg-slate-50 py-20 sm:py-28 md:py-48 px-4 sm:px-8 lg:px-20 relative z-10 border-t border-slate-200/80">
+        <div className="max-w-4xl mx-auto w-full space-y-16 sm:space-y-24 md:space-y-32">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -695,7 +768,7 @@ export default function AboutPage() {
             <span className="bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
               Timeline Milestones
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight break-words">
               {isTh ? "เส้นทางประวัติศาสตร์และความสำเร็จ" : "Historical Milestones & Growth"}
             </h2>
             <p className="text-slate-500 font-mono text-xs sm:text-sm uppercase tracking-widest pt-1">
@@ -703,11 +776,11 @@ export default function AboutPage() {
             </p>
           </motion.div>
 
-          <div className="relative pt-12 pb-20">
+          <div className="relative pt-8 sm:pt-12 pb-12 sm:pb-20">
             
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-emerald-500 via-emerald-500 to-emerald-400 rounded-full z-0 shadow-[0_0_12px_rgba(16,185,129,0.35)]" />
+            <div className="absolute timeline-line top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-emerald-500 via-emerald-500 to-emerald-400 rounded-full z-0 shadow-[0_0_12px_rgba(16,185,129,0.35)]" />
 
-            <div className="space-y-36 sm:space-y-48 lg:space-y-56 relative z-10">
+            <div className="space-y-20 sm:space-y-36 lg:space-y-56 relative z-10">
               
               {/* โหนด 1: 2003 */}
               <motion.div 
@@ -715,19 +788,19 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/j6592 (1).gif" 
                       alt="Handle Inter Group Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain ml-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
                     />
                   </div>
                 </div>
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-pulse">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-pulse">
                   2003
                 </div>
 
@@ -740,20 +813,20 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%]" />
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2003
                 </div>
 
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/1725e41.png" 
                       alt="H.I.T. Intercon Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain mr-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
                     />
                   </div>
                 </div>
@@ -765,19 +838,19 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/handle inter con.png" 
                       alt="Handle Inter Consolidation Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain ml-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
                     />
                   </div>
                 </div>
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2005
                 </div>
 
@@ -790,20 +863,20 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%]" />
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2006
                 </div>
 
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/consol-link.png" 
                       alt="Consol Link Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain mr-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
                     />
                   </div>
                 </div>
@@ -815,19 +888,19 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/pkt.png" 
                       alt="PKT Logistics Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain ml-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
                     />
                   </div>
                 </div>
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2007
                 </div>
 
@@ -840,20 +913,20 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between"
+                className="timeline-node relative flex items-center justify-between"
               >
                 <div className="w-[44%]" />
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
                   2008
                 </div>
 
                 <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/siam liner.png" 
                       alt="Siam Liner Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain mr-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
                     />
                   </div>
                 </div>
@@ -865,19 +938,19 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="relative flex items-center justify-between pb-8"
+                className="timeline-node relative flex items-center justify-between pb-8"
               >
                 <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
                     <img 
                       src="/images/siamwarehouse.jpeg" 
                       alt="Siam Warehousing Logo" 
-                      className="h-20 sm:h-28 md:h-32 w-auto object-contain ml-auto"
+                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
                     />
                   </div>
                 </div>
 
-                <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-bounce">
+                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-bounce">
                   2013
                 </div>
 

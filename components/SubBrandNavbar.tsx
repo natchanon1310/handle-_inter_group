@@ -207,6 +207,7 @@ function HitInterconNavbar({
 // =============================================================
 // 2️⃣ NAVBAR DESIGN 2: CONSOLE LINK (Tech Purple)
 // =============================================================
+
 function ConsoleLinkNavbar({
   brand,
   isTh,
@@ -216,263 +217,265 @@ function ConsoleLinkNavbar({
   isTh: boolean;
   toggleLanguage: () => void;
 }) {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(e.target as Node)
+      ) {
         setIsMobileOpen(false);
       }
     };
+
     document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-      {!isScrolled && (
-        <div className="pt-4 px-4 md:px-8">
-          <div
-            ref={menuRef}
-            className="max-w-7xl mx-auto bg-indigo-950/80 backdrop-blur-xl border border-indigo-500/30 rounded-2xl py-3 px-6 shadow-2xl shadow-indigo-950/50 flex flex-col justify-between"
-          >
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center space-x-3">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full">
+      <div
+        ref={menuRef}
+        className="w-full bg-indigo-950/95 backdrop-blur-xl border-b border-indigo-500/30 shadow-2xl shadow-indigo-950/30"
+      >
+        {/* ================= DESKTOP / MOBILE HEADER ================= */}
+        <div className="w-full px-5 md:px-8 lg:px-12">
+          <div className="w-full h-[72px] flex items-center justify-between">
+
+            {/* LEFT */}
+            <div className="flex items-center space-x-3 min-w-0">
+
+              {/* Main Hub */}
+              <Link
+                href="/"
+                className="hidden sm:inline-flex shrink-0 items-center text-indigo-300 hover:text-white text-xs font-mono bg-indigo-900/50 border border-indigo-700/40 px-3 py-1.5 rounded-xl transition-all"
+              >
+                {isTh ? "← กลุ่มแฮนเดิล" : "← Main Hub"}
+              </Link>
+
+              {/* Brand */}
+              <Link
+                href={brand.path}
+                className="flex items-center space-x-2.5 min-w-0"
+              >
+                <img
+                  src={brand.logo}
+                  alt={brand.name}
+                  className="h-8 w-auto max-w-[150px] object-contain shrink-0 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]"
+                />
+
+                <span className="text-indigo-100 font-extrabold text-sm tracking-tight font-mono whitespace-nowrap">
+                  CONSOLE LINK
+                </span>
+              </Link>
+            </div>
+
+            {/* ================= DESKTOP NAV ================= */}
+            <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 text-xs font-bold text-indigo-200 uppercase">
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("overview")
+                }
+                className="hover:text-indigo-400 transition-colors cursor-pointer"
+              >
+                {isTh ? "ภาพรวม" : "Overview"}
+              </button>
+
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("companyprofile")
+                }
+                className="hover:text-indigo-400 transition-colors cursor-pointer"
+              >
+                {isTh ? "เอกสารบริษัท" : "Company Profile"}
+              </button>
+
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("Our service")
+                }
+                className="hover:text-indigo-400 transition-colors cursor-pointer"
+              >
+                {isTh ? "ขีดความสามารถ" : "Capabilities"}
+              </button>
+
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("Contact Us")
+                }
+                className="hover:text-indigo-400 transition-colors cursor-pointer"
+              >
+                {isTh ? "ติดต่อเรา" : "Contact Us"}
+              </button>
+            </nav>
+
+            {/* ================= RIGHT ================= */}
+            <div className="flex items-center gap-3">
+
+              {/* Language */}
+              <button
+                type="button"
+                onClick={toggleLanguage}
+                className="hidden md:flex items-center justify-center text-xs font-bold text-indigo-200 hover:text-white border border-indigo-500/40 hover:border-indigo-400 px-3 py-1.5 rounded-lg transition-all"
+              >
+                {isTh ? "EN" : "TH"}
+              </button>
+
+              {/* Contact Desktop */}
+              <button
+                type="button"
+                onPointerDown={() =>
+                  handleScrollToSection("Contact Us")
+                }
+                className="hidden md:inline-flex bg-white hover:bg-indigo-400 text-indigo-950 hover:text-white text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-xl transition-all cursor-pointer"
+              >
+                {isTh ? "ติดต่อ" : "Contact"}
+              </button>
+
+              {/* Mobile Hamburger */}
+              <button
+                type="button"
+                onClick={() =>
+                  setIsMobileOpen(!isMobileOpen)
+                }
+                className="md:hidden text-indigo-200 hover:text-white p-2 focus:outline-none cursor-pointer"
+                aria-label="Toggle menu"
+              >
+                <i
+                  className={`fa-solid ${
+                    isMobileOpen
+                      ? "fa-xmark"
+                      : "fa-bars"
+                  } text-lg`}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* ================= MOBILE MENU ================= */}
+        <AnimatePresence>
+          {isMobileOpen && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                height: 0,
+              }}
+              animate={{
+                opacity: 1,
+                height: "auto",
+              }}
+              exit={{
+                opacity: 0,
+                height: 0,
+              }}
+              transition={{
+                duration: 0.25,
+              }}
+              className="md:hidden border-t border-indigo-800/60 overflow-hidden"
+            >
+              <div className="px-5 py-4 flex flex-col space-y-2">
+
+                {/* Overview */}
+                <button
+                  type="button"
+                  onPointerDown={() =>
+                    handleScrollToSection(
+                      "overview",
+                      () => setIsMobileOpen(false)
+                    )
+                  }
+                  className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-3 px-3 rounded-lg hover:bg-indigo-900/50 cursor-pointer w-full"
+                >
+                  {isTh ? "ภาพรวม" : "Overview"}
+                </button>
+
+                {/* Company Profile */}
+                <button
+                  type="button"
+                  onPointerDown={() =>
+                    handleScrollToSection(
+                      "companyprofile",
+                      () => setIsMobileOpen(false)
+                    )
+                  }
+                  className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-3 px-3 rounded-lg hover:bg-indigo-900/50 cursor-pointer w-full"
+                >
+                  {isTh
+                    ? "เอกสารบริษัท"
+                    : "Company Profile"}
+                </button>
+
+                {/* Capabilities */}
+                <button
+                  type="button"
+                  onPointerDown={() =>
+                    handleScrollToSection(
+                      "Our service",
+                      () => setIsMobileOpen(false)
+                    )
+                  }
+                  className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-3 px-3 rounded-lg hover:bg-indigo-900/50 cursor-pointer w-full"
+                >
+                  {isTh
+                    ? "ขีดความสามารถ"
+                    : "Capabilities"}
+                </button>
+
+                {/* Contact */}
+                <button
+                  type="button"
+                  onPointerDown={() =>
+                    handleScrollToSection(
+                      "Contact Us",
+                      () => setIsMobileOpen(false)
+                    )
+                  }
+                  className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-3 px-3 rounded-lg hover:bg-indigo-900/50 cursor-pointer w-full"
+                >
+                  {isTh ? "ติดต่อเรา" : "Contact Us"}
+                </button>
+
+                {/* Language */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    toggleLanguage();
+                    setIsMobileOpen(false);
+                  }}
+                  className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-3 px-3 rounded-lg hover:bg-indigo-900/50 cursor-pointer w-full"
+                >
+                  {isTh
+                    ? "เปลี่ยนเป็น English"
+                    : "เปลี่ยนเป็น ภาษาไทย"}
+                </button>
+
+                {/* Main Hub */}
                 <Link
                   href="/"
-                  className="text-indigo-300 hover:text-white text-xs font-mono bg-indigo-900/50 border border-indigo-700/40 px-3 py-1.5 rounded-xl transition-all"
+                  onClick={() =>
+                    setIsMobileOpen(false)
+                  }
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white text-center py-3 rounded-xl text-xs font-bold mt-2 shadow-md transition-colors"
                 >
-                  {isTh ? "← กลุ่มแฮนเดิล" : "← Main Hub"}
-                </Link>
-                <Link href={brand.path} className="flex items-center space-x-2.5">
-                  <img
-                    src={brand.logo}
-                    alt={brand.name}
-                    className="h-8 w-auto filter drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]"
-                  />
-                  <span className="text-indigo-100 font-extrabold text-sm tracking-tight font-mono">
-                    CONSOLE LINK
-                  </span>
+                  {isTh
+                    ? "แฮนเดิล กรุ๊ป ↗"
+                    : "Handle Group ↗"}
                 </Link>
               </div>
-
-              {/* Desktop Nav */}
-              <nav className="hidden md:flex items-center space-x-6 text-xs font-bold text-indigo-200 uppercase">
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("overview")}
-                  className="hover:text-indigo-400 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ภาพรวม" : "Overview"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("companyprofile")}
-                  className="hover:text-indigo-400 transition-colors cursor-pointer"
-                >
-                  {isTh ? "เอกสารบริษัท" : "Company Profile"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("Our service")}
-                  className="hover:text-indigo-400 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ขีดความสามารถ" : "Capabilities"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("Contact Us")}
-                  className="hover:text-indigo-400 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ติดต่อเรา" : "Contact Us"}
-                </button>
-              </nav>
-
-              {/* Mobile Hamburger */}
-              <button
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-                className="md:hidden text-indigo-200 hover:text-white p-2 focus:outline-none cursor-pointer"
-              >
-                <i className={`fa-solid ${isMobileOpen ? "fa-xmark" : "fa-bars"} text-lg`} />
-              </button>
-            </div>
-
-            {/* 📱 Mobile Dropdown */}
-            <AnimatePresence>
-              {isMobileOpen && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="md:hidden pt-4 pb-2 border-t border-indigo-800/60 mt-3 flex flex-col space-y-2 overflow-hidden"
-                >
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("overview", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-2 px-3 rounded-lg hover:bg-indigo-900/40 cursor-pointer w-full"
-                  >
-                    {isTh ? "ภาพรวม" : "Overview"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("companyprofile", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-2 px-3 rounded-lg hover:bg-indigo-900/40 cursor-pointer w-full"
-                  >
-                    {isTh ? "เอกสารบริษัท" : "Company Profile"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("Our service", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-2 px-3 rounded-lg hover:bg-indigo-900/40 cursor-pointer w-full"
-                  >
-                    {isTh ? "ขีดความสามารถ" : "Capabilities"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("Contact Us", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-indigo-200 hover:text-white py-2 px-3 rounded-lg hover:bg-indigo-900/40 cursor-pointer w-full"
-                  >
-                    {isTh ? "ติดต่อเรา" : "Contact Us"}
-                  </button>
-                  <Link
-                    href="/"
-                    onClick={() => setIsMobileOpen(false)}
-                    className="bg-indigo-600 text-white text-center py-2.5 rounded-xl text-xs font-bold mt-2 shadow-md"
-                  >
-                    {isTh ? "แฮนเดิล กรุ๊ป ↗" : "Handle Group ↗"}
-                  </Link>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      )}
-
-      {isScrolled && (
-        <div className="pt-3 px-4 md:px-8">
-          <div
-            ref={menuRef}
-            className="max-w-6xl mx-auto bg-white/95 backdrop-blur-md text-slate-900 rounded-2xl shadow-xl border border-slate-200/90 flex flex-col overflow-hidden"
-          >
-            <div className="flex items-center justify-between px-6 py-3.5 divide-x-0 md:divide-x divide-slate-200">
-              <div className="flex items-center space-x-3 shrink-0 md:pr-6">
-                <Link href={brand.path} className="flex items-center space-x-2.5 group">
-                  <img src={brand.logo} alt={brand.name} className="h-7 w-auto object-contain" />
-                  <span className="font-black text-sm md:text-base tracking-tight text-slate-900">
-                    Console<span className="text-indigo-600">Link®</span>
-                  </span>
-                </Link>
-              </div>
-
-              {/* Desktop Nav Scrolled */}
-              <nav className="hidden md:flex flex-1 items-center justify-center space-x-8 px-6 text-xs font-bold uppercase tracking-widest text-slate-700">
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("overview")}
-                  className="hover:text-indigo-600 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ภาพรวม" : "Overview"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("companyprofile")}
-                  className="hover:text-indigo-600 transition-colors cursor-pointer"
-                >
-                  {isTh ? "เอกสารบริษัท" : "Company Profile"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("Our service")}
-                  className="hover:text-indigo-600 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ขีดความสามารถ" : "Capabilities"}
-                </button>
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("Contact Us")}
-                  className="hover:text-indigo-600 transition-colors cursor-pointer"
-                >
-                  {isTh ? "ติดต่อเรา" : "Contact Us"}
-                </button>
-              </nav>
-
-              <div className="hidden md:flex items-center space-x-5 text-slate-700 shrink-0 md:pl-6">
-                <button
-                  type="button"
-                  onPointerDown={() => handleScrollToSection("Contact Us")}
-                  className="bg-slate-900 hover:bg-indigo-600 text-white text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-xl transition-all cursor-pointer"
-                >
-                  {isTh ? "ติดต่อ" : "Contact"}
-                </button>
-              </div>
-
-              {/* Mobile Hamburger */}
-              <button
-                onClick={() => setIsMobileOpen(!isMobileOpen)}
-                className="md:hidden text-slate-900 p-1.5 focus:outline-none cursor-pointer"
-              >
-                <i className={`fa-solid ${isMobileOpen ? "fa-xmark" : "fa-bars"} text-lg`} />
-              </button>
-            </div>
-
-            {/* 📱 Mobile Dropdown Scrolled */}
-            <AnimatePresence>
-              {isMobileOpen && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="md:hidden px-6 pb-4 border-t border-slate-100 flex flex-col space-y-2 overflow-hidden"
-                >
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("overview", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-slate-700 hover:text-indigo-600 py-2 cursor-pointer w-full"
-                  >
-                    {isTh ? "ภาพรวม" : "Overview"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("companyprofile", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-slate-700 hover:text-indigo-600 py-2 cursor-pointer w-full"
-                  >
-                    {isTh ? "เอกสารบริษัท" : "Company Profile"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("Our service", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-slate-700 hover:text-indigo-600 py-2 cursor-pointer w-full"
-                  >
-                    {isTh ? "ขีดความสามารถ" : "Capabilities"}
-                  </button>
-                  <button
-                    type="button"
-                    onPointerDown={() => handleScrollToSection("Contact Us", () => setIsMobileOpen(false))}
-                    className="text-left text-xs font-bold uppercase text-slate-700 hover:text-indigo-600 py-2 cursor-pointer w-full"
-                  >
-                    {isTh ? "ติดต่อเรา" : "Contact Us"}
-                  </button>
-                  <Link
-                    href="/contactus"
-                    onClick={() => setIsMobileOpen(false)}
-                    className="bg-slate-900 text-white text-center py-2.5 rounded-xl text-xs font-bold mt-2"
-                  >
-                    {isTh ? "ติดต่อเรา ↗" : "Contact Us ↗"}
-                  </Link>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </header>
   );
 }

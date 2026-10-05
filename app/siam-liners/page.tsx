@@ -310,176 +310,264 @@ export default function SiamLinersPage() {
       </section>
 
       {/* 🎯 SECTION 3: SMOOTH SPLIT REVEAL */}
-      <section
-        id="Our service"
-        ref={lockContainerRef}
-        className="relative w-full h-[250vh] bg-[#FDFBF7] text-stone-900 border-b border-stone-200"
+    <section
+  id="Our service"
+  ref={lockContainerRef}
+  className="relative w-full h-[250vh] bg-[#FDFBF7] text-stone-900 border-b border-stone-200"
+>
+  <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
+
+    {/* Background Atmosphere */}
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <img
+        src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
+        alt="Atmospheric Background"
+        className="w-full h-full object-cover opacity-10 filter contrast-125 brightness-110"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/80 to-[#FDFBF7]" />
+
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-amber-200/50 rounded-full blur-[160px]" />
+
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100/60 rounded-full blur-[160px]" />
+    </div>
+
+    {/* =========================================================
+        SCENE 1: INITIAL CENTER TITLE
+    ========================================================= */}
+    <motion.div
+      style={{ opacity: titleOpacity, scale: titleScale }}
+      className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
+    >
+      <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
+        {lang === "en" ? "Siam liner" : "สยามไลน์เนอร์"} <br />
+
+        <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">
+          {lang === "en"
+            ? "In All Shipping Routes"
+            : "ตารางเรือ นำเข้า และ ส่งออก"}
+        </span>
+      </h2>
+
+      <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-normal leading-relaxed">
+        {lang === "en"
+          ? "Scroll down to experience our superior one-stop service quality and complete worldwide logistics ecosystem."
+          : "เลื่อนลงเพื่อสัมผัสประสบการณ์บริการขนส่งครบวงจรมาตรฐานระดับโลก"}
+      </p>
+
+      <div className="pt-2">
+        <span className="inline-block bg-stone-900 text-amber-50 font-mono font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg">
+          {lang === "en"
+            ? "Scroll Down ↓"
+            : "เลื่อนลงเพื่อดูข้อมูล ↓"}
+        </span>
+      </div>
+    </motion.div>
+
+    {/* =========================================================
+        SCENE 2: REVEAL CONTENT + SMOOTH SPLIT
+    ========================================================= */}
+    <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-20 h-[84vh]">
+
+      {/* =====================================================
+          LEFT SIDE
+      ===================================================== */}
+      <motion.div
+        style={{
+          opacity: contentOpacity,
+          x: contentX,
+        }}
+        className="lg:col-span-7 text-left flex flex-col justify-center h-full py-2 pr-2"
       >
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden px-4 sm:px-8 lg:px-14 z-20">
-          
-          {/* Background Atmosphere */}
-          <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            <img
-              src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1920&q=80"
-              alt="Atmospheric Background"
-              className="w-full h-full object-cover opacity-10 filter contrast-125 brightness-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#FDFBF7] via-[#FDFBF7]/80 to-[#FDFBF7]" />
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-amber-200/50 rounded-full blur-[160px]" />
-            <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-orange-100/60 rounded-full blur-[160px]" />
-          </div>
+        {/* รวม Content + Tabs ให้อยู่เป็นกลุ่มเดียวกัน */}
+        <div className="w-full max-w-2xl">
 
-          {/* 📍 SCENE 1: INITIAL CENTER TITLE */}
-          <motion.div
-            style={{ opacity: titleOpacity, scale: titleScale }}
-            className="absolute inset-x-6 top-1/4 -translate-y-1/2 text-center max-w-4xl mx-auto space-y-3 z-10 pointer-events-none"
-          >
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-stone-900 leading-[1.08]">
-              {lang === "en" ? "Siam liner," : "สยามไลน์เนอร์"} <br />
-              <span className="bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 bg-clip-text text-transparent">
-                {lang === "en" ? "In All Shipping Routes" : "ตารางเรือ นำเข้า และ ส่งออก"}
-              </span>
-            </h2>
-
-            <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-normal leading-relaxed">
-              {lang === "en"
-                ? "Scroll down to experience our superior one-stop service quality and complete worldwide logistics ecosystem."
-                : "เลื่อนลงเพื่อสัมผัสประสบการณ์บริการขนส่งครบวงจรมาตรฐานระดับโลก"}
-            </p>
-
-            <div className="pt-2">
-              <span className="inline-block bg-stone-900 text-amber-50 font-mono font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-lg">
-                {lang === "en" ? "Scroll Down ↓" : "เลื่อนลงเพื่อดูข้อมูล ↓"}
-              </span>
-            </div>
-          </motion.div>
-
-          {/* 📍 SCENE 2: REVEAL CONTENT + SMOOTH SPLIT */}
-          <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center relative z-20 h-[84vh]">
-            
-            {/* 👈 ฝั่งซ้าย: ข้อมูลเนื้อหาบริการ */}
+          {/* SERVICE CONTENT */}
+          <AnimatePresence mode="wait">
             <motion.div
-              style={{ opacity: contentOpacity, x: contentX }}
-              className="lg:col-span-7 text-left flex flex-col justify-between h-full py-2 pr-2 overflow-y-auto"
+              key={currentService.id}
+              initial={{
+                opacity: 0,
+                y: 12,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+                y: -12,
+              }}
+              transition={{
+                duration: 0.35,
+                ease: "easeOut",
+              }}
+              className="space-y-3"
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentService.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                  className="space-y-3"
-                >
-                  <div className="inline-block font-mono text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 border border-amber-300/80 px-3.5 py-1 rounded-full shadow-sm">
-                    {currentService.tag}
-                  </div>
 
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight leading-tight">
-                      {currentService.title}
-                    </h3>
-                    <h4 className="text-xs sm:text-sm font-mono font-bold text-amber-700 pt-0.5">
-                      {currentService.subtitle}
-                    </h4>
-                  </div>
+              {/* TAG */}
+              <div className="inline-block font-mono text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 border border-amber-300/80 px-3.5 py-1 rounded-full shadow-sm">
+                {currentService.tag}
+              </div>
 
-                  <p className="text-stone-700 text-xs sm:text-sm md:text-base leading-relaxed font-normal">
-                    {currentService.desc}
-                  </p>
+              {/* TITLE */}
+              <div>
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 tracking-tight leading-tight">
+                  {currentService.title}
+                </h3>
 
-                  {currentService.items && currentService.items.length > 0 && (
-                    <div className="space-y-2 pt-1">
-                      <div className="bg-[#FAF6EE]/95 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2 backdrop-blur-md shadow-sm">
-                        <h5 className="font-bold text-xs sm:text-sm text-stone-900 flex items-center space-x-2">
-                          <span className="w-2 h-2 rounded-full bg-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.6)]" />
-                          <span>{detailText.scopeTitle || (lang === "en" ? "Service Capabilities" : "จุดเด่นและการให้บริการ")}</span>
-                        </h5>
-                        <div className="grid grid-cols-1 gap-2 pt-0.5">
-                          {currentService.items.map((item: string, iIdx: number) => (
-                            <div key={iIdx} className="flex items-start space-x-2 text-xs sm:text-sm text-stone-700">
-                              <span className="text-amber-700 font-bold text-xs mt-0.5">✓</span>
-                              <span className="leading-relaxed whitespace-normal break-words">{item}</span>
+                <h4 className="text-xs sm:text-sm font-mono font-bold text-amber-700 pt-0.5">
+                  {currentService.subtitle}
+                </h4>
+              </div>
+
+              {/* DESCRIPTION */}
+              <p className="text-stone-700 text-xs sm:text-sm md:text-base leading-relaxed font-normal">
+                {currentService.desc}
+              </p>
+
+              {/* SERVICE ITEMS */}
+              {currentService.items &&
+                currentService.items.length > 0 && (
+                  <div className="space-y-2 pt-1">
+                    <div className="bg-[#FAF6EE]/95 border border-amber-200/80 rounded-2xl p-3.5 sm:p-4 space-y-2 backdrop-blur-md shadow-sm">
+
+                      <h5 className="font-bold text-xs sm:text-sm text-stone-900 flex items-center space-x-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-600 shadow-[0_0_8px_rgba(217,119,6,0.6)]" />
+
+                        <span>
+                          {detailText.scopeTitle ||
+                            (lang === "en"
+                              ? "Service Capabilities"
+                              : "จุดเด่นและการให้บริการ")}
+                        </span>
+                      </h5>
+
+                      <div className="grid grid-cols-1 gap-2 pt-0.5">
+                        {currentService.items.map(
+                          (item: string, iIdx: number) => (
+                            <div
+                              key={iIdx}
+                              className="flex items-start space-x-2 text-xs sm:text-sm text-stone-700"
+                            >
+                              <span className="text-amber-700 font-bold text-xs mt-0.5">
+                                ✓
+                              </span>
+
+                              <span className="leading-relaxed whitespace-normal break-words">
+                                {item}
+                              </span>
                             </div>
-                          ))}
-                        </div>
+                          )
+                        )}
                       </div>
                     </div>
-                  )}
-
-                  <div className="pt-2">
-                    <button
-                      onClick={() => scrollToSection("schedule")}
-                      className="bg-amber-700 hover:bg-amber-800 text-amber-50 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3 rounded-full transition-all duration-300 shadow-xl shadow-amber-900/20 hover:scale-105 cursor-pointer active:scale-95"
-                    >
-                      <span>{detailText.vesselBtn || (lang === "en" ? "View Vessel Schedule ↗" : "ดูตารางการเดินเรือ ↗")}</span>
-                    </button>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                )}
 
-              {/* 🎛️ Interactive Service Switcher Tabs */}
-              <div className="pt-3 border-t border-stone-200 space-y-1.5 mt-2">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
-                  {detailText.selectServiceTitle || (lang === "en" ? "Select Core Logistics Service :" : "เลือกบริการหลัก :")}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {completeEbookServices.map((ch, idx) => (
-                    <button
-                      key={ch.id}
-                      onClick={() => setActiveServiceTab(idx)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 cursor-pointer ${
-                        activeServiceTab === idx
-                          ? "bg-stone-900 text-amber-50 font-extrabold shadow-md scale-105"
-                          : "bg-white text-stone-600 hover:bg-amber-100/60 hover:text-stone-900 border border-stone-200"
-                      }`}
-                    >
-                      {ch.icon} {ch.tabTitle}
-                    </button>
-                  ))}
-                </div>
+              {/* VESSEL BUTTON */}
+              <div className="pt-2">
+                <button
+                  onClick={() => scrollToSection("schedule")}
+                  className="bg-amber-700 hover:bg-amber-800 text-amber-50 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3 rounded-full transition-all duration-300 shadow-xl shadow-amber-900/20 hover:scale-105 cursor-pointer active:scale-95"
+                >
+                  <span>
+                    {detailText.vesselBtn ||
+                      (lang === "en"
+                        ? "View Vessel Schedule ↗"
+                        : "ดูตารางการเดินเรือ ↗")}
+                  </span>
+                </button>
               </div>
             </motion.div>
+          </AnimatePresence>
 
-            {/* 👉 ฝั่งขวา: รูปภาพประกอบ */}
-            <div className="lg:col-span-5 flex items-center justify-center relative h-full">
-              <motion.div
-                style={{
-                  opacity: imageOpacity,
-                  x: imageX,
-                  scale: imageScale,
-                }}
-                className="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center justify-center"
-              >
-                <div className="relative w-full aspect-[4/5] max-h-[460px] sm:max-h-[500px] flex items-center justify-center group">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-amber-300/30 via-orange-200/30 to-yellow-200/20 rounded-full blur-2xl opacity-60 pointer-events-none group-hover:opacity-100 transition-opacity duration-700" />
+          {/* =================================================
+              SERVICE TABS
+              ชิดกับ Content ด้านบน
+          ================================================= */}
+          <div className="pt-2 border-t border-stone-200 space-y-1.5 mt-0">
 
-                  <div className="relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(120,53,15,0.14)] border border-stone-200/90 group-hover:scale-[1.02] transition-transform duration-500">
-                    <img
-                      src={currentService.img}
-                      alt={currentService.title}
-                      className="w-full h-full object-cover transition-all duration-500"
-                    />
-                    
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    <div className="absolute bottom-5 left-5 right-5 text-left space-y-1">
-                      <span className="text-[10px] font-mono text-amber-300 font-extrabold uppercase tracking-widest block drop-shadow-md">
-                        {isMounted && (detailText.heroTitle || "SIAM LINERS CO., LTD.")}
-                      </span>
-                      <h5 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug drop-shadow-lg">
-                        {currentService.title}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-stone-500 font-bold block">
+              {detailText.selectServiceTitle ||
+                (lang === "en"
+                  ? "Select Core Logistics Service :"
+                  : "เลือกบริการหลัก :")}
+            </span>
+
+            <div className="flex flex-wrap gap-2">
+              {completeEbookServices.map((ch, idx) => (
+                <button
+                  key={ch.id}
+                  onClick={() => setActiveServiceTab(idx)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-mono transition-all duration-300 cursor-pointer ${
+                    activeServiceTab === idx
+                      ? "bg-stone-900 text-amber-50 font-extrabold shadow-md scale-105"
+                      : "bg-white text-stone-600 hover:bg-amber-100/60 hover:text-stone-900 border border-stone-200"
+                  }`}
+                >
+                  {ch.icon} {ch.tabTitle}
+                </button>
+              ))}
             </div>
-
           </div>
 
         </div>
-      </section>
+      </motion.div>
+
+      {/* =====================================================
+          RIGHT SIDE: IMAGE
+      ===================================================== */}
+      <div className="lg:col-span-5 flex items-center justify-center relative h-full">
+
+        <motion.div
+          style={{
+            opacity: imageOpacity,
+            x: imageX,
+            scale: imageScale,
+          }}
+          className="relative w-full max-w-[380px] sm:max-w-[440px] flex items-center justify-center"
+        >
+
+          <div className="relative w-full aspect-[4/5] max-h-[460px] sm:max-h-[500px] flex items-center justify-center group">
+
+            {/* Glow */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-amber-300/30 via-orange-200/30 to-yellow-200/20 rounded-full blur-2xl opacity-60 pointer-events-none group-hover:opacity-100 transition-opacity duration-700" />
+
+            {/* Image */}
+            <div className="relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(120,53,15,0.14)] border border-stone-200/90 group-hover:scale-[1.02] transition-transform duration-500">
+
+              <img
+                src={currentService.img}
+                alt={currentService.title}
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+              {/* Image Text */}
+              <div className="absolute bottom-5 left-5 right-5 text-left space-y-1">
+
+                <span className="text-[10px] font-mono text-amber-300 font-extrabold uppercase tracking-widest block drop-shadow-md">
+                  {isMounted &&
+                    (detailText.heroTitle ||
+                      "SIAM LINERS CO., LTD.")}
+                </span>
+
+                <h5 className="text-base sm:text-lg font-black text-white tracking-tight leading-snug drop-shadow-lg">
+                  {currentService.title}
+                </h5>
+
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* 🎯 SECTION 4: IMPORT VESSEL SCHEDULE TABLE */}
       
