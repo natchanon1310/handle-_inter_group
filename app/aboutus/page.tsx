@@ -754,225 +754,324 @@ export default function AboutPage() {
 
       </section>
 
-      {/* 🎯 SECTION 5: PURE LOGO TIMELINE */}
-      <section className="w-full bg-slate-50 py-20 sm:py-28 md:py-48 px-4 sm:px-8 lg:px-20 relative z-10 border-t border-slate-200/80">
-        <div className="max-w-4xl mx-auto w-full space-y-16 sm:space-y-24 md:space-y-32">
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-center space-y-5 pb-8"
-          >
-            <span className="bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono font-bold text-xs px-4 py-1.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
-              Timeline Milestones
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight break-words">
-              {isTh ? "เส้นทางประวัติศาสตร์และความสำเร็จ" : "Historical Milestones & Growth"}
-            </h2>
-            <p className="text-slate-500 font-mono text-xs sm:text-sm uppercase tracking-widest pt-1">
-              2003 — 2013+ & BEYOND
-            </p>
-          </motion.div>
+ {/* 🎯 SECTION 5: PURE LOGO TIMELINE */}
+<section className="w-full bg-slate-50 py-16 sm:py-24 md:py-40 px-4 sm:px-6 md:px-10 lg:px-20 relative z-10 border-t border-slate-200/80">
+  <div className="max-w-5xl mx-auto w-full">
 
-          <div className="relative pt-8 sm:pt-12 pb-12 sm:pb-20">
-            
-            <div className="absolute timeline-line top-0 bottom-0 left-1/2 -translate-x-1/2 w-[3px] bg-gradient-to-b from-emerald-500 via-emerald-500 to-emerald-400 rounded-full z-0 shadow-[0_0_12px_rgba(16,185,129,0.35)]" />
+    {/* Timeline Header */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="text-center space-y-4 sm:space-y-5 pb-12 sm:pb-20 md:pb-28"
+    >
+      <span className="bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono font-bold text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 rounded-full uppercase tracking-wider inline-block shadow-sm">
+        Timeline Milestones
+      </span>
 
-            <div className="space-y-20 sm:space-y-36 lg:space-y-56 relative z-10">
-              
-              {/* โหนด 1: 2003 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/j6592 (1).gif" 
-                      alt="Handle Inter Group Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
-                    />
-                  </div>
+      <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15] break-words">
+        {isTh
+          ? "เส้นทางประวัติศาสตร์และความสำเร็จ"
+          : "Historical Milestones & Growth"}
+      </h2>
+
+      <p className="text-slate-400 font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-[0.18em] pt-1">
+        2003 — 2013+ & BEYOND
+      </p>
+    </motion.div>
+
+    {/* Timeline */}
+    <div className="relative">
+
+      {/* Vertical line */}
+      <div className="absolute left-[24px] sm:left-[30px] md:left-1/2 top-0 bottom-0 -translate-x-1/2 w-[2px] md:w-[3px] bg-gradient-to-b from-emerald-500 via-emerald-500 to-emerald-400 rounded-full z-0" />
+
+      <div className="relative z-10 space-y-14 sm:space-y-20 md:space-y-36 lg:space-y-48">
+
+        {/* =========================================================
+            2003 — HANDLE INTER GROUP
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          {/* Left */}
+          <div className="hidden md:flex md:justify-end md:pr-4">
+            <div className="w-full max-w-sm">
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-5 lg:p-7">
+                <div className="h-28 lg:h-36 flex items-center justify-center">
+                  <img
+                    src="/images/j6592 (1).gif"
+                    alt="Handle Inter Group Logo"
+                    className="max-w-full max-h-full object-contain"
+                  />
                 </div>
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-pulse">
-                  2003
-                </div>
-
-                <div className="w-[44%]" />
-              </motion.div>
-
-              {/* โหนด 2: 2003 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%]" />
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
-                  2003
-                </div>
-
-                <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/1725e41.png" 
-                      alt="H.I.T. Intercon Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* โหนด 3: 2005 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/handle inter con.png" 
-                      alt="Handle Inter Consolidation Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
-                    />
-                  </div>
-                </div>
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
-                  2005
-                </div>
-
-                <div className="w-[44%]" />
-              </motion.div>
-
-              {/* โหนด 4: 2006 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%]" />
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
-                  2006
-                </div>
-
-                <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/consol-link.png" 
-                      alt="Consol Link Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* โหนด 5: 2007 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/pkt.png" 
-                      alt="PKT Logistics Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
-                    />
-                  </div>
-                </div>
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
-                  2007
-                </div>
-
-                <div className="w-[44%]" />
-              </motion.div>
-
-              {/* โหนด 6: 2008 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between"
-              >
-                <div className="w-[44%]" />
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10">
-                  2008
-                </div>
-
-                <div className="w-[44%] text-left pl-6 sm:pl-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/siam liner.png" 
-                      alt="Siam Liner Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain mr-auto"
-                    />
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* โหนด 7: 2013 */}
-              <motion.div 
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="timeline-node relative flex items-center justify-between pb-8"
-              >
-                <div className="w-[44%] text-right pr-6 sm:pr-10">
-                  <div className="inline-block p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/80 shadow-xl shadow-slate-200/50 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <img 
-                      src="/images/siamwarehouse.jpeg" 
-                      alt="Siam Warehousing Logo" 
-                      className="h-16 sm:h-28 md:h-32 max-w-full w-auto object-contain ml-auto"
-                    />
-                  </div>
-                </div>
-
-                <div className="w-12 h-12 sm:w-18 sm:h-18 rounded-full bg-white border-[4px] border-emerald-500 flex items-center justify-center font-mono font-black text-xs sm:text-base text-emerald-700 shadow-xl shrink-0 z-10 animate-bounce">
-                  2013
-                </div>
-
-                <div className="w-[44%]" />
-              </motion.div>
-
+              </div>
             </div>
           </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="pt-16 border-t border-slate-200 text-center"
-          >
-            <span className="text-xs sm:text-sm font-mono text-slate-400 uppercase tracking-widest font-bold">
-              Continuous Innovation & Sustainable Logistics Network
-            </span>
-          </motion.div>
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2003
+              </span>
+            </div>
+          </div>
 
-        </div>
-      </section>
+          {/* Mobile + Desktop right */}
+          <div className="md:hidden min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5">
+              <div className="h-24 sm:h-32 flex items-center justify-center">
+                <img
+                  src="/images/j6592 (1).gif"
+                  alt="Handle Inter Group Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="hidden md:block" />
+        </motion.div>
+
+
+        {/* =========================================================
+            2003 — H.I.T. INTERCON
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          <div className="hidden md:block" />
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2003
+              </span>
+            </div>
+          </div>
+
+          {/* Right */}
+          <div className="min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/1725e41.png"
+                  alt="H.I.T. Intercon Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+
+        {/* =========================================================
+            2005 — HANDLE INTER CONSOLIDATION
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          <div className="min-w-0 md:col-start-1">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/handle inter con.png"
+                  alt="Handle Inter Consolidation Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center md:col-start-2">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2005
+              </span>
+            </div>
+          </div>
+
+          {/* Mobile placeholder */}
+          <div className="hidden md:block md:col-start-3" />
+        </motion.div>
+
+
+        {/* =========================================================
+            2006 — CONSOLE LINK
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          <div className="hidden md:block" />
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2006
+              </span>
+            </div>
+          </div>
+
+          {/* Right */}
+          <div className="min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/consol-link.png"
+                  alt="Consol Link Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+
+        {/* =========================================================
+            2007 — PKT LOGISTICS
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          {/* Left */}
+          <div className="min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/pkt.png"
+                  alt="PKT Logistics Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2007
+              </span>
+            </div>
+          </div>
+
+          <div className="hidden md:block" />
+        </motion.div>
+
+
+        {/* =========================================================
+            2008 — SIAM LINER
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          <div className="hidden md:block" />
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2008
+              </span>
+            </div>
+          </div>
+
+          {/* Right */}
+          <div className="min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/siam liner.png"
+                  alt="Siam Liner Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+
+        {/* =========================================================
+            2013 — SIAM WAREHOUSING
+        ========================================================= */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="relative grid grid-cols-[48px_minmax(0,1fr)] sm:grid-cols-[60px_minmax(0,1fr)] md:grid-cols-[1fr_90px_1fr] items-center gap-4 sm:gap-5 md:gap-8"
+        >
+          {/* Left */}
+          <div className="min-w-0">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl p-4 sm:p-5 md:p-6">
+              <div className="h-24 sm:h-32 md:h-36 flex items-center justify-center">
+                <img
+                  src="/images/siamwarehouse.jpeg"
+                  alt="Siam Warehousing Logo"
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Year */}
+          <div className="relative z-20 flex items-center justify-center">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-[76px] md:h-[76px] rounded-full bg-slate-50 border-[3px] md:border-4 border-emerald-500 flex items-center justify-center shadow-lg">
+              <span className="text-[10px] sm:text-xs md:text-sm font-black font-mono text-emerald-700">
+                2013
+              </span>
+            </div>
+          </div>
+
+          <div className="hidden md:block" />
+        </motion.div>
+
+      </div>
+    </div>
+
+    {/* Timeline Footer */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mt-16 sm:mt-24 md:mt-32 pt-10 sm:pt-16 border-t border-slate-200 text-center"
+    >
+      <span className="text-[9px] sm:text-xs md:text-sm font-mono text-slate-400 uppercase tracking-[0.12em] sm:tracking-widest font-bold">
+        Continuous Innovation & Sustainable Logistics Network
+      </span>
+    </motion.div>
+
+  </div>
+</section>
 
     </div>
   );

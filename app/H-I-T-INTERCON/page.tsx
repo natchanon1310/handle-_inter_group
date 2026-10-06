@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import {useState, useEffect,useRef,useMemo,type ReactNode,} from "react";
 import Link from "next/link";
 import {
   motion,
@@ -21,7 +21,7 @@ function ScrollCardReveal({
   delay = 0,
   className = "",
 }: {
-  children: React.ReactNode;
+children: ReactNode;
   direction?: "left" | "right" | "up";
   delay?: number;
   className?: string;
@@ -333,7 +333,8 @@ export default function HitInterconPage() {
   );
 
   const currentService =
-    completeEbookServices[activeServiceTab];
+  completeEbookServices[activeServiceTab] ??
+  completeEbookServices[0];
 
   // ============================================================
   // 📜 Scroll Tracking
